@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web-api:
+    build:
+      context: ./ExpensesSplitter.WebApi
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    container_name: web-api
+    volumes:
+      - ./ExpensesSplitter.WebApi:/app
+  frontend:
+    build:
+      context: ./ExpensesSplitter.Frontend
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200
+    container_name: frontend
+    volumes:
+      - ./ExpensesSplitter.Frontend:/app
+      - /app/node_modules
