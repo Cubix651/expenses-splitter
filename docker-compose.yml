@@ -9,6 +9,10 @@ services:
     container_name: web-api
     volumes:
       - ./ExpensesSplitter.WebApi:/app
+    depends_on:
+      - database
+    environment:
+      - ConnectionStrings__ExpensesSplitter=Server=database;Database=expenses_splitter_db;User Id=expenses_splitter_user;Password=Expenses_Splitter_p@ssw0rd;
   frontend:
     build:
       context: ./ExpensesSplitter.Frontend

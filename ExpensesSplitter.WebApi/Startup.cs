@@ -1,3 +1,4 @@
+using ExpensesSplitter.WebApi.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace ExpensesSplitter.WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExpensesSplitter.WebApi", Version = "v1" });
             });
+            services.AddDatabaseContexts(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
