@@ -8,9 +8,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && curl -sSL https://aka.ms/getvsdbgsh \
         | bash /dev/stdin -v latest -l /vsdbg
-
 ENV DOTNET_USE_POLLING_FILE_WATCHER 1
 
-WORKDIR /app
+RUN dotnet tool install --global dotnet-ef
+ENV PATH "$PATH:/root/.dotnet/tools"
 
-ENTRYPOINT dotnet watch run --urls=http://+:5000
+WORKDIR /app
+ENTRYPOINT [ "/bin/bash", "./entrypoint.sh" ]
