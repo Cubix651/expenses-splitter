@@ -19,3 +19,16 @@ services:
     volumes:
       - ./ExpensesSplitter.Frontend:/app
       - /app/node_modules
+  database:
+    build:
+      context: ./ExpensesSplitter.Database
+      dockerfile: Dockerfile
+    container_name: database
+    ports:
+      - 1433:1433
+    environment:
+      SA_PASSWORD: "Admin_password123"
+      ACCEPT_EULA: "Y"
+      DATABASE_USER: "expenses_splitter_user"
+      DATABASE_PASSWORD: "Expenses_Splitter_p@ssw0rd"
+      DATABASE_NAME: "expenses_splitter_db"
