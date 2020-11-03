@@ -1,12 +1,9 @@
 version: '3'
 services:
   web-api:
-    build:
-      context: ./ExpensesSplitter.WebApi
-      dockerfile: Dockerfile
+    build: ./ExpensesSplitter.WebApi
     ports:
       - 5000:5000
-    container_name: web-api
     volumes:
       - ./ExpensesSplitter.WebApi:/app
     depends_on:
@@ -14,20 +11,14 @@ services:
     environment:
       - ConnectionStrings__ExpensesSplitter=Server=database;Database=expenses_splitter_db;User Id=expenses_splitter_user;Password=Expenses_Splitter_p@ssw0rd;
   frontend:
-    build:
-      context: ./ExpensesSplitter.Frontend
-      dockerfile: Dockerfile
+    build: ./ExpensesSplitter.Frontend
     ports:
       - 4200:4200
-    container_name: frontend
     volumes:
       - ./ExpensesSplitter.Frontend:/app
       - /app/node_modules
   database:
-    build:
-      context: ./ExpensesSplitter.Database
-      dockerfile: Dockerfile
-    container_name: database
+    build: ./ExpensesSplitter.Database
     ports:
       - 1433:1433
     environment:
