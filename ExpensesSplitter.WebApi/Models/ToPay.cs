@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace ExpensesSplitter.WebApi.Models
 {
+    /*
+     Pod rozliczeniem będzie pokazane ile dana osoba ma zapłacić i komu
+     */
     public partial class ToPay
     {
         public int Id { get; set; }
