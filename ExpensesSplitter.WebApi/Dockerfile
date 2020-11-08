@@ -14,4 +14,4 @@ RUN dotnet tool install --global dotnet-ef
 ENV PATH "$PATH:/root/.dotnet/tools"
 
 WORKDIR /app
-CMD [ "./entrypoint.sh" ]
+CMD [ "/bin/bash", "./entrypoint.sh" ]
