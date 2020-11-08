@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ExpensesSplitter.WebApi.Database;
+using ExpensesSplitter.WebApi.Database.Models;
 
 namespace ExpensesSplitter.WebApi.Controllers
 {
@@ -17,26 +19,37 @@ namespace ExpensesSplitter.WebApi.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ExpensesSplitterContext _expensesSplitterContext;
 
         // The Web API will only accept tokens 1) for users, and 2) having the "access_as_user" scope for this API
         static readonly string[] scopeRequiredByApi = new string[] { "access_as_user" };
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(
+            ILogger<WeatherForecastController> logger,
+            ExpensesSplitterContext expensesSplitterContext)
         {
             _logger = logger;
+            _expensesSplitterContext = expensesSplitterContext;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<string> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return _expensesSplitterContext.Settlements
+                .Select(s => $"{s.Id} - {s.Name} - {s.Description}");
+        }
+
+        [HttpPost]
+        public async Task Post()
+        {
+            _logger.LogInformation("Creating new settlement");
+            _expensesSplitterContext.Settlements.Add(new Settlement
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                Id = "moje-id",
+                Name = "Nowe rozliczenie",
+                Description = "To jest przykladowe rozliczenie"
+            });
+            await _expensesSplitterContext.SaveChangesAsync();
         }
     }
 }

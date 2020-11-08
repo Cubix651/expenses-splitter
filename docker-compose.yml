@@ -1,0 +1,29 @@
+version: '3'
+services:
+  web-api:
+    build: ./ExpensesSplitter.WebApi
+    ports:
+      - 5000:5000
+    volumes:
+      - ./ExpensesSplitter.WebApi:/app
+    depends_on:
+      - database
+    environment:
+      - ConnectionStrings__ExpensesSplitter=Server=database;Database=expenses_splitter_db;User Id=expenses_splitter_user;Password=Expenses_Splitter_p@ssw0rd;
+  frontend:
+    build: ./ExpensesSplitter.Frontend
+    ports:
+      - 4200:4200
+    volumes:
+      - ./ExpensesSplitter.Frontend:/app
+      - /app/node_modules
+  database:
+    build: ./ExpensesSplitter.Database
+    ports:
+      - 1433:1433
+    environment:
+      SA_PASSWORD: "Admin_password123"
+      ACCEPT_EULA: "Y"
+      DATABASE_USER: "expenses_splitter_user"
+      DATABASE_PASSWORD: "Expenses_Splitter_p@ssw0rd"
+      DATABASE_NAME: "expenses_splitter_db"

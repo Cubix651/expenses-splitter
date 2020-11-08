@@ -40,3 +40,33 @@ Aplikacja będzie rozwijana w sposób iteracyjny. Poniżej znajduje się lista z
     - [ ] Użytkownicy z uprawnieniami do modyfikacji wydatków
 - [ ] Zaawansowana konfiguracja osób
   - [ ] Małżeństwa/pary/większe grupy - jedna osoba płaci za pozostałe
+
+## How-to
+
+Aby szybko rozpocząć pracę nad projektem wystarczy skorzystać z dockera.
+
+### Zbudowanie obrazów
+
+```bash
+> docker-compose build
+```
+
+### Uruchomienie
+
+```bash
+> docker-compose up
+```
+
+Wszystkie komponenty składające się na projekt zostaną uruchomione w trybie developmentu - zmiany w plikach źródłowych będą monitorowane, a odpowiednie komponenty rekompilowane: zarówno po stronie web-api jak i frontendu.
+
+### Migracje EF
+
+Po zmianie modeli dla bazy danych, wystarczy wydać następujące polecenia:
+
+```bash
+> docker-compose stop web-api
+> docker-compose run --rm web-api dotnet ef migrations add MigrationName
+> docker-compose restart web-api
+```
+
+Podczas uruchomiania web-api automatycznie aplikowane są wszystkie migracje.
