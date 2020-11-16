@@ -31,7 +31,29 @@ namespace ExpensesSplitter.WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Settlement");
+                    b.ToTable("Settlements");
+                });
+
+            modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }
