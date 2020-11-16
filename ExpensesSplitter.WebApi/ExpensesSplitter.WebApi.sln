@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpensesSplitter.WebApi", "ExpensesSplitter.WebApi.csproj", "{1608731E-D1E3-48BA-B983-406CAAC3FB6C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1608731E-D1E3-48BA-B983-406CAAC3FB6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1608731E-D1E3-48BA-B983-406CAAC3FB6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1608731E-D1E3-48BA-B983-406CAAC3FB6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1608731E-D1E3-48BA-B983-406CAAC3FB6C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC3BEBDA-92F6-4FF4-8E5D-65526A035D76}
+	EndGlobalSection
+EndGlobal

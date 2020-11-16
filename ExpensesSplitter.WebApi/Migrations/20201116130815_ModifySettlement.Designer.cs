@@ -3,14 +3,16 @@ using ExpensesSplitter.WebApi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpensesSplitter.WebApi.Migrations
 {
     [DbContext(typeof(ExpensesSplitterContext))]
-    partial class ExpensesSplitterContextModelSnapshot : ModelSnapshot
+    [Migration("20201116130815_ModifySettlement")]
+    partial class ModifySettlement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
