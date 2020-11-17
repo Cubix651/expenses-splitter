@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 @Component({
-  selector: 'app-settlement-list',
-  templateUrl: './settlement-list.component.html',
-  styleUrls: ['./settlement-list.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class SettlementListComponent implements OnInit {
+export class Login implements OnInit {
   li:any; 
   lis=[]; 
   constructor(private http : HttpClient){ 
@@ -31,5 +31,4 @@ export class SettlementListComponent implements OnInit {
     console.log({ index, item })
   });
   }}
-
 

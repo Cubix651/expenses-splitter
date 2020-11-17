@@ -1,7 +1,5 @@
 <p>settlement-list works!</p>
 
-<ul>
-    <li>
-        <a routerLink="1234">Sztuczne rozliczenie</a>
-    </li>
+<ul id="settlement-list">
+    <li *ngFor="let obj of this.li"><a routerLink="{{obj['id']}}">{{obj["name"]}}</a></li>
 </ul>
