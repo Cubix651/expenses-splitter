@@ -11,13 +11,15 @@ import { AppComponent } from './app.component';
 import { NewSettlementComponent } from './new-settlement/new-settlement.component';
 import { SettlementListComponent } from './settlement-list/settlement-list.component';
 import { SettlementSummaryComponent } from './settlement-summary/settlement-summary.component';
+import { Login } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewSettlementComponent,
     SettlementListComponent,
-    SettlementSummaryComponent
+    SettlementSummaryComponent,
+    Login
   ],
   imports: [
     FormsModule,

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'expenses-splitter';
+  constructor(private router: Router){
+  }
+  isUserAuthenticated(){
+    const token: string = localStorage.getItem("jwt");
+    if(token){
+      return true;
+    }
+    else{
+      return false
+    }
+  }
+  logOut(){
+    localStorage.removeItem("jwt");
+  }
 }

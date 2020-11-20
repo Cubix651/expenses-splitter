@@ -16,7 +16,7 @@ const routes: Routes = [
     ]
   },
   {path:'login', children:[
-    {path:'login', pathMatch:'full', component: Login}
+    {path:'', pathMatch:'full', component: Login}
   ]},
 
 

@@ -12,6 +12,7 @@ export class SettlementListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(localStorage);
     this.http.get('http://localhost:5000/api/GetAllSettlements') 
     .subscribe(Response => { 
   

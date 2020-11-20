@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,27 +11,31 @@ import {HttpClient} from '@angular/common/http';
 export class Login implements OnInit {
   li:any; 
   lis=[]; 
-  constructor(private http : HttpClient){ 
+  invalidLogin: boolean;
+  username: string;
+  password: string;
+  constructor(private http : HttpClient, private router: Router){ 
   }
 
+  login(form: NgForm){
+    const credentials ={
+      'Login': form.value.username,
+      'Password': form.value.password
+    }
+    this.http.post("http://localhost:5000/api/login", {Login: this.username, Password: this.password })
+    .subscribe(response=> {
+      const token =(<any>response).token;
+      localStorage.setItem("jwt",token);
+      this.invalidLogin = false;
+      this.router.navigate(["/"]);
+    }, err => {
+      this.invalidLogin = true;
+    }
+    )
+    console.log(localStorage)
+  }
   ngOnInit(): void {
-    this.http.get('http://localhost:5000/api/GetAllSettlements') 
-    .subscribe(Response => { 
-  
-      // If response comes hideloader() function is called 
-      // to hide that loader  
-      console.log(Response) 
-      this.li=Response; 
-      console.log(this.li) 
-      this.lis=this.li.list; 
-      console.log(this.lis) 
-    }); 
-    let list = document
-    .getElementById("settlement-list")
-    .querySelectorAll('li');
-
-    list.forEach((item, index) => {
-    console.log({ index, item })
-  });
-  }}
+    console.log("Login");
+  }
+  }
 
