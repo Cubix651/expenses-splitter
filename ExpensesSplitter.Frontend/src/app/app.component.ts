@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'expenses-splitter';
+  login = localStorage.getItem('login');
   constructor(private router: Router){
   }
   isUserAuthenticated(){
@@ -21,5 +22,8 @@ export class AppComponent {
   }
   logOut(){
     localStorage.removeItem("jwt");
+    localStorage.removeItem("login");
+    localStorage.removeItem("id");
+    this.router.navigate(["/"]);
   }
 }

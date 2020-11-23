@@ -24,8 +24,11 @@ export class Login implements OnInit {
     }
     this.http.post("http://localhost:5000/api/login", {Login: this.username, Password: this.password })
     .subscribe(response=> {
-      const token =(<any>response).token;
-      localStorage.setItem("jwt",token);
+      //const token =(<any>response).token;
+      //localStorage.setItem("jwt",token);
+      console.log(response)
+      localStorage.setItem("login", (<any>response).login);
+      localStorage.setItem("id", (<any>response).id);
       this.invalidLogin = false;
       this.router.navigate(["/"]);
     }, err => {

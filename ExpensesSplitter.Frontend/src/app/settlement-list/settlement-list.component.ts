@@ -12,17 +12,31 @@ export class SettlementListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(localStorage);
+    if(localStorage.getItem("id") != null){
+      this.http.get('http://localhost:5000/api/GetAllSettlementsByUser?id=' + localStorage.getItem("id")) 
+      .subscribe(Response => { 
+    
+        // If response comes hideloader() function is called 
+        // to hide that loader  
+        this.li=Response; 
+        this.lis=this.li.list; 
+      }); 
+      let list = document
+      .getElementById("settlement-list")
+      .querySelectorAll('li');
+  
+      list.forEach((item, index) => {
+      console.log({ index, item })
+    });
+    }
+    else{
     this.http.get('http://localhost:5000/api/GetAllSettlements') 
     .subscribe(Response => { 
   
       // If response comes hideloader() function is called 
       // to hide that loader  
-      console.log(Response) 
       this.li=Response; 
-      console.log(this.li) 
       this.lis=this.li.list; 
-      console.log(this.lis) 
     }); 
     let list = document
     .getElementById("settlement-list")
@@ -31,6 +45,7 @@ export class SettlementListComponent implements OnInit {
     list.forEach((item, index) => {
     console.log({ index, item })
   });
+  }
   }}
 
 
