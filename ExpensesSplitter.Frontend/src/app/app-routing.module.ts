@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { NewSettlementComponent } from './new-settlement/new-settlement.component';
 import { SettlementListComponent } from './settlement-list/settlement-list.component';
 import { SettlementSummaryComponent } from './settlement-summary/settlement-summary.component';
+import { Login } from './login/login.component';
+import { Register } from './register/register.component';
 
 
 const routes: Routes = [
@@ -14,6 +16,14 @@ const routes: Routes = [
       { path: ':id', component: SettlementSummaryComponent },
     ]
   },
+  {path:'login', children:[
+    {path:'', pathMatch:'full', component: Login}
+  ]},
+  {path:'register', children:[
+    {path:'', pathMatch:'full', component: Register}
+  ]},
+
+
 ];
 
 @NgModule({

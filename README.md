@@ -66,6 +66,7 @@ Po zmianie modeli dla bazy danych, wystarczy wydać następujące polecenia:
 ```bash
 > docker-compose stop web-api
 > docker-compose run --rm web-api dotnet ef migrations add MigrationName
+> docker-compose run --rm web-api dotnet ef database update
 > docker-compose restart web-api
 ```
 

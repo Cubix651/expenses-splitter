@@ -3,14 +3,16 @@ using ExpensesSplitter.WebApi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpensesSplitter.WebApi.Migrations
 {
     [DbContext(typeof(ExpensesSplitterContext))]
-    partial class ExpensesSplitterContextModelSnapshot : ModelSnapshot
+    [Migration("20201117121814_AddUsers")]
+    partial class AddUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,18 +28,10 @@ namespace ExpensesSplitter.WebApi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdOwner")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ownerId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ownerId");
 
                     b.ToTable("Settlements");
                 });
@@ -62,13 +56,6 @@ namespace ExpensesSplitter.WebApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Settlement", b =>
-                {
-                    b.HasOne("ExpensesSplitter.WebApi.Database.Models.User", "owner")
-                        .WithMany()
-                        .HasForeignKey("ownerId");
                 });
 #pragma warning restore 612, 618
         }
