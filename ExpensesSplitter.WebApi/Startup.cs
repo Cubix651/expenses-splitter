@@ -15,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AutoMapper;
 
 namespace ExpensesSplitter.WebApi
 {
@@ -65,6 +66,7 @@ namespace ExpensesSplitter.WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExpensesSplitter.WebApi", Version = "v1" });
             });
             services.AddDatabaseContexts(Configuration);
+            services.AddAutoMapper(typeof(MapperProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
