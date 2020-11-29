@@ -67,6 +67,7 @@ namespace ExpensesSplitter.WebApi
             });
             services.AddDatabaseContexts(Configuration);
             services.AddAutoMapper(typeof(MapperProfile));
+            services.AddExpensesSplitter();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
