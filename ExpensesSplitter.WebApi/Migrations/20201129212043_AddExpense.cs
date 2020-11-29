@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ExpensesSplitter.WebApi.Migrations
 {
@@ -10,7 +11,7 @@ namespace ExpensesSplitter.WebApi.Migrations
                 name: "Expenses",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
