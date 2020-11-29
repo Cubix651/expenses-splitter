@@ -6,6 +6,8 @@ services:
       - 5000:5000
     volumes:
       - ./ExpensesSplitter.WebApi:/app
+      - /app/obj
+      - /app/bin
     depends_on:
       - database
     environment:
