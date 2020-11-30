@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ExpensesSplitter.WebApi.Database;
@@ -9,7 +10,10 @@ namespace ExpensesSplitter.WebApi.Repositories
     public interface IExpensesRepository
     {
         IEnumerable<Expense> GetExpenses(string settlementId);
-        void CreateExpense(string settlementId, Expense expense);
+        Expense GetExpense(string settlementId, Guid expenseId);
+        Guid CreateExpense(string settlementId, NewExpense expense);
+        void DeleteExpense(string settlementId, Guid expenseId);
+        void UpdateExpense(string settlementId, Guid expenseId, NewExpense expense);
     }
 
     public class ExpensesRepository : IExpensesRepository
@@ -31,11 +35,38 @@ namespace ExpensesSplitter.WebApi.Repositories
                 .Select(e => _mapper.Map<Expense>(e));
         }
 
-        public void CreateExpense(string settlementId, Expense expense)
+        public Expense GetExpense(string settlementId, Guid expenseId)
+        {
+            var entity = _context.Expenses
+                .Where(e => e.SettlementId == settlementId)
+                .First(e => e.Id == expenseId);
+            return _mapper.Map<Expense>(entity);
+        }
+
+        public Guid CreateExpense(string settlementId, NewExpense expense)
         {
             var entity = _mapper.Map<Database.Models.Expense>(expense);
             entity.SettlementId = settlementId;
             _context.Expenses.Add(entity);
+            _context.SaveChanges();
+            return entity.Id;
+        }
+
+        public void DeleteExpense(string settlementId, Guid expenseId)
+        {
+            var entity = _context.Expenses
+                .Where(e => e.SettlementId == settlementId)
+                .First(e => e.Id == expenseId);
+            _context.Expenses.Remove(entity);
+            _context.SaveChanges();
+        }
+
+        public void UpdateExpense(string settlementId, Guid expenseId, NewExpense expense)
+        {
+            var entity = _mapper.Map<Database.Models.Expense>(expense);
+            entity.SettlementId = settlementId;
+            entity.Id = expenseId;
+            _context.Expenses.Update(entity);
             _context.SaveChanges();
         }
     }
