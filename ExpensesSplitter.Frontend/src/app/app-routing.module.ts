@@ -14,7 +14,7 @@ const routes: Routes = [
     path: 'settlements', children: [
       { path: '', pathMatch: 'full', component: SettlementListComponent },
       { path: 'create', component: NewSettlementComponent },
-      { path: ':id', children: [
+      { path: ':settlementId', children: [
         { path: '', pathMatch: 'full', component: SettlementSummaryComponent},
         { path: 'expenses', component: ExpenseListComponent}
       ] },
