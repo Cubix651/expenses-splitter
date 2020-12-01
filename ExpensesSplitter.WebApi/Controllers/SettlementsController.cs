@@ -75,12 +75,40 @@ namespace ExpensesSplitter.WebApi.Controllers
             return user;
         }
         [HttpPost]
+        [Route("AddUserToSettlement/")]
+        public ActionResult<SettlementUser> AddUserToSettlement(string user, string settlement)
+        {
+            var settlementUser = context.SettlementUsers;
+            context.Add(new SettlementUser
+            {
+                SettlementId = settlement,
+                UserId = user
+            });
+            context.SaveChanges();
+            return Ok(settlementUser);
+        }
+            
+        [NonAction]
+        public int GetSettlementUserId()
+        {
+            var id = context.Settlements.ToList().Count();
+            if(id == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return id + 1;
+            }
+        }
+        [HttpPost]
         [Route("AddSettlement")]
         public ActionResult<Settlement> AddSettlement(Settlement settlement)
         {
             if (settlement.IdOwner != null)
             {
                 var settlements = context.Settlements;
+                int settlementUserId = GetSettlementUserId();
                 //var user = GetUser(ownerId);
                 //var user = context.Users.Where(a => a.Id == ownerId).FirstOrDefault();
                 context.Add(new Settlement
@@ -89,6 +117,12 @@ namespace ExpensesSplitter.WebApi.Controllers
                     Name = settlement.Name,
                     Description = settlement.Description,
                     IdOwner = settlement.IdOwner
+                });
+                context.Add(new SettlementUser
+                {
+                    Id = settlementUserId.ToString(),
+                    SettlementId = settlement.Id,
+                    UserId = settlement.IdOwner
                 });
                 context.SaveChanges();
                 return Ok(settlements);
