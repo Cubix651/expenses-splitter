@@ -1,7 +1,22 @@
-<h3>Lista wydatków</h3>
+<h4>Lista wydatków</h4>
 
-<ul>
-    <li *ngFor="let expense of (expenses$ | async)">
-        {{ expense.name }}
-    </li>
-</ul>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nazwa</th>
+      <th scope="col">Opis</th>
+      <th scope="col">Kwota</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let expense of (expenses$ | async)">
+      <td>{{ expense.name }}</td>
+      <td>{{ expense.description | slice:0:100 }}</td>
+      <td>{{ expense.amount | number:'1.2-2' }}zł</td>
+    </tr>
+  </tbody>
+</table>
+
+<div>
+  <a type="button" class="btn btn-primary" routerLink="../">Powrót</a>
+</div>
