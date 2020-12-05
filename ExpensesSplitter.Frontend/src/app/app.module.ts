@@ -13,6 +13,7 @@ import { SettlementListComponent } from './settlement-list/settlement-list.compo
 import { SettlementSummaryComponent } from './settlement-summary/settlement-summary.component';
 import { Login } from './login/login.component';
 import { Register } from './register/register.component';
+import { ExpenseListComponent } from './expense-list/expense-list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { Register } from './register/register.component';
     SettlementListComponent,
     SettlementSummaryComponent,
     Login,
-    Register
+    Register,
+    ExpenseListComponent
   ],
   imports: [
     FormsModule,

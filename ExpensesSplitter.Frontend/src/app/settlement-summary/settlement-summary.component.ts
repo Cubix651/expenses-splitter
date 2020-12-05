@@ -15,7 +15,7 @@ export class SettlementSummaryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('settlementId');
     console.log(this.id)
     this.http.get('http://localhost:5000/api/GetSettlement?id=' + this.id) 
     .subscribe(Response => { 

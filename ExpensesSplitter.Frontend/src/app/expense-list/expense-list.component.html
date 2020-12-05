@@ -1,0 +1,7 @@
+<h3>Lista wydatków</h3>
+
+<ul>
+    <li *ngFor="let expense of (expenses$ | async)">
+        {{ expense.name }}
+    </li>
+</ul>
