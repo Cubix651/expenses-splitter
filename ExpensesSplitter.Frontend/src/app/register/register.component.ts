@@ -2,6 +2,7 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +29,8 @@ export class Register implements OnInit {
       Response +=''; 
       const id=Response; 
       console.log(Response);
-    this.http.post("http://localhost:5000/api/register", {Id: id, Login: this.username, Password: this.password , Email: this.email, Name: this.name})
+    //this.http.post("http://localhost:5000/api/register", {Id: id, Login: this.username, Password: this.password , Email: this.email, Name: this.name})
+    this.http.post(`${environment.apiUrl}/register`,  {Id: id, Login: this.username, Password: this.password , Email: this.email, Name: this.name})  
     .subscribe(response=> {
       this.router.navigate(["/login"]);
     }, err => {

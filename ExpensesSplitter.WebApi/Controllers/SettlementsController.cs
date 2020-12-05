@@ -43,6 +43,36 @@ namespace ExpensesSplitter.WebApi.Controllers
             return NotFound();
         }
         [HttpGet]
+        [Route("GetAllSettlementsByUserParticipant/")]
+        public ActionResult GetAllSettlementsByUserParticipant(string id)
+        {
+            List<SettlementUser> settlements = context.SettlementUsers.Where(x => x.UserId == id).ToList();
+            var result = (from s in settlements
+                          join u in context.Settlements on s.SettlementId equals u.Id
+                          select new Settlement() { Id = u.Id, Name = u.Name, IdOwner = u.IdOwner}).ToList();
+            //List<Settlement> settlements = context.Settlements.Where(x => x.IdOwner == id).ToList();
+            if (result.Count != 0)
+            {
+                return Ok(result);
+            }
+            return NotFound();
+        }
+        [HttpGet]
+        [Route("GetSettlementUsers/")]
+        public ActionResult GetSettlementUsers(string id)
+        {
+
+            List<SettlementUser> settlements = context.SettlementUsers.Where(x => x.SettlementId == id).ToList();
+            var result = (from s in settlements
+                         join u in context.Users on s.UserId equals u.Id
+                         select new User() { Id = u.Id, Name = u.Name, Email = u.Email, Login = u.Login }).ToList();
+            if (result.Count != 0)
+            {
+                return Ok(result);
+            }
+            return NotFound();
+        }
+        [HttpGet]
         [Route("GetId")]
         public ActionResult GetId()
         {
@@ -75,17 +105,22 @@ namespace ExpensesSplitter.WebApi.Controllers
             return user;
         }
         [HttpPost]
-        [Route("AddUserToSettlement/")]
-        public ActionResult<SettlementUser> AddUserToSettlement(string user, string settlement)
+        [Route("AddUserToSettlement")]
+        public ActionResult<SettlementUser> AddUserToSettlement(SettlementUser body)
         {
+            var user = context.Users.Where(a => a.Login == body.UserId).FirstOrDefault();
+            var id = GetSettlementUserId();
             var settlementUser = context.SettlementUsers;
-            context.Add(new SettlementUser
-            {
-                SettlementId = settlement,
-                UserId = user
-            });
-            context.SaveChanges();
-            return Ok(settlementUser);
+
+                context.Add(new SettlementUser
+                {
+                    Id = id.ToString(),
+                    SettlementId = body.SettlementId,
+                    UserId = user.Id
+                });
+                context.SaveChanges();
+                return Ok(settlementUser);
+
         }
             
         [NonAction]
