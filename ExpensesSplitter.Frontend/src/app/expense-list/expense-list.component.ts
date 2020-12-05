@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ExpensesService } from '../services/expenses.service';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Expense } from './expense.model';
+import { Expense } from '../models/expenses.model';
 
 @Component({
   selector: 'app-expense-list',

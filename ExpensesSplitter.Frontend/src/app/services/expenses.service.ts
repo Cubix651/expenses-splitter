@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Expense } from '../expense-list/expense.model';
+import { Expense } from '../models/expenses.model';
 
 @Injectable()
 export class ExpensesService {
