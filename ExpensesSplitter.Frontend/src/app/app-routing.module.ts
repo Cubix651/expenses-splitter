@@ -6,6 +6,7 @@ import { SettlementSummaryComponent } from './settlement-summary/settlement-summ
 import { ExpenseListComponent } from './expense-list/expense-list.component';
 import { Login } from './login/login.component';
 import { Register } from './register/register.component';
+import { NewExpenseComponent } from './new-expense/new-expense.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,10 @@ const routes: Routes = [
       { path: 'create', component: NewSettlementComponent },
       { path: ':settlementId', children: [
         { path: '', pathMatch: 'full', component: SettlementSummaryComponent},
-        { path: 'expenses', component: ExpenseListComponent}
+        { path: 'expenses', children: [
+          { path: '', pathMatch: 'full', component: ExpenseListComponent },
+          { path: 'create', component: NewExpenseComponent}
+        ]}
       ] },
     ]
   },
