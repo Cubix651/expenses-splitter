@@ -1,0 +1,9 @@
+<div>
+  <h4>Edycja wydatku</h4>
+  <app-expense-details
+    *ngIf="(expense$ | async) as expense"
+    [expense]="expense"
+  >
+  </app-expense-details>
+</div>
+
