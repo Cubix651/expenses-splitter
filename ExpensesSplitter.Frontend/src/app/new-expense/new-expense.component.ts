@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ExpenseDetailsComponent } from '../expense-details/expense-details.component';
 import { NewExpense } from '../models/expenses.model';
 import { ExpensesService } from '../services/expenses.service';
 
@@ -17,10 +18,12 @@ export class NewExpenseComponent implements OnInit {
     amount: 0.0
   }
 
+  @ViewChild('editor') editor: ExpenseDetailsComponent;
+
   constructor(
     private readonly expensesService: ExpensesService,
     private readonly router: Router,
-    activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute
   ) {
     this.settlementId = activatedRoute.snapshot.params.settlementId;
    }
@@ -28,9 +31,9 @@ export class NewExpenseComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  save(expense: NewExpense) {
+  create(expense: NewExpense) {
     this.expensesService.addExpense(this.settlementId, expense).subscribe({
-      next: id => this.router.navigateByUrl(`../${id}`)
+      next: id => this.router.navigate([`..`, id], { relativeTo: this.activatedRoute })
     });
   }
 

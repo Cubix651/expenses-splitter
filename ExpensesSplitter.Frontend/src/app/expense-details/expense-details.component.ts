@@ -8,8 +8,18 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
   styleUrls: ['./expense-details.component.scss']
 })
 export class ExpenseDetailsComponent implements OnInit {
-  @Input() expense: NewExpense;
-  @Output() onSaveClick: EventEmitter<NewExpense> = new EventEmitter();
+  @Input()
+  set expense(value: NewExpense) {
+    this.form = this.fb.group({
+      name: [value.name],
+      description: [value.description],
+      amount: [value.amount]
+    })
+  }
+
+  get expense() : NewExpense {
+    return this.form.value
+  }
 
   form: FormGroup;
 
@@ -18,15 +28,6 @@ export class ExpenseDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      name: [this.expense.name],
-      description: [this.expense.description],
-      amount: [this.expense.amount]
-    })
-  }
-
-  save() {
-    this.onSaveClick.emit(this.form.value)
   }
 
 }

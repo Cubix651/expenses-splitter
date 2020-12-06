@@ -2,8 +2,9 @@
   <h4>Nowy wydatek</h4>
   <app-expense-details
     [expense]="expense"
-    (onSaveClick)="save($event)"
+    #editor
   >
   </app-expense-details>
+  <a class="btn btn-success" (click)="create(editor.expense)">Stwórz</a>
 </div>
 

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Expense } from '../models/expenses.model';
+import { ExpenseDetailsComponent } from '../expense-details/expense-details.component';
+import { Expense, NewExpense } from '../models/expenses.model';
 import { ExpensesService } from '../services/expenses.service';
 
 @Component({
@@ -16,9 +17,12 @@ export class ExpenseSummaryComponent implements OnInit {
 
   expense$: Observable<Expense>;
 
+  @ViewChild('editor') editor: ExpenseDetailsComponent;
+
   constructor(
     private readonly expensesService: ExpensesService,
-    activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router
   ) {
     this.settlementId = activatedRoute.snapshot.params.settlementId;
     this.expenseId = activatedRoute.snapshot.params.expenseId;
@@ -27,6 +31,13 @@ export class ExpenseSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.expense$ = this.expensesService.getExpense(this.settlementId, this.expenseId);
+  }
+
+  save(expense: NewExpense) {
+    this.expensesService.updateExpense(this.settlementId, this.expenseId, expense)
+      .subscribe({
+        complete: () => this.router.navigate(['../'], { relativeTo: this.activatedRoute })
+      })
   }
 
 }

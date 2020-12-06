@@ -1,5 +1,5 @@
 <div>
-  <form [formGroup]="form" (ngSubmit)="save()">
+  <form [formGroup]="form">
     <div class="form-group">
       <label for="name">Nazwa</label>
       <input type="text" class="form-control" id="name" formControlName="name">
@@ -12,6 +12,5 @@
       <label for="amount">Kwota</label>
       <input type="number" class="form-control" id="amount" formControlName="amount">
     </div>
-    <button type="submit" class="btn btn-primary">Zapisz</button>
   </form>
 </div>

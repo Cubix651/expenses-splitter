@@ -3,7 +3,9 @@
   <app-expense-details
     *ngIf="(expense$ | async) as expense"
     [expense]="expense"
+    #editor
   >
   </app-expense-details>
+  <a class="btn btn-success" (click)="save(editor.expense)">Zapisz</a>
 </div>
 
