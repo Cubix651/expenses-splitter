@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { ExpenseEditorComponent } from '../expense-editor/expense-editor.component';
 import { Expense, NewExpense } from '../models/expenses.model';
 import { ExpensesService } from '../services/expenses.service';
@@ -14,29 +13,52 @@ import { ExpensesService } from '../services/expenses.service';
 export class ExpenseDetailsComponent implements OnInit {
   settlementId: string;
   expenseId: string;
+  isSaveInProgress: boolean = false;
+  isSaveFinishedSuccessfully: boolean = false;
+  saveErrorOccurred: boolean = false
+  isLoaded: boolean = false;
+  loadErrorOccurred: boolean = false
 
-  expense$: Observable<Expense>;
+  expense: Expense;
 
   @ViewChild('editor') editor: ExpenseEditorComponent;
 
   constructor(
     private readonly expensesService: ExpensesService,
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly router: Router
+    activatedRoute: ActivatedRoute
   ) {
     this.settlementId = activatedRoute.snapshot.params.settlementId;
     this.expenseId = activatedRoute.snapshot.params.expenseId;
   }
 
-
   ngOnInit(): void {
-    this.expense$ = this.expensesService.getExpense(this.settlementId, this.expenseId);
+    this.expensesService.getExpense(this.settlementId, this.expenseId)
+      .subscribe({
+        next: expense => this.expense = expense,
+        error: error => {
+          console.error('Error during loading expense', error);
+          this.loadErrorOccurred = true;
+        },
+        complete: () => this.isLoaded = true
+      });
   }
 
   save(expense: NewExpense) {
+    this.isSaveInProgress = true;
+    this.isSaveFinishedSuccessfully = false;
+    this.saveErrorOccurred = false;
+
     this.expensesService.updateExpense(this.settlementId, this.expenseId, expense)
       .subscribe({
-        complete: () => this.router.navigate(['../'], { relativeTo: this.activatedRoute })
+        complete: () => {
+          this.isSaveInProgress = false;
+          this.isSaveFinishedSuccessfully = true;
+        },
+        error: error => {
+          this.isSaveInProgress = false;
+          this.saveErrorOccurred = true;
+          console.error('Error during saving expense', error);
+        }
       })
   }
 
