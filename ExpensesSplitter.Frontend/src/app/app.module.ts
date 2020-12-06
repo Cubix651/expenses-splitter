@@ -15,6 +15,7 @@ import { Login } from './login/login.component';
 import { Register } from './register/register.component';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
 import { ExpenseDetailsComponent } from './expense-details/expense-details.component';
+import { NewExpenseComponent } from './new-expense/new-expense.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ExpenseDetailsComponent } from './expense-details/expense-details.compo
     Login,
     Register,
     ExpenseListComponent,
-    ExpenseDetailsComponent
+    ExpenseDetailsComponent,
+    NewExpenseComponent
   ],
   imports: [
     FormsModule,
