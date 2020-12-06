@@ -1,18 +1,27 @@
 <h4>Lista wydatków</h4>
 
+<div *ngIf="loadErrorOccurred" class="alert alert-error" role="alert">
+  Wystąpił błąd podczas pobierania informacji o wydatkach.
+</div>
+<div *ngIf="deleteErrorOccurred" class="alert alert-error" role="alert">
+  Wystąpił błąd podczas usuwania wydatku.
+</div>
+
 <table class="table">
   <thead>
     <tr>
       <th scope="col">Nazwa</th>
       <th scope="col">Opis</th>
       <th scope="col">Kwota</th>
+      <th scope="col">Akcje</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let expense of (expenses$ | async)">
+    <tr *ngFor="let expense of expenses; trackBy: trackById">
       <td><a [routerLink]="[expense.id]">{{ expense.name }}</a></td>
       <td>{{ expense.description | slice:0:100 }}</td>
       <td>{{ expense.amount | number:'1.2-2' }}zł</td>
+      <td><button class="btn btn-danger btn-sm" (click)="deleteExpense(expense.id)">Usuń</button></td>
     </tr>
   </tbody>
 </table>

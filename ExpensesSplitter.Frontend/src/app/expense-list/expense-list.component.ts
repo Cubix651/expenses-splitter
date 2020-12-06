@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ExpensesService } from '../services/expenses.service';
-import { map, switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { Expense } from '../models/expenses.model';
 
 @Component({
@@ -12,19 +10,48 @@ import { Expense } from '../models/expenses.model';
   providers: [ExpensesService]
 })
 export class ExpenseListComponent implements OnInit {
+  settlementId: string;
+  loadErrorOccurred: boolean = false;
+  deleteErrorOccurred: boolean = false;
+  expenses: Expense[];
 
   constructor(
     private readonly service: ExpensesService,
-    private readonly route: ActivatedRoute,
-    ) { }
-    
-  expenses$: Observable<Expense[]>;
-  
-  ngOnInit(): void {
-    this.expenses$ = this.route.params.pipe(
-      map(params => params['settlementId']),
-      switchMap(settlementId => this.service.getExpenses(settlementId))
-    );
+    route: ActivatedRoute,
+  ) {
+    this.settlementId = route.snapshot.params.settlementId;
   }
 
+
+  ngOnInit(): void {
+    this.fetchExpenses();
+  }
+
+  private fetchExpenses() {
+    this.service.getExpenses(this.settlementId)
+      .subscribe({
+        next: expenses => this.expenses = expenses,
+        error: error => {
+          console.error('Error during fetching expenses', error);
+          this.loadErrorOccurred = true;
+        }
+      });
+  }
+
+  deleteExpense(expenseId: string) {
+    this.deleteErrorOccurred = false;
+
+    this.service.deleteExpense(this.settlementId, expenseId)
+      .subscribe({
+        complete: () => this.fetchExpenses(),
+        error: error => {
+          console.error('Error during removing expense', error);
+          this.deleteErrorOccurred = true;
+        }
+      });
+  }
+
+  trackById(index: number, expense: Expense) {
+    return expense.id;
+  }
 }
