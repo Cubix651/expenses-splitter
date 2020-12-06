@@ -1,10 +1,10 @@
 <div>
   <h4>Nowy wydatek</h4>
-  <app-expense-details
+  <app-expense-editor
     [expense]="expense"
     #editor
   >
-  </app-expense-details>
+  </app-expense-editor>
   <a class="btn btn-success" (click)="create(editor.expense)">Stwórz</a>
 </div>
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ExpenseDetailsComponent } from '../expense-details/expense-details.component';
+import { ExpenseEditorComponent } from '../expense-editor/expense-editor.component';
 import { Expense, NewExpense } from '../models/expenses.model';
 import { ExpensesService } from '../services/expenses.service';
 
@@ -17,7 +17,7 @@ export class ExpenseSummaryComponent implements OnInit {
 
   expense$: Observable<Expense>;
 
-  @ViewChild('editor') editor: ExpenseDetailsComponent;
+  @ViewChild('editor') editor: ExpenseEditorComponent;
 
   constructor(
     private readonly expensesService: ExpensesService,

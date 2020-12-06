@@ -1,11 +1,11 @@
 <div>
   <h4>Edycja wydatku</h4>
-  <app-expense-details
+  <app-expense-editor
     *ngIf="(expense$ | async) as expense"
     [expense]="expense"
     #editor
   >
-  </app-expense-details>
+  </app-expense-editor>
   <a class="btn btn-success" (click)="save(editor.expense)">Zapisz</a>
 </div>
 

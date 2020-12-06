@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExpenseDetailsComponent } from '../expense-details/expense-details.component';
+import { ExpenseEditorComponent } from '../expense-editor/expense-editor.component';
 import { NewExpense } from '../models/expenses.model';
 import { ExpensesService } from '../services/expenses.service';
 
@@ -18,7 +18,7 @@ export class NewExpenseComponent implements OnInit {
     amount: 0.0
   }
 
-  @ViewChild('editor') editor: ExpenseDetailsComponent;
+  @ViewChild('editor') editor: ExpenseEditorComponent;
 
   constructor(
     private readonly expensesService: ExpensesService,

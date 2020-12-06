@@ -3,11 +3,11 @@ import { NewExpense } from '../models/expenses.model';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-expense-details',
-  templateUrl: './expense-details.component.html',
-  styleUrls: ['./expense-details.component.scss']
+  selector: 'app-expense-editor',
+  templateUrl: './expense-editor.component.html',
+  styleUrls: ['./expense-editor.component.scss']
 })
-export class ExpenseDetailsComponent implements OnInit {
+export class ExpenseEditorComponent implements OnInit {
   @Input()
   set expense(value: NewExpense) {
     this.form = this.fb.group({

@@ -14,7 +14,7 @@ import { SettlementSummaryComponent } from './settlement-summary/settlement-summ
 import { Login } from './login/login.component';
 import { Register } from './register/register.component';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
-import { ExpenseDetailsComponent } from './expense-details/expense-details.component';
+import { ExpenseEditorComponent } from './expense-editor/expense-editor.component';
 import { NewExpenseComponent } from './new-expense/new-expense.component';
 import { ExpenseSummaryComponent } from './expense-summary/expense-summary.component';
 
@@ -27,7 +27,7 @@ import { ExpenseSummaryComponent } from './expense-summary/expense-summary.compo
     Login,
     Register,
     ExpenseListComponent,
-    ExpenseDetailsComponent,
+    ExpenseEditorComponent,
     NewExpenseComponent,
     ExpenseSummaryComponent
   ],
