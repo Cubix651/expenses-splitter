@@ -3,7 +3,7 @@ using System;
 
 namespace ExpensesSplitter.WebApi.Migrations
 {
-    public partial class SettlementUser : Migration
+    public partial class SettlementUserId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

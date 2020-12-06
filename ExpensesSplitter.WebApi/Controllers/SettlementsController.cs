@@ -114,7 +114,7 @@ namespace ExpensesSplitter.WebApi.Controllers
 
                 context.Add(new SettlementUser
                 {
-                    Id = id.ToString(),
+                  
                     SettlementId = body.SettlementId,
                     UserId = user.Id
                 });
@@ -155,7 +155,7 @@ namespace ExpensesSplitter.WebApi.Controllers
                 });
                 context.Add(new SettlementUser
                 {
-                    Id = settlementUserId.ToString(),
+                    //Id = settlementUserId.ToString(),
                     SettlementId = settlement.Id,
                     UserId = settlement.IdOwner
                 });
