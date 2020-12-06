@@ -17,6 +17,8 @@ export class NewExpenseComponent implements OnInit {
     description: '',
     amount: 0.0
   }
+  isSaveInProgress: boolean = false;
+  saveErrorOccurred: boolean = false;
 
   @ViewChild('editor') editor: ExpenseEditorComponent;
 
@@ -26,14 +28,21 @@ export class NewExpenseComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute
   ) {
     this.settlementId = activatedRoute.snapshot.params.settlementId;
-   }
+  }
 
   ngOnInit(): void {
   }
 
   create(expense: NewExpense) {
+    this.isSaveInProgress = true;
+    this.saveErrorOccurred = false;
+
     this.expensesService.addExpense(this.settlementId, expense).subscribe({
-      next: id => this.router.navigate([`..`, id], { relativeTo: this.activatedRoute })
+      next: id => this.router.navigate([`..`, id], { relativeTo: this.activatedRoute }),
+      error: error => {
+        console.error('Error during creating expense', error);
+        this.saveErrorOccurred = true;
+      }
     });
   }
 
