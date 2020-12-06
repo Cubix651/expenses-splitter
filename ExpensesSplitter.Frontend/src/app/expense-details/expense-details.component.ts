@@ -6,12 +6,12 @@ import { Expense, NewExpense } from '../models/expenses.model';
 import { ExpensesService } from '../services/expenses.service';
 
 @Component({
-  selector: 'app-expense-summary',
-  templateUrl: './expense-summary.component.html',
-  styleUrls: ['./expense-summary.component.scss'],
+  selector: 'app-expense-details',
+  templateUrl: './expense-details.component.html',
+  styleUrls: ['./expense-details.component.scss'],
   providers: [ExpensesService]
 })
-export class ExpenseSummaryComponent implements OnInit {
+export class ExpenseDetailsComponent implements OnInit {
   settlementId: string;
   expenseId: string;
 

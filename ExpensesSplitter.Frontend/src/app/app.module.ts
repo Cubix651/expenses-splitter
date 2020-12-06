@@ -16,7 +16,7 @@ import { Register } from './register/register.component';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
 import { ExpenseEditorComponent } from './expense-editor/expense-editor.component';
 import { NewExpenseComponent } from './new-expense/new-expense.component';
-import { ExpenseSummaryComponent } from './expense-summary/expense-summary.component';
+import { ExpenseDetailsComponent } from './expense-details/expense-details.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { ExpenseSummaryComponent } from './expense-summary/expense-summary.compo
     ExpenseListComponent,
     ExpenseEditorComponent,
     NewExpenseComponent,
-    ExpenseSummaryComponent
+    ExpenseDetailsComponent
   ],
   imports: [
     FormsModule,
