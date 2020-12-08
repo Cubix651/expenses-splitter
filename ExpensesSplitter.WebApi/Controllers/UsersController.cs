@@ -51,6 +51,13 @@ namespace ExpensesSplitter.WebApi.Controllers
             return Unauthorized();
         }
         [HttpGet]
+        [Route("Getuser")]
+        public ActionResult<User> GetUser(string data)
+        {
+            var user = context.Users.Where(a => a.Login == data || a.Email == data).FirstOrDefault();
+            return user;
+        }
+        [HttpGet]
         [Route("GetUserId")]
         public ActionResult GetId()
         {

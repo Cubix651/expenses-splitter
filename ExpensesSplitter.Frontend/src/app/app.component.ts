@@ -24,6 +24,7 @@ export class AppComponent {
     localStorage.removeItem("jwt");
     localStorage.removeItem("login");
     localStorage.removeItem("id");
+    window.location.reload();
     this.router.navigate(["/"]);
   }
 }

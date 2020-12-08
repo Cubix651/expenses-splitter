@@ -1,3 +1,17 @@
 <p>Name: {{this.li["name"]}}</p>
 <p>Description: {{this.li["description"]}}</p>
 <p><a routerLink="./expenses">Expenses</a></p>
+<div class="container">
+    <div class="row">
+        <div class="col-2 border border-dark" *ngFor="let obj of this.users" >
+            <p>{{obj["name"]}}</p>
+            <button>Add Expense</button>
+        </div>
+        <div class="col-2">
+            <button (click)="hiddenChange()">Add User</button>
+            <p class="hidden" [hidden]="hidden">Name: <input  [(ngModel)]="name"></p>
+            <button class="hidden" [hidden]="hidden" (click)="AddUserToSettlement()">Add</button>
+        </div>
+
+    </div>
+</div>

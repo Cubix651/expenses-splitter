@@ -2,6 +2,7 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class Login implements OnInit {
       'Login': form.value.username,
       'Password': form.value.password
     }
-    this.http.post("http://localhost:5000/api/login", {Login: this.username, Password: this.password })
+    //this.http.post("http://localhost:5000/api/login", {Login: this.username, Password: this.password })
+    this.http.post(`${environment.apiUrl}/login`,  {Login: this.username, Password: this.password })  
     .subscribe(response=> {
       //const token =(<any>response).token;
       //localStorage.setItem("jwt",token);
@@ -31,6 +33,8 @@ export class Login implements OnInit {
       localStorage.setItem("id", (<any>response).id);
       this.invalidLogin = false;
       this.router.navigate(["/"]);
+      window.location.reload();
+      
     }, err => {
       this.invalidLogin = true;
     }
@@ -38,7 +42,10 @@ export class Login implements OnInit {
     console.log(localStorage)
   }
   ngOnInit(): void {
-    console.log("Login");
+    if(localStorage.getItem('login') != null)
+    {
+      this.router.navigate(["/"]);
+    }
   }
   }
 
