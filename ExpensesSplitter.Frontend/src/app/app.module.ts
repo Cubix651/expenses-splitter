@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -14,6 +14,9 @@ import { SettlementSummaryComponent } from './settlement-summary/settlement-summ
 import { Login } from './login/login.component';
 import { Register } from './register/register.component';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
+import { ExpenseEditorComponent } from './expense-editor/expense-editor.component';
+import { NewExpenseComponent } from './new-expense/new-expense.component';
+import { ExpenseDetailsComponent } from './expense-details/expense-details.component';
 
 @NgModule({
   declarations: [
@@ -23,10 +26,14 @@ import { ExpenseListComponent } from './expense-list/expense-list.component';
     SettlementSummaryComponent,
     Login,
     Register,
-    ExpenseListComponent
+    ExpenseListComponent,
+    ExpenseEditorComponent,
+    NewExpenseComponent,
+    ExpenseDetailsComponent
   ],
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,

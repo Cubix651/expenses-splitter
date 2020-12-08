@@ -1,0 +1,17 @@
+<div>
+  <h4>Nowy wydatek</h4>
+  <div *ngIf="saveErrorOccurred" class="alert alert-error" role="alert">
+    Wystąpił błąd podczas tworzenia wydatku.
+  </div>
+  <app-expense-editor
+    [expense]="expense"
+    #editor
+  >
+  </app-expense-editor>
+  <button class="btn btn-success" (click)="create(editor.expense)" [disabled]="isSaveInProgress">
+    <span *ngIf="isSaveInProgress" class="spinner-border spinner-border-sm" role="status"></span>
+    Stwórz
+  </button>
+  <button class="btn btn-secondary ml-1" routerLink="..">Powrót</button>
+</div>
+
