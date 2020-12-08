@@ -74,9 +74,6 @@ namespace ExpensesSplitter.WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ExpenseId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SettlementId")
                         .HasColumnType("nvarchar(max)");
 

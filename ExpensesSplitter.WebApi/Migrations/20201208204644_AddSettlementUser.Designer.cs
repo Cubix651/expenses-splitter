@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpensesSplitter.WebApi.Migrations
 {
     [DbContext(typeof(ExpensesSplitterContext))]
-    [Migration("20201206132120_SettlementUserId")]
-    partial class SettlementUserId
+    [Migration("20201208204644_AddSettlementUser")]
+    partial class AddSettlementUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,9 +75,6 @@ namespace ExpensesSplitter.WebApi.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ExpenseId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SettlementId")
                         .HasColumnType("nvarchar(max)");

@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ExpensesSplitter.WebApi.Migrations
 {
-    public partial class SettlementUser : Migration
+    public partial class AddSettlementUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
