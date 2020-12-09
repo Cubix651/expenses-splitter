@@ -15,5 +15,7 @@ namespace ExpensesSplitter.WebApi.Database.Models
         public decimal Amount {get; set; }
         public string SettlementId {get; set;}
         public virtual Settlement Settlement { get; set; }
+        public Guid WhoPaidId { get; set;}
+        public virtual SettlementUser WhoPaid { get; set;}
     }
 }
