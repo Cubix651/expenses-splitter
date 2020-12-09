@@ -43,6 +43,7 @@ export class NewExpenseComponent implements OnInit {
       error: error => {
         console.error('Error during creating expense', error);
         this.saveErrorOccurred = true;
+        this.isSaveInProgress = false;
       }
     });
   }
