@@ -4,6 +4,8 @@ using System.Linq;
 using ExpensesSplitter.WebApi.Database;
 using ExpensesSplitter.WebApi.Models;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpensesSplitter.WebApi.Repositories
 {
@@ -20,19 +22,23 @@ namespace ExpensesSplitter.WebApi.Repositories
     {
         private readonly ExpensesSplitterContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogger<ExpensesRepository> _logger;
 
         public ExpensesRepository(ExpensesSplitterContext context,
-            IMapper mapper)
+            IMapper mapper,
+            ILogger<ExpensesRepository> logger)
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public IEnumerable<Expense> GetExpenses(string settlementId)
         {
-            return _context.Expenses
+            var entities = _context.Expenses
                 .Where(e => e.SettlementId == settlementId)
-                .Select(e => _mapper.Map<Expense>(e));
+                .Include(e => e.WhoPaid);
+            return entities.Select(e => _mapper.Map<Expense>(e));
         }
 
         public Expense GetExpense(string settlementId, Guid expenseId)
