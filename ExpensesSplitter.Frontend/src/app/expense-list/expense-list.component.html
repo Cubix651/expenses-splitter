@@ -13,6 +13,7 @@
       <th scope="col">Nazwa</th>
       <th scope="col">Opis</th>
       <th scope="col">Kwota</th>
+      <th scope="col">Kto płacił?</th>
       <th scope="col">Akcje</th>
     </tr>
   </thead>
@@ -21,6 +22,7 @@
       <td><a [routerLink]="[expense.id]">{{ expense.name }}</a></td>
       <td>{{ expense.description | slice:0:100 }}</td>
       <td>{{ expense.amount | number:'1.2-2' }}zł</td>
+      <td>{{ expense.whoPaid.displayName }}</td>
       <td><button class="btn btn-danger btn-sm" (click)="deleteExpense(expense.id)">Usuń</button></td>
     </tr>
   </tbody>
