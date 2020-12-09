@@ -3,10 +3,10 @@
   <div *ngIf="isSaveFinishedSuccessfully" class="alert alert-success" role="alert">
     Wydatek został zapisany.
   </div>
-  <div *ngIf="saveErrorOccurred" class="alert alert-error" role="alert">
+  <div *ngIf="saveErrorOccurred" class="alert alert-danger" role="alert">
     Wystąpił błąd podczas zapisu wydatku.
   </div>
-  <div *ngIf="loadErrorOccurred" class="alert alert-error" role="alert">
+  <div *ngIf="loadErrorOccurred" class="alert alert-danger" role="alert">
     Wystąpił błąd podczas pobierania informacji o wydatku.
   </div>
   <app-expense-editor
