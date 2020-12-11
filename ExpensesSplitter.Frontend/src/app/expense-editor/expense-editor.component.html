@@ -12,5 +12,11 @@
       <label for="amount">Kwota</label>
       <input type="number" class="form-control" id="amount" formControlName="amount">
     </div>
+    <div class="form-group">
+      <label for="whoPaid">Kto płacił?</label>
+      <select class="form-control" id="whoPaid" (change)="onChangeWhoPaid($event.target.value)" formControlName="whoPaidId">
+        <option *ngFor="let person of people" [value]="person.id">{{ person.displayName }}</option>
+      </select>
+    </div>
   </form>
 </div>

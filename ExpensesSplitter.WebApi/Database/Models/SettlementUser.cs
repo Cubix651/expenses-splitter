@@ -14,6 +14,6 @@ namespace ExpensesSplitter.WebApi.Database.Models
         public Guid Id { get; set; }
         public string UserId { get; set; }
         public string SettlementId { get; set; }
-
+        public string DisplayName { get; set; }
     }
 }
