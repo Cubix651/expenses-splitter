@@ -7,7 +7,7 @@
             <p>{{obj["name"]}}</p>
             <button>Add Expense</button>
         </div>
-        <div class="col-2">
+        <div class="col-2" *ngIf="role == 1">
             <button (click)="hiddenChange()">Add User</button>
             <p class="hidden" [hidden]="hidden">Name: <input  [(ngModel)]="name"></p>
             <button class="hidden" [hidden]="hidden" (click)="AddUserToSettlement()">Add</button>

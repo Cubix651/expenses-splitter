@@ -65,10 +65,22 @@ namespace ExpensesSplitter.WebApi.Controllers
             List<SettlementUser> settlements = context.SettlementUsers.Where(x => x.SettlementId == id).ToList();
             var result = (from s in settlements
                          join u in context.Users on s.UserId equals u.Id
-                         select new User() { Id = u.Id, Name = u.Name, Email = u.Email, Login = u.Login }).ToList();
+                         select new User() { Id = u.Id, Name = u.Name, Email = u.Email, Login = u.Login}).ToList();
             if (result.Count != 0)
             {
                 return Ok(result);
+            }
+            return NotFound();
+        }
+        [HttpGet]
+        [Route("GetRole/")]
+        public ActionResult GetRole(string user, string settlement)
+        {
+
+            var role = context.SettlementUsers.Where(x => x.UserId == user && x.SettlementId == settlement).FirstOrDefault();
+            if (role != null)
+            {
+                return Ok(role);
             }
             return NotFound();
         }
@@ -116,7 +128,8 @@ namespace ExpensesSplitter.WebApi.Controllers
                 {
                   
                     SettlementId = body.SettlementId,
-                    UserId = user.Id
+                    UserId = user.Id,
+                    RoleId = "2"
                 });
                 context.SaveChanges();
                 return Ok(settlementUser);
@@ -157,7 +170,8 @@ namespace ExpensesSplitter.WebApi.Controllers
                 {
                     //Id = settlementUserId.ToString(),
                     SettlementId = settlement.Id,
-                    UserId = settlement.IdOwner
+                    UserId = settlement.IdOwner,
+                    RoleId = "1"
                 });
                 context.SaveChanges();
                 return Ok(settlements);

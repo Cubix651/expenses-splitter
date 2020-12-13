@@ -16,6 +16,7 @@ export class SettlementSummaryComponent implements OnInit {
   lis=[]; 
   userObject:any;
   users:any;
+  role: any;
   constructor(private http : HttpClient, private route: ActivatedRoute, private elem: ElementRef){ 
   }
 
@@ -30,7 +31,12 @@ export class SettlementSummaryComponent implements OnInit {
       this.http.get(`${environment.apiUrl}/GetSettlementUsers?id=` + this.id) 
       .subscribe(Response => { 
       this.users=Response;
+      console.log(this.users);
     });  
+    this.http.get(`${environment.apiUrl}/GetRole?user=` + localStorage.getItem("id") + "&settlement=" + this.id) 
+    .subscribe(Response => { 
+    this.role=Response['roleId'];
+  });  
     }); 
 
   }
