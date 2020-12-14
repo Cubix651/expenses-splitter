@@ -4,14 +4,16 @@ using ExpensesSplitter.WebApi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpensesSplitter.WebApi.Migrations
 {
     [DbContext(typeof(ExpensesSplitterContext))]
-    partial class ExpensesSplitterContextModelSnapshot : ModelSnapshot
+    [Migration("20201214121127_AddEnum")]
+    partial class AddEnum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,25 +51,6 @@ namespace ExpensesSplitter.WebApi.Migrations
                     b.ToTable("Expenses");
                 });
 
-            modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Group", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SettlementId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SettlementId");
-
-                    b.ToTable("Groups");
-                });
-
             modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Settlement", b =>
                 {
                     b.Property<string>("Id")
@@ -100,9 +83,6 @@ namespace ExpensesSplitter.WebApi.Migrations
 
                     b.Property<string>("DisplayName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
@@ -151,13 +131,6 @@ namespace ExpensesSplitter.WebApi.Migrations
                         .HasForeignKey("WhoPaidId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Group", b =>
-                {
-                    b.HasOne("ExpensesSplitter.WebApi.Database.Models.Settlement", "Settlement")
-                        .WithMany()
-                        .HasForeignKey("SettlementId");
                 });
 
             modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Settlement", b =>

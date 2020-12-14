@@ -7,17 +7,13 @@ using System.Threading.Tasks;
 
 namespace ExpensesSplitter.WebApi.Database.Models
 {
-    public class SettlementUser
+    public class Group
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
-        public string UserId { get; set; }
+        public string Name { get; set; }
         public string SettlementId { get; set; }
-        public string DisplayName { get; set; }
-        public enum Role { Admin, Watcher, Editor }
-        public Role RoleId { get; set; }
-        public Guid GroupId { get; set; }
-        //public virtual Group Group { get; set;}
+        public virtual Settlement Settlement { get; set; }
     }
 }

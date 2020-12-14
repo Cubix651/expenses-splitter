@@ -1,17 +1,37 @@
-<p>Name: {{this.li["name"]}}</p>
-<p>Description: {{this.li["description"]}}</p>
+<p *ngIf="li != null">Name: {{li["name"]}}</p>
+<p *ngIf="li != null">Description: {{li["description"]}}</p>
 <p><a routerLink="./expenses">Expenses</a></p>
-<div class="container">
-    <div class="row">
-        <div class="col-2 border border-dark" *ngFor="let obj of this.users" >
-            <p>{{obj["name"]}}</p>
-            <button>Add Expense</button>
-        </div>
-        <div class="col-2" *ngIf="role == 1">
-            <button (click)="hiddenChange()">Add User</button>
-            <p class="hidden" [hidden]="hidden">Name: <input  [(ngModel)]="name"></p>
-            <button class="hidden" [hidden]="hidden" (click)="AddUserToSettlement()">Add</button>
-        </div>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Użytkownik</th>
+        <th scope="col">Grupa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of this.users">
+        <td>{{user["name"]}}</td>
+        <td *ngIf="user['group'] == '00000000-0000-0000-0000-000000000000' ">Indywidualna</td>
+        <td *ngIf="checkRole == 0"><button class="btn btn-danger btn-sm" (click)="RemoveUserFromSettlement(user['id'])">Usuń</button></td>
+      </tr>
+    </tbody>
+  </table>
 
-    </div>
-</div>
+  <div class="form-group" [hidden]="hidden">
+    <label for="name">Nazwa Użytkownika</label>
+    <input type="text" [(ngModel)]="name">
+    <a type="button" class="btn btn-success" [hidden]="hidden" (click)="AddUserToSettlement()">Dodaj</a>
+  </div>
+
+  <div class="form-group" [hidden]="hiddenGroup">
+    <label for="name">Nazwa Grupy</label>
+    <input type="text" [(ngModel)]="groupName">
+    <a type="button" class="btn btn-success" (click)="AddGroup()">Dodaj</a>
+  </div>
+
+  <div *ngIf="checkRole == 0">
+    <a type="button" class="btn btn-success" (click)="hiddenChange()">Dodaj Użytkowników</a>
+    <a type="button" class="btn btn-success" (click)="hiddenGroupChange()">Dodaj Grupę</a>
+    <a type="button" class="btn btn-secondary ml-1" routerLink="../../..">Powrót</a>
+  </div>
+  
