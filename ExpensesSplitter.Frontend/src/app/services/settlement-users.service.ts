@@ -13,6 +13,6 @@ export class SettlementUsersService {
   ) { }
 
   getUsers(settlementId: string): Observable<SettlementUser[]> {
-    return this.http.get<SettlementUser[]>(`${this.apiUrl}/GetSettlementUsers?id=${settlementId}`);
+    return this.http.get<SettlementUser[]>(`${this.apiUrl}/settlements/${settlementId}/users`);
   }
 }
