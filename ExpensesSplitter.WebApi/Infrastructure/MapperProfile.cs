@@ -10,7 +10,9 @@ namespace ExpensesSplitter.WebApi.Infrastructure
                 .ReverseMap();
             CreateMap<Models.NewExpense, Database.Models.Expense>();
 
-            CreateMap<Database.Models.SettlementUser, Models.SettlementUser>();
+            CreateMap<Database.Models.SettlementUser, Models.SettlementUser>()
+                .ReverseMap();
+            CreateMap<Models.NewSettlementUser, Database.Models.SettlementUser>();
         }   
     }
 }
