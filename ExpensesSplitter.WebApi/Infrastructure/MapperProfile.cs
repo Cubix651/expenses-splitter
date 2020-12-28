@@ -6,12 +6,12 @@ namespace ExpensesSplitter.WebApi.Infrastructure
     {
         public MapperProfile()
         {
-            CreateMap<Database.Models.Expense, Models.Expense>()
-                .ReverseMap();
+            CreateMap<Database.Models.Expense, Models.Expense>();
             CreateMap<Models.NewExpense, Database.Models.Expense>();
 
             CreateMap<Database.Models.SettlementUser, Models.SettlementUser>()
-                .ReverseMap();
+                .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(
+                    src => src.DisplayName ?? src.User.Name));
             CreateMap<Models.NewSettlementUser, Database.Models.SettlementUser>();
         }   
     }
