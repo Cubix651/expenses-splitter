@@ -36,8 +36,7 @@ namespace ExpensesSplitter.WebApi.Repositories
         public IEnumerable<Expense> GetExpenses(string settlementId)
         {
             var entities = _context.Expenses
-                .Where(e => e.SettlementId == settlementId)
-                .Include(e => e.WhoPaid);
+                .Where(e => e.SettlementId == settlementId);
             return entities.Select(e => _mapper.Map<Expense>(e));
         }
 
@@ -45,7 +44,6 @@ namespace ExpensesSplitter.WebApi.Repositories
         {
             var entity = _context.Expenses
                 .Where(e => e.SettlementId == settlementId)
-                .Include(e => e.WhoPaid)
                 .First(e => e.Id == expenseId);
             return _mapper.Map<Expense>(entity);
         }

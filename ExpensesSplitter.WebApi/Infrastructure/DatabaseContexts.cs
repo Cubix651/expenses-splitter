@@ -10,7 +10,9 @@ namespace ExpensesSplitter.WebApi.Infrastructure
         public static void AddDatabaseContexts(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ExpensesSplitterContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ExpensesSplitter")));
+                options
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer(configuration.GetConnectionString("ExpensesSplitter")));
         }
     }
 }
