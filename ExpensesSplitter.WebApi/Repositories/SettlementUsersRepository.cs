@@ -11,6 +11,9 @@ namespace ExpensesSplitter.WebApi.Repositories
     {
         IEnumerable<SettlementUser> GetSettlementUsers(string settlementId);
         SettlementUser GetSettlementUser(string settlementId, Guid settlementUserId);
+        Guid CreateSettlementUser(string settlementId, NewSettlementUser settlementUser);
+        void DeleteSettlementUser(string settlementId, Guid settlementUserId);
+        void UpdateSettlementUser(string settlementId, Guid settlementUserId, NewSettlementUser settlementUser);
     }
 
     public class SettlementUsersRepository : ISettlementUsersRepository
@@ -37,6 +40,32 @@ namespace ExpensesSplitter.WebApi.Repositories
             var user = _context.SettlementUsers
                 .First(u => u.Id == settlementUserId && u.SettlementId == settlementId);
             return _mapper.Map<SettlementUser>(user);
+        }
+
+        public Guid CreateSettlementUser(string settlementId, NewSettlementUser settlementUser)
+        {
+            var entity = _mapper.Map<Database.Models.SettlementUser>(settlementUser);
+            entity.SettlementId = settlementId;
+            _context.SettlementUsers.Add(entity);
+            _context.SaveChanges();
+            return entity.Id;
+        }
+
+        public void DeleteSettlementUser(string settlementId, Guid settlementUserId)
+        {
+            var entity = _context.SettlementUsers
+                .First(u => u.SettlementId == settlementId && u.Id == settlementUserId);
+            _context.SettlementUsers.Remove(entity);
+            _context.SaveChanges();
+        }
+
+        public void UpdateSettlementUser(string settlementId, Guid settlementUserId, NewSettlementUser settlementUser)
+        {
+            var entity = _mapper.Map<Database.Models.SettlementUser>(settlementUser);
+            entity.SettlementId = settlementId;
+            entity.Id = settlementUserId;
+            _context.SettlementUsers.Update(entity);
+            _context.SaveChanges();
         }
     }
 }
