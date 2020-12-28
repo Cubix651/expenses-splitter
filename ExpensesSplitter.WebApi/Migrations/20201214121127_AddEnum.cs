@@ -6,23 +6,25 @@ namespace ExpensesSplitter.WebApi.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<int>(
+            migrationBuilder.DropColumn(
+                name: "RoleId",
+                table: "SettlementUsers");
+            migrationBuilder.AddColumn<int>(
                 name: "RoleId",
                 table: "SettlementUsers",
                 nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                defaultValue: 0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.DropColumn(
+                name: "RoleId",
+                table: "SettlementUsers");
+            migrationBuilder.AddColumn<string>(
                 name: "RoleId",
                 table: "SettlementUsers",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(int));
+                nullable: true);
         }
     }
 }
