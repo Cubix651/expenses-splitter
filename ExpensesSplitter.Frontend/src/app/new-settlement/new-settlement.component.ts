@@ -21,9 +21,6 @@ export class NewSettlementComponent implements OnInit {
   createSettlement(){
     this.http.get('http://localhost:5000/api/GetId') 
     .subscribe(Response => { 
-  
-      // If response comes hideloader() function is called 
-      // to hide that loader  
       Response +=''; 
       const id=Response; 
 
@@ -33,9 +30,8 @@ export class NewSettlementComponent implements OnInit {
     const description = this.description
     if(localStorage.getItem('id') != null){
       const owner = localStorage.getItem("id").toString
-      this.http.post('http://localhost:5000/api/AddSettlement', { id: id, name: name, description: description, IdOwner: localStorage.getItem("id")}).subscribe(data => { 
-      console.log(data);    
-      //this.router.navigate(["/"]);
+      this.http.post('http://localhost:5000/api/AddSettlement', { id: id, name: name, description: description, IdOwner: localStorage.getItem("id")}).subscribe(data => {   
+      this.router.navigate(["/"]);
          
       })
     }

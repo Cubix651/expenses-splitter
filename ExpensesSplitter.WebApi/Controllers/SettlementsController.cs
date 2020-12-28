@@ -65,10 +65,22 @@ namespace ExpensesSplitter.WebApi.Controllers
             List<SettlementUser> settlements = context.SettlementUsers.Where(x => x.SettlementId == id).ToList();
             var result = (from s in settlements
                          join u in context.Users on s.UserId equals u.Id
-                         select new User() { Id = u.Id, Name = u.Name, Email = u.Email, Login = u.Login }).ToList();
+                         select new { Id = u.Id, Name = u.Name, Email = u.Email, Login = u.Login, Group = s.GroupId, Role = s.RoleId}).ToList();
             if (result.Count != 0)
             {
                 return Ok(result);
+            }
+            return NotFound();
+        }
+        [HttpGet]
+        [Route("GetRole/")]
+        public ActionResult GetRole(string user, string settlement)
+        {
+
+            var role = context.SettlementUsers.Where(x => x.UserId == user && x.SettlementId == settlement).FirstOrDefault();
+            if (role != null)
+            {
+                return Ok(role);
             }
             return NotFound();
         }
@@ -104,6 +116,17 @@ namespace ExpensesSplitter.WebApi.Controllers
             var user = context.Users.Where(a => a.Id == id).FirstOrDefault();
             return user;
         }
+        [HttpDelete]
+        [Route ("RemoveUserFromSettlement")]
+        public ActionResult RemoveUserFromSettlement(string settlementId, string userId)
+        {
+            var entity = context.SettlementUsers.Where(x => x.SettlementId == settlementId && x.UserId == userId).FirstOrDefault();
+            context.SettlementUsers.Remove(entity);
+            context.SaveChanges();
+            return Ok();
+        }
+
+
         [HttpPost]
         [Route("AddUserToSettlement")]
         public ActionResult<SettlementUser> AddUserToSettlement(SettlementUser body)
@@ -116,7 +139,8 @@ namespace ExpensesSplitter.WebApi.Controllers
                 {
                   
                     SettlementId = body.SettlementId,
-                    UserId = user.Id
+                    UserId = user.Id,
+                    RoleId = SettlementUser.Role.Watcher
                 });
                 context.SaveChanges();
                 return Ok(settlementUser);
@@ -144,8 +168,6 @@ namespace ExpensesSplitter.WebApi.Controllers
             {
                 var settlements = context.Settlements;
                 int settlementUserId = GetSettlementUserId();
-                //var user = GetUser(ownerId);
-                //var user = context.Users.Where(a => a.Id == ownerId).FirstOrDefault();
                 context.Add(new Settlement
                 {
                     Id = settlement.Id,
@@ -157,7 +179,8 @@ namespace ExpensesSplitter.WebApi.Controllers
                 {
                     //Id = settlementUserId.ToString(),
                     SettlementId = settlement.Id,
-                    UserId = settlement.IdOwner
+                    UserId = settlement.IdOwner,
+                    RoleId = SettlementUser.Role.Admin
                 });
                 context.SaveChanges();
                 return Ok(settlements);
