@@ -10,7 +10,7 @@ namespace ExpensesSplitter.WebApi.Repositories
     public interface ISettlementUsersRepository
     {
         IEnumerable<SettlementUser> GetSettlementUsers(string settlementId);
-        SettlementUser GetSettlementUser(Guid settlementUserId);
+        SettlementUser GetSettlementUser(string settlementId, Guid settlementUserId);
     }
 
     public class SettlementUsersRepository : ISettlementUsersRepository
@@ -32,10 +32,10 @@ namespace ExpensesSplitter.WebApi.Repositories
                 .Select(u => _mapper.Map<SettlementUser>(u));
         }
 
-        public SettlementUser GetSettlementUser(Guid settlementUserId)
+        public SettlementUser GetSettlementUser(string settlementId, Guid settlementUserId)
         {
             var user = _context.SettlementUsers
-                .First(u => u.Id == settlementUserId);
+                .First(u => u.Id == settlementUserId && u.SettlementId == settlementId);
             return _mapper.Map<SettlementUser>(user);
         }
     }
