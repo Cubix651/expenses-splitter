@@ -36,7 +36,8 @@ namespace ExpensesSplitter.WebApi.Repositories
         public IEnumerable<Expense> GetExpenses(string settlementId)
         {
             var entities = _context.Expenses
-                .Where(e => e.SettlementId == settlementId);
+                .Where(e => e.SettlementId == settlementId)
+                .ToList();
             return entities.Select(e => _mapper.Map<Expense>(e));
         }
 

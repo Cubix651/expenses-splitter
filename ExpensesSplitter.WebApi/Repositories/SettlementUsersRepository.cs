@@ -32,6 +32,7 @@ namespace ExpensesSplitter.WebApi.Repositories
         {
             return _context.SettlementUsers
                 .Where(u => u.SettlementId == settlementId)
+                .ToList()
                 .Select(u => _mapper.Map<SettlementUser>(u));
         }
 
