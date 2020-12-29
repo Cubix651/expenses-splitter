@@ -2,11 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NewExpense } from '../models/expenses.model';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { SettlementUser } from '../models/settlement-user.model';
+import { SettlementUsersService } from '../services/settlement-users.service';
 
 @Component({
   selector: 'app-expense-editor',
   templateUrl: './expense-editor.component.html',
-  styleUrls: ['./expense-editor.component.scss']
+  styleUrls: ['./expense-editor.component.scss'],
+  providers: [ SettlementUsersService ]
 })
 export class ExpenseEditorComponent implements OnInit {
   @Input()
@@ -20,10 +22,9 @@ export class ExpenseEditorComponent implements OnInit {
   }
 
   @Input()
-  people: SettlementUser[] = [
-    { id: '12345422-0000-0000-0000-000000000000', displayName: 'Inna'},
-    { id: '00000000-0000-0000-0000-000000000000', displayName: 'Bezimienny'}
-  ];
+  settlementId: string;
+
+  people: SettlementUser[] = [];
 
   get expense() : NewExpense {
     return this.form.value
@@ -32,13 +33,25 @@ export class ExpenseEditorComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    private readonly settlementUsersService: SettlementUsersService,
   ) { }
 
   ngOnInit(): void {
+    this.fetchSettlementUsers();
   }
 
   onChangeWhoPaid(newValue: string) {
     this.form.get('whoPaidId').setValue(newValue);
+  }
+
+  private fetchSettlementUsers() {
+    this.settlementUsersService.getUsers(this.settlementId)
+      .subscribe(users => {
+        this.people = users;
+        if (this.form.get('whoPaidId').value == null) {
+          this.onChangeWhoPaid(users[0].id);
+        }
+      });
   }
 }

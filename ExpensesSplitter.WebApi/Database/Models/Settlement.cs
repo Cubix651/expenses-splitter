@@ -6,6 +6,6 @@ namespace ExpensesSplitter.WebApi.Database.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string IdOwner { get; set; }
-        public User owner { get; set; }
+        public virtual User Owner { get; set; }
     }
 }

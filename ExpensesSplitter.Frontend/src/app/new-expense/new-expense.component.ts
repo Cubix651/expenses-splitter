@@ -16,7 +16,7 @@ export class NewExpenseComponent implements OnInit {
     name: '',
     description: '',
     amount: 0.0,
-    whoPaidId: '00000000-0000-0000-0000-000000000000'
+    whoPaidId: null
   }
   isSaveInProgress: boolean = false;
   saveErrorOccurred: boolean = false;
