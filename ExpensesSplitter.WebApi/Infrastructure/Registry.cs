@@ -1,3 +1,4 @@
+using ExpensesSplitter.WebApi.Providers;
 using ExpensesSplitter.WebApi.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,6 +10,7 @@ namespace ExpensesSplitter.WebApi.Infrastructure
         {
             services.AddScoped<IExpensesRepository, ExpensesRepository>();
             services.AddScoped<ISettlementUsersRepository, SettlementUsersRepository>();
+            services.AddScoped<IBalancesProvider, BalancesProvider>();
             return services;
         }
     }
