@@ -1,0 +1,24 @@
+<h4>Bilans</h4>
+
+<div *ngIf="loadErrorOccurred" class="alert alert-danger" role="alert">
+  Wystąpił błąd podczas pobierania informacji o bilansie.
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Osoba</th>
+      <th scope="col">Bilans</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let balance of balances; trackBy: trackById">
+      <td>{{ balance.user.displayName }}</td>
+      <td>{{ balance.balance | number:'1.2-2' }}zł</td>
+    </tr>
+  </tbody>
+</table>
+
+<div>
+  <a type="button" class="btn btn-secondary" routerLink="..">Powrót</a>
+</div>
