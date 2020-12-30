@@ -1,6 +1,7 @@
-<h4 *ngIf="li != null">Nazwa: {{li["name"]}}</h4>
-<h4 *ngIf="li != null">Opis: {{li["description"]}}</h4>
-<p><a routerLink="./expenses">Expenses</a></p>
+<p *ngIf="li != null">Nazwa: {{li["name"]}}</p>
+<p *ngIf="li != null">Opis: {{li["description"]}}</p>
+<p><a routerLink="./expenses">Lista wydatków</a></p>
+<p><a routerLink="./balances">Bilans</a></p>
 <table class="table">
     <thead>
       <tr>
@@ -44,4 +45,4 @@
     <a type="button" class="btn btn-secondary ml-1" routerLink="../../..">Powrót </a>
     <a type="button" class="btn btn-danger">Zakończ rozliczenie</a>
   </div>
-  
+

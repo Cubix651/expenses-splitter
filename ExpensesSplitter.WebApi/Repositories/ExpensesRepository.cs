@@ -37,7 +37,7 @@ namespace ExpensesSplitter.WebApi.Repositories
         {
             var entities = _context.Expenses
                 .Where(e => e.SettlementId == settlementId)
-                .Include(e => e.WhoPaid);
+                .ToList();
             return entities.Select(e => _mapper.Map<Expense>(e));
         }
 
@@ -45,7 +45,6 @@ namespace ExpensesSplitter.WebApi.Repositories
         {
             var entity = _context.Expenses
                 .Where(e => e.SettlementId == settlementId)
-                .Include(e => e.WhoPaid)
                 .First(e => e.Id == expenseId);
             return _mapper.Map<Expense>(entity);
         }

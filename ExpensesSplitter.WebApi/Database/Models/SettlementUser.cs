@@ -13,6 +13,7 @@ namespace ExpensesSplitter.WebApi.Database.Models
         [Key]
         public Guid Id { get; set; }
         public string UserId { get; set; }
+        public virtual User User { get; set; }
         public string SettlementId { get; set; }
         public string DisplayName { get; set; }
         public enum Role { Admin, Watcher, Editor }
