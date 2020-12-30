@@ -17,8 +17,10 @@ enum role {
 export class SettlementSummaryComponent implements OnInit {
   @Output() id: string;
   hidden = true;
+  hiddenUser = true;
   hiddenGroup= true;
   groupName: any;
+  displayName: any;
   name:any;
   li:any; 
   lis=[]; 
@@ -44,7 +46,10 @@ export class SettlementSummaryComponent implements OnInit {
       this.http.get(`${environment.apiUrl}/GetSettlementUsers?id=` + this.id) 
       .subscribe(Response => { 
       this.users=Response;
-      console.log(this.users)
+      this.http.get(`${environment.apiUrl}/GetSettlementUsersWithoutAccount?id=` + this.id) 
+      .subscribe(Response => { 
+      this.users= this.users.concat(Response);
+    });  
     });  
     this.http.get(`${environment.apiUrl}/GetRole?user=` + localStorage.getItem("id") + "&settlement=" + this.id) 
     .subscribe(Response => { 
@@ -54,7 +59,6 @@ export class SettlementSummaryComponent implements OnInit {
   .subscribe(Response => { 
   this.groups=Response;
   this.groups.push({id: "00000000-0000-0000-0000-000000000000", name: "Indywidualna"})
-  console.log(this.groups);
   })
     }); 
 
@@ -63,6 +67,15 @@ export class SettlementSummaryComponent implements OnInit {
   {
     this.http.post(`${environment.apiUrl}/AddUserToSettlement` , {UserId: this.name, SettlementId: this.id}) 
     .subscribe(Response =>{
+      this.hidden = !this.hidden;
+      this.ngOnInit();
+    })
+  }
+  AddUserWithoutAccountToSettlement()
+  {
+    this.http.post(`${environment.apiUrl}/AddUserWithoutAccountToSettlement` , {DisplayName: this.displayName, SettlementId: this.id}) 
+    .subscribe(Response =>{
+      this.hiddenUser = !this.hiddenUser;
       this.ngOnInit();
     })
   }
@@ -70,6 +83,7 @@ export class SettlementSummaryComponent implements OnInit {
   {
     this.http.post(`${environment.apiUrl}/group/add` , {Name: this.groupName, SettlementId: this.id}) 
     .subscribe(Response =>{
+      this.hiddenGroup = !this.hiddenGroup;
       this.ngOnInit();
     })
   }
@@ -83,12 +97,13 @@ export class SettlementSummaryComponent implements OnInit {
   hiddenChange():void{
     this.hidden = !this.hidden;
   }
+  hiddenUserChange():void{
+    this.hiddenUser = !this.hiddenUser;
+  }
   hiddenGroupChange():void{
     this.hiddenGroup = !this.hiddenGroup;
   }
   onChangeGroup(id: any, newValue: any) {
-    console.log(id);
-    console.log(newValue);
     this.http.put(`${environment.apiUrl}/ChangeGroup`, {Id: id, GroupId: newValue}) 
     .subscribe(Response =>{
       this.ngOnInit();

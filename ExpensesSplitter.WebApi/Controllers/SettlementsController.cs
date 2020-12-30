@@ -73,6 +73,21 @@ namespace ExpensesSplitter.WebApi.Controllers
             }
             return NotFound();
         }
+        [HttpGet]
+        [Route("GetSettlementUsersWithoutAccount/")]
+        public ActionResult GetSettlementUsersWithoutAccount(string id)
+        {
+
+            List<SettlementUser> settlements = context.SettlementUsers.Where(x => x.SettlementId == id && x.UserId == "0").ToList();
+            var result = (from s in settlements
+                          join g in context.Groups on s.GroupId equals g.Id
+                          select new {Name = s.DisplayName, Group = s.GroupId, GroupName = g.Name, Role = s.RoleId, SettlementUserId = s.Id }).ToList();
+            if (result.Count != 0)
+            {
+                return Ok(result);
+            }
+            return NotFound();
+        }
         [HttpPut]
         [Route("ChangeGroup")]
         public ActionResult ChangeGroup(SettlementUser body)
@@ -156,7 +171,24 @@ namespace ExpensesSplitter.WebApi.Controllers
                 return Ok(settlementUser);
 
         }
-            
+        [HttpPost]
+        [Route("AddUserWithoutAccountToSettlement")]
+        public ActionResult<SettlementUser> AddUserWithoutAccountToSettlement(SettlementUser body)
+        {
+            var settlementUser = context.SettlementUsers;
+
+            context.Add(new SettlementUser
+            {
+
+                SettlementId = body.SettlementId,
+                DisplayName = body.DisplayName,
+                UserId = "0",
+                RoleId = SettlementUser.Role.Watcher
+            });
+            context.SaveChanges();
+            return Ok(settlementUser);
+
+        }
         [NonAction]
         public int GetSettlementUserId()
         {

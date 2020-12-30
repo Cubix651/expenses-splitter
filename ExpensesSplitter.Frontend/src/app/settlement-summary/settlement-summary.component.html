@@ -39,8 +39,15 @@
     <a type="button" class="btn btn-success" (click)="AddGroup()">Dodaj</a>
   </div>
 
+  <div class="form-group" [hidden]="hiddenUser">
+    <label for="displayName">Nazwa Użytkownika bez konta</label>
+    <input type="text" [(ngModel)]="displayName">
+    <a type="button" class="btn btn-success" (click)="AddUserWithoutAccountToSettlement()">Dodaj</a>
+  </div>
+
   <div *ngIf="checkRole == 0">
     <a type="button" class="btn btn-success" (click)="hiddenChange()">Dodaj Użytkowników </a>
+    <a type="button" class="btn btn-success" (click)="hiddenUserChange()">Dodaj Użytkowników Bez Konta</a>
     <a type="button" class="btn btn-success" (click)="hiddenGroupChange()">Dodaj Grupę </a>
     <a type="button" class="btn btn-secondary ml-1" routerLink="../../..">Powrót </a>
     <a type="button" class="btn btn-danger">Zakończ rozliczenie</a>
