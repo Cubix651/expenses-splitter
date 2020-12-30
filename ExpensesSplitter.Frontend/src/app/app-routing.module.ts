@@ -9,6 +9,7 @@ import { Register } from './register/register.component';
 import { NewExpenseComponent } from './new-expense/new-expense.component';
 import { ExpenseDetailsComponent } from './expense-details/expense-details.component';
 import { BalancesComponent } from './balances/balances.component';
+import { SettlementSolutionComponent } from './settlement-solution/settlement-solution.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
           { path: ':expenseId', component: ExpenseDetailsComponent}
         ]},
         { path: 'balances', component: BalancesComponent },
+        { path: 'solution', component: SettlementSolutionComponent },
       ] },
     ]
   },
