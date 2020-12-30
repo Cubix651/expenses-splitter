@@ -1,6 +1,7 @@
 <p *ngIf="li != null">Name: {{li["name"]}}</p>
 <p *ngIf="li != null">Description: {{li["description"]}}</p>
-<p><a routerLink="./expenses">Expenses</a></p>
+<p><a routerLink="./expenses">Lista wydatków</a></p>
+<p><a routerLink="./balances">Bilans</a></p>
 <table class="table">
     <thead>
       <tr>
@@ -31,7 +32,7 @@
 
   <div *ngIf="checkRole == 0">
     <a type="button" class="btn btn-success" (click)="hiddenChange()">Dodaj Użytkowników</a>
-    <a type="button" class="btn btn-success" (click)="hiddenGroupChange()">Dodaj Grupę</a>
+    <a type="button" class="btn btn-success ml-1" (click)="hiddenGroupChange()">Dodaj Grupę</a>
     <a type="button" class="btn btn-secondary ml-1" routerLink="../../..">Powrót</a>
   </div>
-  
+
