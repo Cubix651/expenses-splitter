@@ -65,12 +65,22 @@ namespace ExpensesSplitter.WebApi.Controllers
             List<SettlementUser> settlements = context.SettlementUsers.Where(x => x.SettlementId == id).ToList();
             var result = (from s in settlements
                          join u in context.Users on s.UserId equals u.Id
-                         select new { Id = u.Id, Name = u.Name, Email = u.Email, Login = u.Login, Group = s.GroupId, Role = s.RoleId}).ToList();
+                         join g in context.Groups on s.GroupId equals g.Id
+                         select new { Id = u.Id, Name = u.Name, Email = u.Email, Login = u.Login, Group = s.GroupId, GroupName = g.Name, Role = s.RoleId, SettlementUserId = s.Id}).ToList();
             if (result.Count != 0)
             {
                 return Ok(result);
             }
             return NotFound();
+        }
+        [HttpPut]
+        [Route("ChangeGroup")]
+        public ActionResult ChangeGroup(SettlementUser body)
+        {
+            var entity = context.SettlementUsers.Where(x => x.Id == body.Id).FirstOrDefault();
+            entity.GroupId = body.GroupId;
+            context.SaveChanges();
+            return Ok();
         }
         [HttpGet]
         [Route("GetRole/")]

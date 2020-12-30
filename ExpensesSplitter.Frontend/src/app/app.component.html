@@ -13,13 +13,13 @@
         <a class="nav-link" routerLink="settlements/create">Nowe rozliczenie</a>
       </li>
       <li *ngIf="login == null" class="nav-item">
-        <a class="nav-link" routerLink="login">Login</a>
+        <a class="nav-link" routerLink="login">Zaloguj się</a>
       </li>
       <li *ngIf="login == null" class="nav-item">
-        <a class="nav-link" routerLink="register">Register</a>
+        <a class="nav-link" routerLink="register">Zarejestruj się</a>
       </li>
       <li *ngIf="login != null" class="nav-item">
-        <a class="nav-link" (click)="logOut()">Log out</a>
+        <a class="nav-link" (click)="logOut()">Wyloguj się</a>
       </li>
     </ul>
   </div>

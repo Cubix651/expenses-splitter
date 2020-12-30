@@ -1,18 +1,27 @@
-<p *ngIf="li != null">Name: {{li["name"]}}</p>
-<p *ngIf="li != null">Description: {{li["description"]}}</p>
+<h4 *ngIf="li != null">Nazwa: {{li["name"]}}</h4>
+<h4 *ngIf="li != null">Opis: {{li["description"]}}</h4>
 <p><a routerLink="./expenses">Expenses</a></p>
 <table class="table">
     <thead>
       <tr>
         <th scope="col">Użytkownik</th>
         <th scope="col">Grupa</th>
+        <th scope="col">Ile zapłacił</th>
+        <th scope="col" *ngIf="checkRole == 0">Edycja</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let user of this.users">
-        <td>{{user["name"]}}</td>
-        <td *ngIf="user['group'] == '00000000-0000-0000-0000-000000000000' ">Indywidualna</td>
-        <td *ngIf="checkRole == 0"><button class="btn btn-danger btn-sm" (click)="RemoveUserFromSettlement(user['id'])">Usuń</button></td>
+        <td><a routerLink="{{user['id']}}" >{{user["name"]}}</a></td>
+        <!--<td *ngIf="user['group'] == '00000000-0000-0000-0000-000000000000' ">Indywidualna</td>-->
+        <td><select class="form-control" id="group" *ngIf="checkRole == 0" (change)="onChangeGroup(user['settlementUserId'],$event.target.value)">
+          <option selected="selected">{{user['groupName']}}</option>
+          <option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</option>
+        </select>
+        <p *ngIf="checkRole != 0">{{user['groupName']}}</p>
+      </td>
+        <td>In Progress</td>
+        <td *ngIf="checkRole == 0 && user['role'] != 0"><button class="btn btn-danger btn-sm" (click)="RemoveUserFromSettlement(user['id'])">Usuń</button></td> 
       </tr>
     </tbody>
   </table>
@@ -30,8 +39,9 @@
   </div>
 
   <div *ngIf="checkRole == 0">
-    <a type="button" class="btn btn-success" (click)="hiddenChange()">Dodaj Użytkowników</a>
-    <a type="button" class="btn btn-success" (click)="hiddenGroupChange()">Dodaj Grupę</a>
-    <a type="button" class="btn btn-secondary ml-1" routerLink="../../..">Powrót</a>
+    <a type="button" class="btn btn-success" (click)="hiddenChange()">Dodaj Użytkowników </a>
+    <a type="button" class="btn btn-success" (click)="hiddenGroupChange()">Dodaj Grupę </a>
+    <a type="button" class="btn btn-secondary ml-1" routerLink="../../..">Powrót </a>
+    <a type="button" class="btn btn-danger">Zakończ rozliczenie</a>
   </div>
   

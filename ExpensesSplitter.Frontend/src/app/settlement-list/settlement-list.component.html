@@ -1,8 +1,20 @@
-<p>Owner</p>
-<ul id="settlement-list" *ngFor="let obj of this.li" >
-    <li  *ngIf="obj['idOwner'] == user"><a routerLink="{{obj['id']}}" >{{obj["name"]}}</a></li>
-</ul>
-<p>Participant</p>
-<ul id="settlement-list-owner"  *ngFor="let obj of this.li">
-    <li *ngIf="obj['idOwner'] != user || user == null"><a routerLink="{{obj['id']}}" >{{obj["name"]}}</a></li>
-</ul>
+<h2>Lista twoich rozliczeń</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Stworzone przez Ciebie</th>
+        <th scope="col">Uczestnik</th>
+        <th scope="col">Zakończone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td ><ul id="settlement-list" *ngFor="let obj of this.li" >
+            <li  *ngIf="obj['idOwner'] == user"><a routerLink="{{obj['id']}}" >{{obj["name"]}}</a></li>
+        </ul></td>
+        <td ><ul id="settlement-list-owner"  *ngFor="let obj of this.li">
+            <li *ngIf="obj['idOwner'] != user && user != null"><a routerLink="{{obj['id']}}" >{{obj["name"]}}</a></li>
+        </ul></td>
+      </tr>
+    </tbody>
+  </table>

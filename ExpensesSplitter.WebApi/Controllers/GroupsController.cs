@@ -21,7 +21,7 @@ namespace ExpensesSplitter.WebApi.Controllers
         }
         [HttpPost]
         [Route("add")]
-        public ActionResult<Group> AddUserToSettlement(Group body)
+        public ActionResult<Group> AddGroup(Group body)
         {
             context.Add(new Group
             {
@@ -30,6 +30,18 @@ namespace ExpensesSplitter.WebApi.Controllers
             });
             context.SaveChanges();
             return Ok();
+
+        }
+        [HttpGet]
+        [Route("get/")]
+        public ActionResult GetGroupsFromSettlement(string id)
+        {
+            var result = context.Groups.Where(x => x.SettlementId == id).ToList();
+            if(result.Count() != 0)
+            {
+                return Ok(result);
+            }
+            return NotFound();
 
         }
     }

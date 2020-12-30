@@ -1,6 +1,6 @@
 <form class="form-signin" #registerForm="ngForm" (ngSubmit)="register(registerForm)">
     <div class="container-fluid">
-        <h2 class="form-signin-heading">Register</h2>
+        <h2 class="form-signin-heading">Zarejestruj się</h2>
         <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password</div>
         <br>
         <label for="Login" class="sr-only">Login</label>
@@ -11,11 +11,11 @@
         <input type="email" id="email" name="email" [(ngModel)]="email" class="form-contol" placeholder="Email"
             required autofocus>
         <br>
-        <label for="Login" class="sr-only">Name</label>
+        <label for="Login" class="sr-only">Imię i nazwisko</label>
         <input type="name" id="name" name="name" [(ngModel)]="name" class="form-contol" placeholder="Name"
             required autofocus>
         <br>
-        <label for="Password" class="sr-only">Password</label>
+        <label for="Password" class="sr-only">Hasło</label>
         <input type="Password" id="Password" name="Password" [(ngModel)]="password" class="form-contol"
             placeholder="Password" required>
         <br>

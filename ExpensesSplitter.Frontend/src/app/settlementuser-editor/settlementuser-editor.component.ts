@@ -4,11 +4,12 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { SettlementUser } from '../models/settlement-user.model';
 
 @Component({
-  selector: 'app-expense-editor',
-  templateUrl: './expense-editor.component.html',
-  styleUrls: ['./expense-editor.component.scss']
+  selector: 'app-settlementuser-editor',
+  templateUrl: './settlementuser-editor.component.html',
+  styleUrls: ['./settlementuser-editor.component.scss']
 })
-export class ExpenseEditorComponent implements OnInit {
+export class SettlementUserEditorComponent implements OnInit {
+  @Output() id: string;
   @Input()
   set expense(value: NewExpense) {
     this.form = this.fb.group({
@@ -21,10 +22,10 @@ export class ExpenseEditorComponent implements OnInit {
 
   @Input()
   people: SettlementUser[] = [
+   // { id: '12345422-0000-0000-0000-000000000000', displayName: 'Inna'},
+   // { id: '00000000-0000-0000-0000-000000000000', displayName: 'Bezimienny'}
     { id: 'e06fb564-fb6e-41c9-f4fc-08d8a02a7366', displayName: 'Inna'},
     { id: 'e223b1a2-3c05-4fbf-17cf-08d8a0c77c8f', displayName: 'Bezimienny'}
-    //{ id: '12345422-0000-0000-0000-000000000000', displayName: 'Inna'},
-    //{ id: '00000000-0000-0000-0000-000000000000', displayName: 'Bezimienny'}
   ];
 
   get expense() : NewExpense {
@@ -38,6 +39,7 @@ export class ExpenseEditorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.id);
   }
 
   onChangeWhoPaid(newValue: string) {

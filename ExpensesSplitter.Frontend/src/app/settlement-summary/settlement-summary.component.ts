@@ -26,6 +26,7 @@ export class SettlementSummaryComponent implements OnInit {
   users:any;
   checkRole:any;
   role: role;
+  groups: any;
   userRole:{
     0:"Admin",
     1:"Watcher",
@@ -43,12 +44,18 @@ export class SettlementSummaryComponent implements OnInit {
       this.http.get(`${environment.apiUrl}/GetSettlementUsers?id=` + this.id) 
       .subscribe(Response => { 
       this.users=Response;
-      console.log
+      console.log(this.users)
     });  
     this.http.get(`${environment.apiUrl}/GetRole?user=` + localStorage.getItem("id") + "&settlement=" + this.id) 
     .subscribe(Response => { 
     this.checkRole=Response['roleId'];
   });  
+  this.http.get(`${environment.apiUrl}/group/get?id=` + this.id) 
+  .subscribe(Response => { 
+  this.groups=Response;
+  this.groups.push({id: "00000000-0000-0000-0000-000000000000", name: "Indywidualna"})
+  console.log(this.groups);
+  })
     }); 
 
   }
@@ -78,6 +85,14 @@ export class SettlementSummaryComponent implements OnInit {
   }
   hiddenGroupChange():void{
     this.hiddenGroup = !this.hiddenGroup;
+  }
+  onChangeGroup(id: any, newValue: any) {
+    console.log(id);
+    console.log(newValue);
+    this.http.put(`${environment.apiUrl}/ChangeGroup`, {Id: id, GroupId: newValue}) 
+    .subscribe(Response =>{
+      this.ngOnInit();
+    })
   }
 
 }

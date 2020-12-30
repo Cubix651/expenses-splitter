@@ -17,6 +17,7 @@ import { ExpenseListComponent } from './expense-list/expense-list.component';
 import { ExpenseEditorComponent } from './expense-editor/expense-editor.component';
 import { NewExpenseComponent } from './new-expense/new-expense.component';
 import { ExpenseDetailsComponent } from './expense-details/expense-details.component';
+import { SettlementUserEditorComponent } from './settlementuser-editor/settlementuser-editor.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ExpenseDetailsComponent } from './expense-details/expense-details.compo
     ExpenseListComponent,
     ExpenseEditorComponent,
     NewExpenseComponent,
-    ExpenseDetailsComponent
+    ExpenseDetailsComponent,
+    SettlementUserEditorComponent
   ],
   imports: [
     FormsModule,
