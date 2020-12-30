@@ -1,0 +1,26 @@
+<h4>Proponowane rozliczenie</h4>
+
+<div *ngIf="loadErrorOccurred" class="alert alert-danger" role="alert">
+  Wystąpił błąd podczas pobierania listy transakcji.
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Kto</th>
+      <th scope="col">Komu</th>
+      <th scope="col">Ile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of solutionTransactions; trackBy: trackById">
+      <td>{{ transaction.from.displayName }}</td>
+      <td>{{ transaction.to.displayName }}</td>
+      <td>{{ transaction.amount | number:'1.2-2' }}zł</td>
+    </tr>
+  </tbody>
+</table>
+
+<div>
+  <a type="button" class="btn btn-secondary" routerLink="..">Powrót</a>
+</div>
