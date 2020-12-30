@@ -19,4 +19,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ExpensesSplitter.WebApi\ExpensesSplitter.WebApi.csproj" />
+  </ItemGroup>
+
 </Project>
