@@ -13,6 +13,9 @@ namespace ExpensesSplitter.WebApi.Infrastructure
                 .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(
                     src => src.DisplayName ?? src.User.Name));
             CreateMap<Models.NewSettlementUser, Database.Models.SettlementUser>();
+            
+            CreateMap<Database.Models.Transaction, Models.Transaction>();
+            CreateMap<Models.NewTransaction, Database.Models.Transaction>();
         }   
     }
 }
