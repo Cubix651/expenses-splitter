@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ExpensesSplitter.WebApi.Models;
@@ -37,6 +38,7 @@ namespace ExpensesSplitter.WebApi.Providers
                 .ToList();
             var usersCount = settlementUsers.Count();
             var commonExpense = total / usersCount;
+            commonExpense = Math.Floor(commonExpense * 100) / 100;
             return settlementUsers
                 .Select(u => new UserBalance
                 {
