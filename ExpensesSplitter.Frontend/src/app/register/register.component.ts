@@ -22,14 +22,10 @@ export class Register implements OnInit {
     
     this.http.get('http://localhost:5000/api/GetUserId') 
     .subscribe(Response => { 
-  
-      // If response comes hideloader() function is called 
-      // to hide that loader  
       console.log(Response)
       Response +=''; 
       const id=Response; 
       console.log(Response);
-    //this.http.post("http://localhost:5000/api/register", {Id: id, Login: this.username, Password: this.password , Email: this.email, Name: this.name})
     this.http.post(`${environment.apiUrl}/register`,  {Id: id, Login: this.username, Password: this.password , Email: this.email, Name: this.name})  
     .subscribe(response=> {
       this.router.navigate(["/login"]);
@@ -40,7 +36,6 @@ export class Register implements OnInit {
     });
   }
   ngOnInit(): void {
-    console.log("Register");
   }
   }
 

@@ -65,12 +65,37 @@ namespace ExpensesSplitter.WebApi.Controllers
             List<SettlementUser> settlements = context.SettlementUsers.Where(x => x.SettlementId == id).ToList();
             var result = (from s in settlements
                          join u in context.Users on s.UserId equals u.Id
-                         select new { Id = u.Id, Name = u.Name, Email = u.Email, Login = u.Login, Group = s.GroupId, Role = s.RoleId}).ToList();
+                         join g in context.Groups on s.GroupId equals g.Id
+                         select new { Id = u.Id, Name = u.Name, Email = u.Email, Login = u.Login, Group = s.GroupId, GroupName = g.Name, Role = s.RoleId, SettlementUserId = s.Id}).ToList();
             if (result.Count != 0)
             {
                 return Ok(result);
             }
             return NotFound();
+        }
+        [HttpGet]
+        [Route("GetSettlementUsersWithoutAccount/")]
+        public ActionResult GetSettlementUsersWithoutAccount(string id)
+        {
+
+            List<SettlementUser> settlements = context.SettlementUsers.Where(x => x.SettlementId == id && (x.UserId == "0" || x.UserId == null)).ToList();
+            var result = (from s in settlements
+                          join g in context.Groups on s.GroupId equals g.Id
+                          select new {Name = s.DisplayName, Group = s.GroupId, GroupName = g.Name, Role = s.RoleId, SettlementUserId = s.Id }).ToList();
+            if (result.Count != 0)
+            {
+                return Ok(result);
+            }
+            return Ok();
+        }
+        [HttpPut]
+        [Route("ChangeGroup")]
+        public ActionResult ChangeGroup(SettlementUser body)
+        {
+            var entity = context.SettlementUsers.Where(x => x.Id == body.Id).FirstOrDefault();
+            entity.GroupId = body.GroupId;
+            context.SaveChanges();
+            return Ok();
         }
         [HttpGet]
         [Route("GetRole/")]
@@ -118,9 +143,9 @@ namespace ExpensesSplitter.WebApi.Controllers
         }
         [HttpDelete]
         [Route ("RemoveUserFromSettlement")]
-        public ActionResult RemoveUserFromSettlement(string settlementId, string userId)
+        public ActionResult RemoveUserFromSettlement(string settlementId, string userId, string displayName)
         {
-            var entity = context.SettlementUsers.Where(x => x.SettlementId == settlementId && x.UserId == userId).FirstOrDefault();
+            var entity = context.SettlementUsers.Where(x => x.SettlementId == settlementId &&( x.UserId == userId || x.DisplayName == displayName)).FirstOrDefault();
             context.SettlementUsers.Remove(entity);
             context.SaveChanges();
             return Ok();
@@ -146,7 +171,24 @@ namespace ExpensesSplitter.WebApi.Controllers
                 return Ok(settlementUser);
 
         }
-            
+        [HttpPost]
+        [Route("AddUserWithoutAccountToSettlement")]
+        public ActionResult<SettlementUser> AddUserWithoutAccountToSettlement(SettlementUser body)
+        {
+            var settlementUser = context.SettlementUsers;
+
+            context.Add(new SettlementUser
+            {
+
+                SettlementId = body.SettlementId,
+                DisplayName = body.DisplayName,
+                UserId = null,
+                RoleId = SettlementUser.Role.Watcher
+            });
+            context.SaveChanges();
+            return Ok(settlementUser);
+
+        }
         [NonAction]
         public int GetSettlementUserId()
         {

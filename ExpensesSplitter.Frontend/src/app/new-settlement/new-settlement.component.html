@@ -1,8 +1,8 @@
-<p>new-settlement works!</p>
-<div>
-Name: <input  [(ngModel)]="name">
+<h2>Stwórz nowe rozliczenie</h2>
+<div class="form-group">
+    <label for="name">Nazwa Rozliczenia</label><br>
+    <input type="text" [(ngModel)]="name"><br>
+    <label for="name">Opis Rozliczenia</label><br>
+    <input type="text" [(ngModel)]="description"><br>
+    <a type="button" class="btn btn-success" (click)="createSettlement()">Stwórz rozliczenie</a>
 </div>
-<div>
-Description: <input  [(ngModel)]="description">
-</div>
-<button (click)="createSettlement()">Stwórz</button>

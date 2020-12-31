@@ -17,6 +17,7 @@ import { ExpenseListComponent } from './expense-list/expense-list.component';
 import { ExpenseEditorComponent } from './expense-editor/expense-editor.component';
 import { NewExpenseComponent } from './new-expense/new-expense.component';
 import { ExpenseDetailsComponent } from './expense-details/expense-details.component';
+import { SettlementUserEditorComponent } from './settlementuser-editor/settlementuser-editor.component';
 import { BalancesComponent } from './balances/balances.component';
 import { SettlementSolutionComponent } from './settlement-solution/settlement-solution.component';
 
@@ -32,6 +33,7 @@ import { SettlementSolutionComponent } from './settlement-solution/settlement-so
     ExpenseEditorComponent,
     NewExpenseComponent,
     ExpenseDetailsComponent,
+    SettlementUserEditorComponent,
     BalancesComponent,
     SettlementSolutionComponent
   ],
