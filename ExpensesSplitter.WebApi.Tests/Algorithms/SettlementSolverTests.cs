@@ -115,6 +115,24 @@ namespace ExpensesSplitter.WebApi.Tests.Algorithms
             Assert.Contains(result, t => IsTransaction(t, "C", "E", 3));
             Assert.Contains(result, t => IsTransaction(t, "D", "E", 4));
         }
+        
+        [Fact]
+        public void Solve_WhenSumOfBalancesIsNotZero()
+        {
+            var balances = new[]
+            {
+                CreateUserBalance("A", 6.67M),
+                CreateUserBalance("B", -3.33M),
+                CreateUserBalance("C", -3.33M),
+            };
+            var solver = new SettlementSolver(balances);
+
+            var result = solver.Solve();
+            
+            Assert.Equal(2, result.Count);
+            Assert.Contains(result, t => IsTransaction(t, "B", "A", 3.33M));
+            Assert.Contains(result, t => IsTransaction(t, "C", "A", 3.33M));
+        }
 
         bool IsTransaction(SolutionTransaction t, string from, string to, decimal amount)
         {
