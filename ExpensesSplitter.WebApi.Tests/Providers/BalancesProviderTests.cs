@@ -12,6 +12,7 @@ namespace ExpensesSplitter.WebApi.Tests.Providers
     {
         private readonly IExpensesRepository _expensesRepository = Substitute.For<IExpensesRepository>();
         private readonly ISettlementUsersRepository _settlementUsersRepository = Substitute.For<ISettlementUsersRepository>();
+        private readonly ITransactionsRepository _transactionsRepository = Substitute.For<ITransactionsRepository>();
         private readonly ILogger<BalancesProvider> _logger = Substitute.For<ILogger<BalancesProvider>>();
         private readonly string _settlementId = "123";
         
@@ -72,7 +73,8 @@ namespace ExpensesSplitter.WebApi.Tests.Providers
             return new BalancesProvider(
                 _expensesRepository,
                 _settlementUsersRepository,
-                _logger
+                _logger,
+                _transactionsRepository
             );
         }
 
