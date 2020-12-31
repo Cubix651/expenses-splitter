@@ -78,7 +78,7 @@ namespace ExpensesSplitter.WebApi.Controllers
         public ActionResult GetSettlementUsersWithoutAccount(string id)
         {
 
-            List<SettlementUser> settlements = context.SettlementUsers.Where(x => x.SettlementId == id && x.UserId == "0").ToList();
+            List<SettlementUser> settlements = context.SettlementUsers.Where(x => x.SettlementId == id && (x.UserId == "0" || x.UserId == null)).ToList();
             var result = (from s in settlements
                           join g in context.Groups on s.GroupId equals g.Id
                           select new {Name = s.DisplayName, Group = s.GroupId, GroupName = g.Name, Role = s.RoleId, SettlementUserId = s.Id }).ToList();
@@ -86,7 +86,7 @@ namespace ExpensesSplitter.WebApi.Controllers
             {
                 return Ok(result);
             }
-            return NotFound();
+            return Ok();
         }
         [HttpPut]
         [Route("ChangeGroup")]
@@ -143,9 +143,9 @@ namespace ExpensesSplitter.WebApi.Controllers
         }
         [HttpDelete]
         [Route ("RemoveUserFromSettlement")]
-        public ActionResult RemoveUserFromSettlement(string settlementId, string userId)
+        public ActionResult RemoveUserFromSettlement(string settlementId, string userId, string displayName)
         {
-            var entity = context.SettlementUsers.Where(x => x.SettlementId == settlementId && x.UserId == userId).FirstOrDefault();
+            var entity = context.SettlementUsers.Where(x => x.SettlementId == settlementId &&( x.UserId == userId || x.DisplayName == displayName)).FirstOrDefault();
             context.SettlementUsers.Remove(entity);
             context.SaveChanges();
             return Ok();
@@ -182,7 +182,7 @@ namespace ExpensesSplitter.WebApi.Controllers
 
                 SettlementId = body.SettlementId,
                 DisplayName = body.DisplayName,
-                UserId = "0",
+                UserId = null,
                 RoleId = SettlementUser.Role.Watcher
             });
             context.SaveChanges();

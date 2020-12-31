@@ -15,22 +15,15 @@ export class SettlementListComponent implements OnInit {
 
   ngOnInit(): void {
     if(localStorage.getItem("id") != null){
-      //this.http.get('http://localhost:5000/api/GetAllSettlementsByUser?id=' + localStorage.getItem("id"))
       this.http.get(`${environment.apiUrl}/GetAllSettlementsByUserParticipant?id=` + localStorage.getItem("id"))  
       .subscribe(Response => { 
-        // If response comes hideloader() function is called 
-        // to hide that loader  
         this.li=Response; 
         this.lis=this.li.list; 
       }); 
     }
     else{
-    //this.http.get('http://localhost:5000/api/GetAllSettlements')
     this.http.get(`${environment.apiUrl}/GetAllSettlements`)  
     .subscribe(Response => { 
-  
-      // If response comes hideloader() function is called 
-      // to hide that loader  
       this.li=Response; 
       this.lis=this.li.list; 
     }); 

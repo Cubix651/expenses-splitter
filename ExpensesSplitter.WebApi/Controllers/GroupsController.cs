@@ -7,7 +7,7 @@ using ExpensesSplitter.WebApi.Database.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ExpensesSplitter.WebApi.Controllers
+namespace ExpensesSplitter.WebApi.Controllers 
 {
     [Route("api/group/")]
     [ApiController]
@@ -36,12 +36,19 @@ namespace ExpensesSplitter.WebApi.Controllers
         [Route("get/")]
         public ActionResult GetGroupsFromSettlement(string id)
         {
-            var result = context.Groups.Where(x => x.SettlementId == id).ToList();
-            if(result.Count() != 0)
+            try
             {
-                return Ok(result);
+                var result = context.Groups.Where(x => x.SettlementId == id).ToList();
+                if (result.Count() != 0)
+                {
+                    return Ok(result);
+                }
             }
-            return NotFound();
+            catch(Exception e)
+            {
+                Console.WriteLine($"The file was not found: '{e}'");
+            }
+            return Ok();
 
         }
     }

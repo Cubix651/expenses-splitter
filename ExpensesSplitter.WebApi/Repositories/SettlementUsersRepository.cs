@@ -47,6 +47,7 @@ namespace ExpensesSplitter.WebApi.Repositories
         {
             var entity = _mapper.Map<Database.Models.SettlementUser>(settlementUser);
             entity.SettlementId = settlementId;
+            entity.RoleId = Database.Models.SettlementUser.Role.Watcher;
             _context.SettlementUsers.Add(entity);
             _context.SaveChanges();
             return entity.Id;

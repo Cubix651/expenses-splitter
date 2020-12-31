@@ -22,7 +22,7 @@
         <p *ngIf="checkRole != 0">{{user['groupName']}}</p>
       </td>
         <td>In Progress</td>
-        <td *ngIf="checkRole == 0 && user['role'] != 0"><button class="btn btn-danger btn-sm" (click)="RemoveUserFromSettlement(user['id'])">Usuń</button></td> 
+        <td *ngIf="checkRole == 0 && user['role'] != 0"><button class="btn btn-danger btn-sm" (click)="RemoveUserFromSettlement(user['id'], user['name'])">Usuń</button></td> 
       </tr>
     </tbody>
   </table>
@@ -40,9 +40,9 @@
   </div>
 
   <div class="form-group" [hidden]="hiddenUser">
-    <label for="displayName">Nazwa Użytkownika bez konta</label>
-    <input type="text" [(ngModel)]="displayName">
-    <a type="button" class="btn btn-success" (click)="AddUserWithoutAccountToSettlement()">Dodaj</a>
+    <label for="settlementUser.displayName">Nazwa Użytkownika bez konta</label>
+    <input type="text" [(ngModel)]="settlementUser.displayName">
+    <a type="button" class="btn btn-success" (click)="addUser()">Dodaj</a>
   </div>
 
   <div *ngIf="checkRole == 0">
