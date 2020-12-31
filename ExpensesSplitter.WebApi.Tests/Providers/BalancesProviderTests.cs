@@ -67,6 +67,39 @@ namespace ExpensesSplitter.WebApi.Tests.Providers
                 item => Assert.Equal(-3.33M, item.Balance)
             );
         }
+        
+        [Fact]
+        public void GetBalances_WhenTransactionsExist()
+        {
+            var userA = CreateSettlementUser();
+            var userB = CreateSettlementUser();
+            var userC = CreateSettlementUser();
+            var users = new[] {userA, userB, userC};
+            _settlementUsersRepository.GetSettlementUsers(_settlementId)
+                .Returns(users);
+            var expenses = new[]
+            {
+                new Expense {WhoPaid = userA, Amount = 9}
+            };
+            _expensesRepository.GetExpenses(_settlementId)
+                .Returns(expenses);
+            var transactions = new[]
+            {
+                new Transaction { From = userB, To = userA, Amount = 2},
+                new Transaction { From = userC, To = userA, Amount = 1}
+            };
+            _transactionsRepository.GetTransactions(_settlementId)
+                .Returns(transactions);
+            var provider = CreateBalancesProvider();
+
+            var balances = provider.GetBalances(_settlementId);
+            
+            Assert.Collection(balances,
+                item => Assert.Equal(3M, item.Balance),
+                item => Assert.Equal(-1M, item.Balance),
+                item => Assert.Equal(-2M, item.Balance)
+            );
+        }
 
         BalancesProvider CreateBalancesProvider()
         {
