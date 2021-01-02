@@ -14,6 +14,5 @@ namespace ExpensesSplitter.WebApi.Database
         public DbSet<SettlementUser> SettlementUsers { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Expense> Expenses {get; set;}
-        public DbSet<Friend> Friends {get; set;}
     }
 }
