@@ -11,6 +11,7 @@ import { ExpenseDetailsComponent } from './expense-details/expense-details.compo
 import { SettlementUserEditorComponent } from './settlementuser-editor/settlementuser-editor.component';
 import { BalancesComponent } from './balances/balances.component';
 import { SettlementSolutionComponent } from './settlement-solution/settlement-solution.component';
+import { Friends } from './friends/friends.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,9 @@ const routes: Routes = [
   },
   {path:'login', children:[
     {path:'', pathMatch:'full', component: Login}
+  ]},
+  {path:'friends', children:[
+    {path:'', pathMatch:'full', component: Friends}
   ]},
   {path:'register', children:[
     {path:'', pathMatch:'full', component: Register}

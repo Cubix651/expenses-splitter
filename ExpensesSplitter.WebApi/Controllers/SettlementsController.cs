@@ -28,7 +28,7 @@ namespace ExpensesSplitter.WebApi.Controllers
             {
                 return Ok(settlements);
             }
-            return NotFound();
+            return Ok();
         }
         [HttpGet]
         [Route("GetAllSettlementsByUser/")]
@@ -40,7 +40,7 @@ namespace ExpensesSplitter.WebApi.Controllers
             {
                 return Ok(settlements);
             }
-            return NotFound();
+            return Ok();
         }
         [HttpGet]
         [Route("GetAllSettlementsByUserParticipant/")]
@@ -55,7 +55,7 @@ namespace ExpensesSplitter.WebApi.Controllers
             {
                 return Ok(result);
             }
-            return NotFound();
+            return Ok();
         }
         [HttpGet]
         [Route("GetSettlementUsers/")]
@@ -71,7 +71,7 @@ namespace ExpensesSplitter.WebApi.Controllers
             {
                 return Ok(result);
             }
-            return NotFound();
+            return Ok();
         }
         [HttpGet]
         [Route("GetSettlementUsersWithoutAccount/")]

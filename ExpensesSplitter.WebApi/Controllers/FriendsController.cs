@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpensesSplitter.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/friends/")]
     [ApiController]
     public class FriendsController : ControllerBase
     {
@@ -21,12 +21,13 @@ namespace ExpensesSplitter.WebApi.Controllers
         }
         [HttpPost]
         [Route("add")]
-        public ActionResult<Friend> FindFriend(string id, string name)
+        public ActionResult<Friend> FindFriend(Friend body)
         {
-            var entity = context.Users.Where(x => x.Name == name || x.Email == name).FirstOrDefault();
+            var entity = context.Users.Where(x => x.Login == body.Name || x.Email == body.Name).FirstOrDefault();
             context.Add(new Friend
             {
-                UserId = id,
+                UserId = body.UserId,
+                Name = body.Name,
                 FriendId = entity.Id
             });
             context.SaveChanges();
@@ -55,12 +56,13 @@ namespace ExpensesSplitter.WebApi.Controllers
             return Ok();
 
         }
-        [HttpGet]
+        [HttpDelete]
         [Route("remove/")]
-        public ActionResult GetFriends(string id, string friend)
+        public ActionResult RemoveFriends(string id, string friend)
         {
             var result = context.Friends.Where(x => x.UserId == id && x.FriendId == friend).FirstOrDefault();
             context.Friends.Remove(result);
+            context.SaveChanges();
             return Ok();
 
         }

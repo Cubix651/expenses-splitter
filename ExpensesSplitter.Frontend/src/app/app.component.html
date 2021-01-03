@@ -19,6 +19,9 @@
         <a class="nav-link" routerLink="register">Zarejestruj się</a>
       </li>
       <li *ngIf="login != null" class="nav-item">
+        <a class="nav-link" routerLink="friends">Znajomi</a>
+      </li>
+      <li *ngIf="login != null" class="nav-item">
         <a class="nav-link" (click)="logOut()">Wyloguj się</a>
       </li>
     </ul>

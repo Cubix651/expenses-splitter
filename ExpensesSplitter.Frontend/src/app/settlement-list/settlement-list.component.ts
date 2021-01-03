@@ -17,15 +17,19 @@ export class SettlementListComponent implements OnInit {
     if(localStorage.getItem("id") != null){
       this.http.get(`${environment.apiUrl}/GetAllSettlementsByUserParticipant?id=` + localStorage.getItem("id"))  
       .subscribe(Response => { 
+        if(Response != null){
         this.li=Response; 
-        this.lis=this.li.list; 
+        this.lis=this.li.list;
+        } 
       }); 
     }
     else{
     this.http.get(`${environment.apiUrl}/GetAllSettlements`)  
     .subscribe(Response => { 
+      if(Response != null){
       this.li=Response; 
-      this.lis=this.li.list; 
+      this.lis=this.li.list;
+    }  
     }); 
   }
   }}

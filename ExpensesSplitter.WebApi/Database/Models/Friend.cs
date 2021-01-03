@@ -9,15 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpensesSplitter.WebApi.Database.Models
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class Friend : ControllerBase
+    public class Friend
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
         public string UserId { get; set; }
         public string FriendId { get; set; }
+        public string Name { get; set; }
         public virtual User User { get; set; }
     }
 }
