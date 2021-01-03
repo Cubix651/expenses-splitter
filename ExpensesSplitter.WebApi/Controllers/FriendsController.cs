@@ -21,12 +21,13 @@ namespace ExpensesSplitter.WebApi.Controllers
         }
         [HttpPost]
         [Route("add")]
-        public ActionResult<Friend> AddFriend(Friend body)
+        public ActionResult<Friend> FindFriend(string id, string name)
         {
+            var entity = context.Users.Where(x => x.Name == name || x.Email == name).FirstOrDefault();
             context.Add(new Friend
             {
-                UserId = body.UserId,
-                FriendId = body.FriendId
+                UserId = id,
+                FriendId = entity.Id
             });
             context.SaveChanges();
             return Ok();
@@ -38,7 +39,10 @@ namespace ExpensesSplitter.WebApi.Controllers
         {
             try
             {
-                var result = context.Friends.Where(x => x.UserId == id).ToList();
+                List<Friend> friends = context.Friends.Where(x => x.UserId == id).ToList();
+                var result = (from f in friends
+                              join u in context.Users on f.FriendId equals u.Id                            
+                              select new { Id = u.Id, Name = u.Name, Email = u.Email, Login = u.Login }).ToList();
                 if (result.Count() != 0)
                 {
                     return Ok(result);
