@@ -11,6 +11,7 @@ import { ExpenseDetailsComponent } from './expense-details/expense-details.compo
 import { SettlementUserEditorComponent } from './settlementuser-editor/settlementuser-editor.component';
 import { BalancesComponent } from './balances/balances.component';
 import { SettlementSolutionComponent } from './settlement-solution/settlement-solution.component';
+import { TransactionListComponent } from './transaction-list/transaction-list.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,9 @@ const routes: Routes = [
         ]},
         { path: 'balances', component: BalancesComponent },
         { path: 'solution', component: SettlementSolutionComponent },
+        { path: 'transactions', children: [
+          { path: '', pathMatch: 'full', component: TransactionListComponent },
+        ]},
       ] },
     ]
   },

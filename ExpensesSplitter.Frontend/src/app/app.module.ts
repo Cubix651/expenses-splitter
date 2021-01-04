@@ -20,6 +20,7 @@ import { ExpenseDetailsComponent } from './expense-details/expense-details.compo
 import { SettlementUserEditorComponent } from './settlementuser-editor/settlementuser-editor.component';
 import { BalancesComponent } from './balances/balances.component';
 import { SettlementSolutionComponent } from './settlement-solution/settlement-solution.component';
+import { TransactionListComponent } from './transaction-list/transaction-list.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SettlementSolutionComponent } from './settlement-solution/settlement-so
     ExpenseDetailsComponent,
     SettlementUserEditorComponent,
     BalancesComponent,
-    SettlementSolutionComponent
+    SettlementSolutionComponent,
+    TransactionListComponent
   ],
   imports: [
     FormsModule,
