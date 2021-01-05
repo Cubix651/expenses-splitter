@@ -67,18 +67,20 @@ namespace ExpensesSplitter.WebApi.Controllers
                          join u in context.Users on s.UserId equals u.Id
                          join g in context.Groups on s.GroupId equals g.Id
                          select new { Id = u.Id, Name = u.Name, Email = u.Email, Login = u.Login, Group = s.GroupId, GroupName = g.Name, Role = s.RoleId, SettlementUserId = s.Id}).ToList();
+                         //select new { Id = u.Id, Name = u.Name, Email = u.Email, Login = u.Login, Group = s.GroupId, Role = s.RoleId, SettlementUserId = s.Id}).ToList();
             if (result.Count != 0)
             {
                 return Ok(result);
             }
             return Ok();
         }
+        
         [HttpGet]
         [Route("GetSettlementUsersWithoutAccount/")]
         public ActionResult GetSettlementUsersWithoutAccount(string id)
         {
 
-            List<SettlementUser> settlements = context.SettlementUsers.Where(x => x.SettlementId == id && (x.UserId == "0" || x.UserId == null)).ToList();
+            List<SettlementUser> settlements = context.SettlementUsers.Where(x => x.SettlementId == id && x.UserId == null).ToList();
             var result = (from s in settlements
                           join g in context.Groups on s.GroupId equals g.Id
                           select new {Name = s.DisplayName, Group = s.GroupId, GroupName = g.Name, Role = s.RoleId, SettlementUserId = s.Id }).ToList();
@@ -165,6 +167,7 @@ namespace ExpensesSplitter.WebApi.Controllers
                   
                     SettlementId = body.SettlementId,
                     UserId = user.Id,
+                    DisplayName = user.Name,
                     RoleId = SettlementUser.Role.Watcher
                 });
                 context.SaveChanges();
@@ -223,6 +226,7 @@ namespace ExpensesSplitter.WebApi.Controllers
                     SettlementId = settlement.Id,
                     UserId = settlement.IdOwner,
                     RoleId = SettlementUser.Role.Admin
+
                 });
                 context.SaveChanges();
                 return Ok(settlements);

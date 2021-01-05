@@ -29,6 +29,8 @@ export class SettlementSummaryComponent implements OnInit {
   hidden = true;
   hiddenUser = true;
   hiddenGroup= true;
+  friends:any;
+  friendsToAddList: any;
   groupName: any;
   displayName: any;
   name:any;
@@ -49,6 +51,7 @@ export class SettlementSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('settlementId');
+    this.friendsToAddList = this.friendsToAddList || [];
     this.http.get(`${environment.apiUrl}/GetSettlement?id=` + this.id)
     .subscribe(Response => { 
       this.li=Response; 
@@ -56,10 +59,12 @@ export class SettlementSummaryComponent implements OnInit {
       this.http.get(`${environment.apiUrl}/GetSettlementUsers?id=` + this.id) 
       .subscribe(Response => { 
       this.users=Response;
+      console.log(this.users);
       this.http.get(`${environment.apiUrl}/GetSettlementUsersWithoutAccount?id=` + this.id) 
       .subscribe(Response => { 
         if(Response != null){
       this.users= this.users.concat(Response);
+      //console.log(this.users);
         }
     }, error => {
       console.log(error);
@@ -69,15 +74,20 @@ export class SettlementSummaryComponent implements OnInit {
     .subscribe(Response => { 
     this.checkRole=Response['roleId'];
   });  
+  }); 
   this.http.get(`${environment.apiUrl}/group/get?id=` + this.id) 
   .subscribe(Response => { 
   if(Response != null){
-     this.groups=Response;
-     this.groups.push({id: "00000000-0000-0000-0000-000000000000", name: "Indywidualna"})
+ this.groups=Response;
+ this.groups.push({id: "00000000-0000-0000-0000-000000000000", name: "Indywidualna"})
+}
+});
+this.http.get(`${environment.apiUrl}/friends/get?id=` + localStorage.getItem("id"))
+.subscribe(Response => {
+  if(Response != null){
+  this.friends = Response;
   }
-  })
-    }); 
-
+});
   }
   AddUserToSettlement()
   {
@@ -134,5 +144,14 @@ export class SettlementSummaryComponent implements OnInit {
       this.ngOnInit();
     })
   }
-
+  addToList(person: any)
+  {
+    this.friendsToAddList.push(person);
+    console.log(this.friendsToAddList);
+  }
+  removeFromList(person: any)
+  {
+    this.friendsToAddList = this.friendsToAddList.filter(e => e !== person)
+    console.log(this.friendsToAddList);
+  }
 }
