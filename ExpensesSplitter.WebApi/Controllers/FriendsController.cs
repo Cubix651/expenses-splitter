@@ -21,7 +21,7 @@ namespace ExpensesSplitter.WebApi.Controllers
         }
         [HttpPost]
         [Route("add")]
-        public ActionResult<Friend> FindFriend(Friend body)
+        public ActionResult<Friend> AddFriend(Friend body)
         {
             var entity = context.Users.Where(x => x.Login == body.Name || x.Email == body.Name).FirstOrDefault();
             context.Add(new Friend
