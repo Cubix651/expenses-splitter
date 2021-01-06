@@ -52,6 +52,8 @@ export class SettlementSummaryComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('settlementId');
     this.friendsToAddList = this.friendsToAddList || [];
+    this.friends = this.friends || [];
+    var friendsTemp: any;
     this.http.get(`${environment.apiUrl}/GetSettlement?id=` + this.id)
     .subscribe(Response => { 
       this.li=Response; 
@@ -60,11 +62,29 @@ export class SettlementSummaryComponent implements OnInit {
       .subscribe(Response => { 
       this.users=Response;
       console.log(this.users);
+      this.http.get(`${environment.apiUrl}/friends/get?id=` + localStorage.getItem("id"))
+      .subscribe(Response => {
+      if(Response != null){
+      console.log(Response)
+      this.friends = Response;
+      this.friends.forEach(friend => {
+        this.users.forEach(user => {
+          console.log(user);
+          console.log(friend);
+          if(friend.id == user.id)
+          {
+            this.friends = this.friends.filter(e => e !== friend)
+            
+          }
+        });
+      });
+      }  
+      });
       this.http.get(`${environment.apiUrl}/GetSettlementUsersWithoutAccount?id=` + this.id) 
       .subscribe(Response => { 
         if(Response != null){
       this.users= this.users.concat(Response);
-      //console.log(this.users);
+      console.log(this.users);
         }
     }, error => {
       console.log(error);
@@ -82,12 +102,7 @@ export class SettlementSummaryComponent implements OnInit {
  this.groups.push({id: "00000000-0000-0000-0000-000000000000", name: "Indywidualna"})
 }
 });
-this.http.get(`${environment.apiUrl}/friends/get?id=` + localStorage.getItem("id"))
-.subscribe(Response => {
-  if(Response != null){
-  this.friends = Response;
-  }
-});
+
   }
   AddUserToSettlement()
   {
@@ -146,12 +161,46 @@ this.http.get(`${environment.apiUrl}/friends/get?id=` + localStorage.getItem("id
   }
   addToList(person: any)
   {
+    var settlementUser: any = {
+      displayName: person.login,
+      settlementId: this.id,
+      userId: person.id,
+    }
+    //this.friendsToAddList.push(person);
+    if(!this.friendsToAddList.some(e => e.id == person.id)){
+    //this.friendsToAddList.push({displayName: person.login, settlementId: this.id, userId: person.id, roleId: 1});
     this.friendsToAddList.push(person);
-    console.log(this.friendsToAddList);
+    //this.friendsToAddList.includes({displayName: person.login, settlementId: this.id, userId: person.id, roleId: 1, groupId: "00000000-0000-0000-0000-000000000000"});
+    }
+    //console.log(this.friendsToAddList.some(e => e.userId == person.id));
   }
   removeFromList(person: any)
   {
+    var settlementUser: any = {
+      displayName: person.login,
+      settlementId: this.id,
+      userId: person.id,
+    }
+    //this.removeAllElements(this.friendsToAddList, settlementUser)
+    //this.friendsToAddList = this.friendsToAddList.filter(e => e !== {displayName: person.login, settlementId: this.id, userId: person.id, roleId: 1})
     this.friendsToAddList = this.friendsToAddList.filter(e => e !== person)
     console.log(this.friendsToAddList);
+  }
+  addFriendsToSettlment(){
+    var settlementUsers = settlementUsers || [];
+    this.friendsToAddList.forEach(element => {
+      settlementUsers.push({
+        displayName: element.login,
+        settlementId: this.id,
+        userId: element.id
+      })
+    });
+    this.http.post(`${environment.apiUrl}/AddFriendsToSettlement` , settlementUsers) 
+    .subscribe(Response =>{
+      this.hiddenUser = !this.hiddenUser;
+      this.friendsToAddList = []
+      this.ngOnInit();
+    })
+    //console.log(settlementUsers);
   }
 }

@@ -175,6 +175,25 @@ namespace ExpensesSplitter.WebApi.Controllers
 
         }
         [HttpPost]
+        [Route("AddFriendsToSettlement")]
+        public ActionResult<SettlementUser> AddFriendsToSettlement(List<SettlementUser> body)
+        {
+            foreach (SettlementUser settlementUser in body)
+            {
+                context.Add(new SettlementUser
+                {
+
+                    SettlementId = settlementUser.SettlementId,
+                    UserId = settlementUser.UserId,
+                    DisplayName = settlementUser.DisplayName,
+                    RoleId = SettlementUser.Role.Watcher
+                });
+            }
+            context.SaveChanges();
+            return Ok();
+
+        }
+        [HttpPost]
         [Route("AddUserWithoutAccountToSettlement")]
         public ActionResult<SettlementUser> AddUserWithoutAccountToSettlement(SettlementUser body)
         {
