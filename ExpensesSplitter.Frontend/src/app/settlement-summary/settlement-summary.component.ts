@@ -29,6 +29,7 @@ export class SettlementSummaryComponent implements OnInit {
   hidden = true;
   hiddenUser = true;
   hiddenGroup= true;
+  hiddenIcon= "hidden";
   friends:any;
   friendsToAddList: any;
   groupName: any;
@@ -65,12 +66,9 @@ export class SettlementSummaryComponent implements OnInit {
       this.http.get(`${environment.apiUrl}/friends/get?id=` + localStorage.getItem("id"))
       .subscribe(Response => {
       if(Response != null){
-      console.log(Response)
       this.friends = Response;
       this.friends.forEach(friend => {
         this.users.forEach(user => {
-          console.log(user);
-          console.log(friend);
           if(friend.id == user.id)
           {
             this.friends = this.friends.filter(e => e !== friend)
@@ -84,7 +82,6 @@ export class SettlementSummaryComponent implements OnInit {
       .subscribe(Response => { 
         if(Response != null){
       this.users= this.users.concat(Response);
-      console.log(this.users);
         }
     }, error => {
       console.log(error);
@@ -161,30 +158,25 @@ export class SettlementSummaryComponent implements OnInit {
   }
   addToList(person: any)
   {
-    var settlementUser: any = {
-      displayName: person.login,
-      settlementId: this.id,
-      userId: person.id,
-    }
-    //this.friendsToAddList.push(person);
+    var icon = document.getElementById(person.id);
     if(!this.friendsToAddList.some(e => e.id == person.id)){
-    //this.friendsToAddList.push({displayName: person.login, settlementId: this.id, userId: person.id, roleId: 1});
+
     this.friendsToAddList.push(person);
-    //this.friendsToAddList.includes({displayName: person.login, settlementId: this.id, userId: person.id, roleId: 1, groupId: "00000000-0000-0000-0000-000000000000"});
+    document.getElementById("addFriendsButton").disabled = false;
+    icon.style.visibility="visible"
     }
-    //console.log(this.friendsToAddList.some(e => e.userId == person.id));
+    else{
+    this.friendsToAddList = this.friendsToAddList.filter(e => e !== person)
+    icon.style.visibility = "hidden";
+    if(this.friendsToAddList.length === 0)
+    {
+      document.getElementById("addFriendsButton").disabled = true;
+    }
+    }
   }
   removeFromList(person: any)
   {
-    var settlementUser: any = {
-      displayName: person.login,
-      settlementId: this.id,
-      userId: person.id,
-    }
-    //this.removeAllElements(this.friendsToAddList, settlementUser)
-    //this.friendsToAddList = this.friendsToAddList.filter(e => e !== {displayName: person.login, settlementId: this.id, userId: person.id, roleId: 1})
     this.friendsToAddList = this.friendsToAddList.filter(e => e !== person)
-    console.log(this.friendsToAddList);
   }
   addFriendsToSettlment(){
     var settlementUsers = settlementUsers || [];

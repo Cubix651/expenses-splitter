@@ -31,11 +31,28 @@
   <div class="form-group" [hidden]="hidden">
     <label for="name">Nazwa Użytkownika</label>
     <input type="text" [(ngModel)]="name">
-    <input type="text" name="friends" size="50" list="friends" multiple>
-    <datalist id="friends">
-      <option *ngFor="let friend of this.friends" [value]="friend.login">{{ friend.login }}</option>
-    </datalist>
     <a type="button" class="btn btn-success" [hidden]="hidden" (click)="AddUserToSettlement()">Dodaj</a>
+    <div class="container">
+      <div class="row">
+    <div class="friends col-sm">
+        <div class="card" style="width: 75%; margin-left: 15%;" *ngFor="let friend of this.friends">
+          <div class="card-body">
+            <h5 class="card-title">{{friend['name']}}</h5>
+            <p >{{friend['login']}}</p>
+            <a class="btn btn-primary stretched-link" (click)="addToList(friend)">Dodaj</a>
+            
+            <svg id="{{friend['id']}}" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16" style="float: right; color: green" visibility="hidden">
+              <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+              <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+      <button id="addFriendsButton" class="btn btn-primary" (click)="addFriendsToSettlment()" disabled>Dodaj Znajomych</button>
+    
+  
+  </div>
   </div>
 
   <div class="form-group" [hidden]="hiddenGroup">
@@ -48,28 +65,8 @@
     <label for="settlementUser.displayName">Nazwa Użytkownika bez konta</label>
     <input type="text" [(ngModel)]="settlementUser.displayName">
     <a type="button" class="btn btn-success" (click)="addUser()">Dodaj</a><br>
-    <div *ngIf="friendsToAddList != null" >
-      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;" *ngFor="let friend of this.friendsToAddList">
-        <label for="friend">{{friend['name']}}
-        <a class="icon" (click)="removeFromList(friend)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-x-fill" viewBox="0 0 16 16">
-          <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM6.854 6.146L8 7.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 8l1.147 1.146a.5.5 0 0 1-.708.708L8 8.707 6.854 9.854a.5.5 0 0 1-.708-.708L7.293 8 6.146 6.854a.5.5 0 1 1 .708-.708z"/>
-        </svg></a>
-      </label>
-      </div>
-     
-  </div>
-  <div class="border border-dark">
-      <div class="card" style="width: 18rem;" *ngFor="let friend of this.friends">
-        <div class="card-body">
-          <h5 class="card-title">{{friend['name']}}</h5>
-          <p >{{friend['login']}}</p>
-          <a class="btn btn-primary stretched-link" (click)="addToList(friend)">Dodaj</a>
-        </div>
-      </div>
-    </div>
-    <a class="btn btn-primary" (click)="addFriendsToSettlment()">Dodaj Znajomych</a>
-  </div>
 
+</div>
   <div *ngIf="checkRole == 0">
     <a type="button" class="btn btn-success" (click)="hiddenChange()">Dodaj Użytkowników </a>
     <a type="button" class="btn btn-success" (click)="hiddenUserChange()">Dodaj Użytkowników Bez Konta</a>
