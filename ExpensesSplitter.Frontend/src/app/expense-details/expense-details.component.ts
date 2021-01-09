@@ -38,6 +38,7 @@ export class ExpenseDetailsComponent implements OnInit {
         map<Expense, NewExpense>(e => ({
           ...e,
           whoPaidId: e.whoPaid.id,
+          participants: e.participants.map(p => p.id),
         }))
       )
       .subscribe({
