@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ExpensesService } from '../services/expenses.service';
 import { Expense } from '../models/expenses.model';
+import { SettlementUser } from '../models/settlement-user.model';
 
 @Component({
   selector: 'app-expense-list',
@@ -53,5 +54,23 @@ export class ExpenseListComponent implements OnInit {
 
   trackById(index: number, expense: Expense) {
     return expense.id;
+  }
+
+  participantsInfo(expense: Expense): string {
+    const participants = expense.participants;
+    if (participants == null || participants.length == 0) {
+      return "wszyscy";
+    } else {
+      return participants.length.toString();
+    }
+  }
+
+  participantsList(expense: Expense): string {
+    const participants = expense.participants;
+    if (participants == null || participants.length == 0) {
+      return null;
+    } else {
+      return participants.map(p => p.displayName).join(', ');
+    }
   }
 }
