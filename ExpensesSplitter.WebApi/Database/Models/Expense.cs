@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,5 +18,6 @@ namespace ExpensesSplitter.WebApi.Database.Models
         public virtual Settlement Settlement { get; set; }
         public Guid WhoPaidId { get; set;}
         public virtual SettlementUser WhoPaid { get; set;}
+        public virtual ICollection<ExpenseParticipation> Participations { get; set; }
     }
 }
