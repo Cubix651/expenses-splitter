@@ -7,6 +7,7 @@ namespace ExpensesSplitter.WebApi.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public DateTime DateTime { get; set; }
         public decimal Amount {get; set; }
         public Guid WhoPaidId { get; set; }
         public IReadOnlyList<Guid> Participants { get; set; }
