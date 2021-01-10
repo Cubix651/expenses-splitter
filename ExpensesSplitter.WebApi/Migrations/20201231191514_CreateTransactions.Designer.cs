@@ -4,14 +4,16 @@ using ExpensesSplitter.WebApi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpensesSplitter.WebApi.Migrations
 {
     [DbContext(typeof(ExpensesSplitterContext))]
-    partial class ExpensesSplitterContextModelSnapshot : ModelSnapshot
+    [Migration("20201231191514_CreateTransactions")]
+    partial class CreateTransactions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,21 +49,6 @@ namespace ExpensesSplitter.WebApi.Migrations
                     b.HasIndex("WhoPaidId");
 
                     b.ToTable("Expenses");
-                });
-
-            modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.ExpenseParticipation", b =>
-                {
-                    b.Property<Guid>("ExpenseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SettlementUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ExpenseId", "SettlementUserId");
-
-                    b.HasIndex("SettlementUserId");
-
-                    b.ToTable("ExpenseParticipations");
                 });
 
             modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Group", b =>
@@ -147,17 +134,12 @@ namespace ExpensesSplitter.WebApi.Migrations
                     b.Property<Guid>("FromId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("SettlementId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<Guid>("ToId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FromId");
-
-                    b.HasIndex("SettlementId");
 
                     b.HasIndex("ToId");
 
@@ -199,21 +181,6 @@ namespace ExpensesSplitter.WebApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.ExpenseParticipation", b =>
-                {
-                    b.HasOne("ExpensesSplitter.WebApi.Database.Models.Expense", "Expense")
-                        .WithMany("Participations")
-                        .HasForeignKey("ExpenseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ExpensesSplitter.WebApi.Database.Models.SettlementUser", "SettlementUser")
-                        .WithMany("Participations")
-                        .HasForeignKey("SettlementUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Group", b =>
                 {
                     b.HasOne("ExpensesSplitter.WebApi.Database.Models.Settlement", "Settlement")
@@ -242,10 +209,6 @@ namespace ExpensesSplitter.WebApi.Migrations
                         .HasForeignKey("FromId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ExpensesSplitter.WebApi.Database.Models.Settlement", "Settlement")
-                        .WithMany()
-                        .HasForeignKey("SettlementId");
 
                     b.HasOne("ExpensesSplitter.WebApi.Database.Models.SettlementUser", "To")
                         .WithMany()

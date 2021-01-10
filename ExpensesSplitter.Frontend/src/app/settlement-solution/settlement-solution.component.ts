@@ -2,20 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SolutionTransaction } from '../models/solution-transaction.model';
 import { SettlementSolutionService } from '../services/settlement-solution.service';
+import { TransactionsService } from '../services/transactions.service';
 
 @Component({
   selector: 'app-settlement-solution',
   templateUrl: './settlement-solution.component.html',
   styleUrls: ['./settlement-solution.component.scss'],
-  providers: [ SettlementSolutionService ]
+  providers: [
+    SettlementSolutionService,
+    TransactionsService,
+  ]
 })
 export class SettlementSolutionComponent implements OnInit {
   settlementId: string;
   loadErrorOccurred: boolean = false;
+  markAsPaidErrorOccurred: boolean = false;
   solutionTransactions: SolutionTransaction[];
 
   constructor(
     private readonly service: SettlementSolutionService,
+    private readonly transactionsService: TransactionsService,
     route: ActivatedRoute,
   ) {
     this.settlementId = route.snapshot.params.settlementId;
@@ -39,5 +45,21 @@ export class SettlementSolutionComponent implements OnInit {
 
   trackById(index: number, solutionTransaction: SolutionTransaction) {
     return solutionTransaction.from.id + solutionTransaction.to.id;
+  }
+
+  markAsPaid(solutionTransaction: SolutionTransaction) {
+    this.markAsPaidErrorOccurred = false;
+    this.transactionsService.addTransaction(this.settlementId, {
+      fromId: solutionTransaction.from.id,
+      toId: solutionTransaction.to.id,
+      amount: solutionTransaction.amount
+    })
+      .subscribe({
+        next: _ => this.fetchSolutionTransactions(),
+        error: error => {
+          console.error('Error during creating transaction', error);
+          this.markAsPaidErrorOccurred = true;
+        }
+      })
   }
 }
