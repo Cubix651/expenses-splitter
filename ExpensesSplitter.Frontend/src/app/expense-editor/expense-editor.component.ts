@@ -17,6 +17,8 @@ export class ExpenseEditorComponent implements OnInit {
     this.form = this.fb.group({
       name: [value.name],
       description: [value.description],
+      date: [new Date(value.dateTime)],
+      time: [new Date(value.dateTime)],
       amount: [value.amount],
       whoPaidId: [value.whoPaidId],
       splitBetweenAll: [splitBetweenAll],
@@ -46,8 +48,13 @@ export class ExpenseEditorComponent implements OnInit {
         .filter(p => this.participants.get(p.id).value)
         .map(p => p.id);
     }
+    const value = this.form.value;
+    const date: Date = value.date;
+    const time: Date = value.time
+    const dateTime = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes()));
     return {
-      ...this.form.value,
+      ...value,
+      dateTime: dateTime,
       participants: participants
     };
   }
