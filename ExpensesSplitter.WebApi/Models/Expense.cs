@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ExpensesSplitter.WebApi.Models
 {
@@ -9,5 +10,6 @@ namespace ExpensesSplitter.WebApi.Models
         public string Description { get; set; }
         public decimal Amount {get; set; }
         public SettlementUser WhoPaid {get; set;}
+        public IReadOnlyList<SettlementUser> Participants { get; set; }
     }
 }

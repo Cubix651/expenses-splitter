@@ -4,8 +4,10 @@ using System.Linq;
 using ExpensesSplitter.WebApi.Database;
 using ExpensesSplitter.WebApi.Models;
 using AutoMapper;
+using ExpensesSplitter.WebApi.Database.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Expense = ExpensesSplitter.WebApi.Models.Expense;
 
 namespace ExpensesSplitter.WebApi.Repositories
 {
@@ -36,9 +38,8 @@ namespace ExpensesSplitter.WebApi.Repositories
         public IEnumerable<Expense> GetExpenses(string settlementId)
         {
             var entities = _context.Expenses
-                .Where(e => e.SettlementId == settlementId)
-                .ToList();
-            return entities.Select(e => _mapper.Map<Expense>(e));
+                .Where(e => e.SettlementId == settlementId);
+            return _mapper.ProjectTo<Expense>(entities);
         }
 
         public Expense GetExpense(string settlementId, Guid expenseId)
@@ -51,19 +52,29 @@ namespace ExpensesSplitter.WebApi.Repositories
 
         public Guid CreateExpense(string settlementId, NewExpense expense)
         {
-            var entity = _mapper.Map<Database.Models.Expense>(expense);
-            entity.SettlementId = settlementId;
-            _context.Expenses.Add(entity);
+            var expenseEntity = _mapper.Map<Database.Models.Expense>(expense);
+            expenseEntity.SettlementId = settlementId;
+            _context.Expenses.Add(expenseEntity);
             _context.SaveChanges();
-            return entity.Id;
+            _context.ExpenseParticipations.AddRange(
+                expense.Participants.Select(userId => new ExpenseParticipation
+                {
+                    ExpenseId = expenseEntity.Id,
+                    SettlementUserId = userId
+                }));
+            _context.SaveChanges();
+            return expenseEntity.Id;
         }
 
         public void DeleteExpense(string settlementId, Guid expenseId)
         {
-            var entity = _context.Expenses
+            var expenseEntity = _context.Expenses
                 .Where(e => e.SettlementId == settlementId)
                 .First(e => e.Id == expenseId);
-            _context.Expenses.Remove(entity);
+            _context.Expenses.Remove(expenseEntity);
+            var expenseParticipationEntities = _context.ExpenseParticipations
+                .Where(p => p.ExpenseId == expenseId);
+            _context.ExpenseParticipations.RemoveRange(expenseParticipationEntities);
             _context.SaveChanges();
         }
 
@@ -73,6 +84,17 @@ namespace ExpensesSplitter.WebApi.Repositories
             entity.SettlementId = settlementId;
             entity.Id = expenseId;
             _context.Expenses.Update(entity);
+            _context.ExpenseParticipations.RemoveRange(
+                _context.ExpenseParticipations
+                    .Where(p => p.ExpenseId == expenseId)
+            );
+            _context.ExpenseParticipations.AddRange(
+                expense.Participants.Select(userId => new ExpenseParticipation
+                {
+                    ExpenseId = expenseId,
+                    SettlementUserId = userId
+                })
+            );
             _context.SaveChanges();
         }
     }

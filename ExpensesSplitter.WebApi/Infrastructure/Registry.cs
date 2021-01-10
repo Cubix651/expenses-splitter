@@ -12,6 +12,7 @@ namespace ExpensesSplitter.WebApi.Infrastructure
             services.AddScoped<ISettlementUsersRepository, SettlementUsersRepository>();
             services.AddScoped<IBalancesProvider, BalancesProvider>();
             services.AddScoped<ISettlementSolutionProvider, SettlementSolutionProvider>();
+            services.AddScoped<ITransactionsRepository, TransactionsRepository>();
             return services;
         }
     }

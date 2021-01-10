@@ -4,14 +4,16 @@ using ExpensesSplitter.WebApi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpensesSplitter.WebApi.Migrations
 {
     [DbContext(typeof(ExpensesSplitterContext))]
-    partial class ExpensesSplitterContextModelSnapshot : ModelSnapshot
+    [Migration("20210108203511_AddExpenseParticipants")]
+    partial class AddExpenseParticipants
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,26 +51,6 @@ namespace ExpensesSplitter.WebApi.Migrations
                     b.ToTable("Expenses");
                 });
 
-            modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Friend", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("FriendId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Friends");
             modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.ExpenseParticipation", b =>
                 {
                     b.Property<Guid>("ExpenseId")
@@ -219,11 +201,6 @@ namespace ExpensesSplitter.WebApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Friend", b =>
-                {
-                    b.HasOne("ExpensesSplitter.WebApi.Database.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
             modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.ExpenseParticipation", b =>
                 {
                     b.HasOne("ExpensesSplitter.WebApi.Database.Models.Expense", "Expense")
@@ -249,15 +226,6 @@ namespace ExpensesSplitter.WebApi.Migrations
             modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Settlement", b =>
                 {
                     b.HasOne("ExpensesSplitter.WebApi.Database.Models.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId");
-                });
-
-            modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.SettlementUser", b =>
-                {
-                    b.HasOne("ExpensesSplitter.WebApi.Database.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                         .WithMany()
                         .HasForeignKey("OwnerId");
                 });
