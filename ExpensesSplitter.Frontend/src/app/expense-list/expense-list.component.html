@@ -12,6 +12,7 @@
     <tr>
       <th scope="col">Nazwa</th>
       <th scope="col">Opis</th>
+      <th scope="col">Kiedy</th>
       <th scope="col">Kwota</th>
       <th scope="col">Kto płacił?</th>
       <th scope="col">Uczestnicy</th>
@@ -22,6 +23,7 @@
     <tr *ngFor="let expense of expenses; trackBy: trackById">
       <td><a [routerLink]="[expense.id]">{{ expense.name }}</a></td>
       <td>{{ expense.description | slice:0:100 }}</td>
+      <td>{{ expense.dateTime | date: 'dd-MM-yyyy H:mm'}}</td>
       <td>{{ expense.amount | number:'1.2-2' }}zł</td>
       <td>{{ expense.whoPaid.displayName }}</td>
       <td><span [tooltip]="participantsList(expense)">{{ participantsInfo(expense) }}</span></td>
