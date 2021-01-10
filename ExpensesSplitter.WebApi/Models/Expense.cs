@@ -8,6 +8,7 @@ namespace ExpensesSplitter.WebApi.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public DateTime DateTime { get; set; }
         public decimal Amount {get; set; }
         public SettlementUser WhoPaid {get; set;}
         public IReadOnlyList<SettlementUser> Participants { get; set; }

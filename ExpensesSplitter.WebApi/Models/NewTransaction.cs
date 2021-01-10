@@ -6,6 +6,7 @@ namespace ExpensesSplitter.WebApi.Models
     {
         public Guid FromId { get; set; }
         public Guid ToId { get; set; }
+        public DateTime DateTime { get; set; }
         public decimal Amount { get; set; }
     }
 }

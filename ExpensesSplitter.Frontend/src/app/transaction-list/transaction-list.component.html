@@ -12,6 +12,7 @@
     <tr>
       <th scope="col">Kto</th>
       <th scope="col">Komu</th>
+      <th scope="col">Kiedy</th>
       <th scope="col">Kwota</th>
       <th scope="col">Akcje</th>
     </tr>
@@ -20,6 +21,7 @@
     <tr *ngFor="let transaction of transactions; trackBy: trackById">
       <td>{{ transaction.from.displayName }}</td>
       <td>{{ transaction.to.displayName }}</td>
+      <td>{{ transaction.dateTime | date: 'dd-MM-yyyy H:mm'}}</td>
       <td>{{ transaction.amount | number:'1.2-2' }}zł</td>
       <td>
         <button class="btn btn-danger btn-sm" (click)="deleteTransaction(transaction.id)">Usuń</button>

@@ -36,8 +36,8 @@ namespace ExpensesSplitter.WebApi.Repositories
         {
             var entities = _context.Transactions
                 .Where(t => t.SettlementId == settlementId)
-                .ToList();
-            return entities.Select(t => _mapper.Map<Transaction>(t));
+                .OrderByDescending(t => t.DateTime);
+            return _mapper.ProjectTo<Transaction>(entities);
         }
 
         public Transaction GetTransaction(string settlementId, Guid transactionId)

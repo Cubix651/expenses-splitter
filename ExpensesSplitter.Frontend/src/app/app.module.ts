@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NewSettlementComponent } from './new-settlement/new-settlement.component';
@@ -48,6 +50,8 @@ import { TransactionListComponent } from './transaction-list/transaction-list.co
     HttpClientModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
     ModalModule.forRoot(),
   ],
   providers: [],

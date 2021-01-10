@@ -15,6 +15,7 @@ export class NewExpenseComponent implements OnInit {
   expense: NewExpense = {
     name: '',
     description: '',
+    dateTime: new Date(),
     amount: 0.0,
     whoPaidId: null,
     participants: [],
