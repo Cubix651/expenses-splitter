@@ -49,9 +49,12 @@ export class SettlementSolutionComponent implements OnInit {
 
   markAsPaid(solutionTransaction: SolutionTransaction) {
     this.markAsPaidErrorOccurred = false;
+    const now = new Date();
+    const nowUtc = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes()));
     this.transactionsService.addTransaction(this.settlementId, {
       fromId: solutionTransaction.from.id,
       toId: solutionTransaction.to.id,
+      dateTime: nowUtc,
       amount: solutionTransaction.amount
     })
       .subscribe({
