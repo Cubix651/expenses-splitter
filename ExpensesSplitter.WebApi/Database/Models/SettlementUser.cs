@@ -16,6 +16,7 @@ namespace ExpensesSplitter.WebApi.Database.Models
         public virtual User User { get; set; }
         public string SettlementId { get; set; }
         public string DisplayName { get; set; }
+        public virtual ICollection<ExpenseParticipation> Participations { get; set; }
         public enum Role { Admin, Watcher, Editor }
         public Role RoleId { get; set; }
         public Guid GroupId { get; set; }

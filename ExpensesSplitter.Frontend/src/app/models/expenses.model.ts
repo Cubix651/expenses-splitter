@@ -5,6 +5,7 @@ export interface NewExpense {
     description: string;
     amount: number;
     whoPaidId: string;
+    participants: string[];
 }
 
 export interface Expense {
@@ -13,4 +14,5 @@ export interface Expense {
     description: string;
     amount: number;
     whoPaid: SettlementUser;
+    participants: SettlementUser[];
 }
