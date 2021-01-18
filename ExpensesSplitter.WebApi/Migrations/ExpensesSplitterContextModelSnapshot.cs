@@ -49,28 +49,6 @@ namespace ExpensesSplitter.WebApi.Migrations
                     b.ToTable("Expenses");
                 });
 
-            modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Friend", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("FriendId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Friends");
-                });
-
             modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Group", b =>
                 {
                     b.Property<Guid>("Id")
@@ -104,12 +82,12 @@ namespace ExpensesSplitter.WebApi.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OwnerId")
+                    b.Property<string>("ownerId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("ownerId");
 
                     b.ToTable("Settlements");
                 });
@@ -133,11 +111,9 @@ namespace ExpensesSplitter.WebApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("SettlementUsers");
                 });
@@ -177,13 +153,6 @@ namespace ExpensesSplitter.WebApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Friend", b =>
-                {
-                    b.HasOne("ExpensesSplitter.WebApi.Database.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Group", b =>
                 {
                     b.HasOne("ExpensesSplitter.WebApi.Database.Models.Settlement", "Settlement")
@@ -193,16 +162,9 @@ namespace ExpensesSplitter.WebApi.Migrations
 
             modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.Settlement", b =>
                 {
-                    b.HasOne("ExpensesSplitter.WebApi.Database.Models.User", "Owner")
+                    b.HasOne("ExpensesSplitter.WebApi.Database.Models.User", "owner")
                         .WithMany()
-                        .HasForeignKey("OwnerId");
-                });
-
-            modelBuilder.Entity("ExpensesSplitter.WebApi.Database.Models.SettlementUser", b =>
-                {
-                    b.HasOne("ExpensesSplitter.WebApi.Database.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("ownerId");
                 });
 #pragma warning restore 612, 618
         }
