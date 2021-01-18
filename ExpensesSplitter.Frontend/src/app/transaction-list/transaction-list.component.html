@@ -1,0 +1,33 @@
+<h4>Lista transakcji</h4>
+
+<div *ngIf="loadErrorOccurred" class="alert alert-danger" role="alert">
+  Wystąpił błąd podczas pobierania informacji o transakcjach.
+</div>
+<div *ngIf="deleteErrorOccurred" class="alert alert-danger" role="alert">
+  Wystąpił błąd podczas usuwania transakcji.
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Kto</th>
+      <th scope="col">Komu</th>
+      <th scope="col">Kwota</th>
+      <th scope="col">Akcje</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of transactions; trackBy: trackById">
+      <td>{{ transaction.from.displayName }}</td>
+      <td>{{ transaction.to.displayName }}</td>
+      <td>{{ transaction.amount | number:'1.2-2' }}zł</td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="deleteTransaction(transaction.id)">Usuń</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div>
+  <a type="button" class="btn btn-secondary" routerLink="../../..">Powrót</a>
+</div>

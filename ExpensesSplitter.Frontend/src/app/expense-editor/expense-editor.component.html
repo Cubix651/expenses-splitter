@@ -18,5 +18,28 @@
         <option *ngFor="let person of people" [value]="person.id">{{ person.displayName }}</option>
       </select>
     </div>
+    <div class="form-group">
+      <label>Pomiędzy kogo podzielić?</label>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" formControlName="splitBetweenAll" id="splitBetween1" [value]="true">
+        <label class="form-check-label" for="splitBetween1">
+          Wszystkich
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" formControlName="splitBetweenAll" id="splitBetween2" [value]="false">
+        <label class="form-check-label" for="splitBetween2">
+          Wybranych
+        </label>
+      </div>
+      <div formGroupName="participants">
+        <div class="form-check" *ngFor="let person of people">
+          <input class="form-check-input" type="checkbox" value="" [id]="'checkbox_' + person.id" [formControlName]="person.id">
+          <label class="form-check-label" [for]="'checkbox_' + person.id">
+            {{ person.displayName }}
+          </label>
+        </div>
+      </div>
+    </div>
   </form>
 </div>
