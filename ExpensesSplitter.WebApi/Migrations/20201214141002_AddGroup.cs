@@ -1,13 +1,10 @@
 ﻿using System;
-using ExpensesSplitter.WebApi.Database;
-using ExpensesSplitter.WebApi.Database.Models;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ExpensesSplitter.WebApi.Migrations
 {
     public partial class AddGroup : Migration
     {
-       // private readonly ExpensesSplitterContext context;
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<Guid>(
@@ -39,11 +36,7 @@ namespace ExpensesSplitter.WebApi.Migrations
                 name: "IX_Groups_SettlementId",
                 table: "Groups",
                 column: "SettlementId");
-            //context.Groups.Add(new Group { Id = Guid.Parse("00000000-0000-0000-0000-000000000000"), Name = "Indywidualna", SettlementId = null });
-            //context.SaveChanges();
-
         }
-        
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
