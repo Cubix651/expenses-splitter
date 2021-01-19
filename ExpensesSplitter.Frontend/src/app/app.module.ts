@@ -23,6 +23,7 @@ import { SettlementUserEditorComponent } from './settlementuser-editor/settlemen
 import { BalancesComponent } from './balances/balances.component';
 import { SettlementSolutionComponent } from './settlement-solution/settlement-solution.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
+import { Friends } from './friends/friends.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { TransactionListComponent } from './transaction-list/transaction-list.co
     SettlementUserEditorComponent,
     BalancesComponent,
     SettlementSolutionComponent,
-    TransactionListComponent
+    TransactionListComponent,
+    Friends
   ],
   imports: [
     FormsModule,

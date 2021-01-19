@@ -1,0 +1,25 @@
+<p>Znajomi</p>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Użytkownik</th>
+        <th scope="col">Edycja</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="friends != null">
+      <tr *ngFor="let friend of this.friends">
+        <td>{{friend["name"]}}</td>
+        <td><button class="btn btn-danger btn-sm" (click)="RemoveFriend(friend['id'])">Usuń</button></td> 
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="form-group" [hidden]="hidden">
+    <label for="name">Wpisz nazwe użytkownika lub email znajomego</label>
+    <input type="text" [(ngModel)]="name">
+    <a type="button" class="btn btn-success" [hidden]="hidden" (click)="AddFriend()">Dodaj Znajomego</a>
+  </div>
+
+  <div>
+    <a type="button" class="btn btn-success" (click)="hiddenChange()">Dodaj Użytkowników </a>
+  </div>

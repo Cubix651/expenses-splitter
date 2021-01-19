@@ -23,12 +23,8 @@ export class Login implements OnInit {
       'Login': form.value.username,
       'Password': form.value.password
     }
-    //this.http.post("http://localhost:5000/api/login", {Login: this.username, Password: this.password })
     this.http.post(`${environment.apiUrl}/login`,  {Login: this.username, Password: this.password })  
     .subscribe(response=> {
-      //const token =(<any>response).token;
-      //localStorage.setItem("jwt",token);
-      console.log(response)
       localStorage.setItem("login", (<any>response).login);
       localStorage.setItem("id", (<any>response).id);
       this.invalidLogin = false;
@@ -39,7 +35,6 @@ export class Login implements OnInit {
       this.invalidLogin = true;
     }
     )
-    console.log(localStorage)
   }
   ngOnInit(): void {
     if(localStorage.getItem('login') != null)

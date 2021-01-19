@@ -29,6 +29,9 @@ export class SettlementSummaryComponent implements OnInit {
   hidden = true;
   hiddenUser = true;
   hiddenGroup= true;
+  hiddenIcon= "hidden";
+  friends:any;
+  friendsToAddList: any;
   groupName: any;
   displayName: any;
   name:any;
@@ -49,6 +52,9 @@ export class SettlementSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('settlementId');
+    this.friendsToAddList = this.friendsToAddList || [];
+    this.friends = this.friends || [];
+    var friendsTemp: any;
     this.http.get(`${environment.apiUrl}/GetSettlement?id=` + this.id)
     .subscribe(Response => { 
       this.li=Response; 
@@ -56,6 +62,22 @@ export class SettlementSummaryComponent implements OnInit {
       this.http.get(`${environment.apiUrl}/GetSettlementUsers?id=` + this.id) 
       .subscribe(Response => { 
       this.users=Response;
+      console.log(this.users);
+      this.http.get(`${environment.apiUrl}/friends/get?id=` + localStorage.getItem("id"))
+      .subscribe(Response => {
+      if(Response != null){
+      this.friends = Response;
+      this.friends.forEach(friend => {
+        this.users.forEach(user => {
+          if(friend.id == user.id)
+          {
+            this.friends = this.friends.filter(e => e !== friend)
+            
+          }
+        });
+      });
+      }  
+      });
       this.http.get(`${environment.apiUrl}/GetSettlementUsersWithoutAccount?id=` + this.id) 
       .subscribe(Response => { 
         if(Response != null){
@@ -69,14 +91,14 @@ export class SettlementSummaryComponent implements OnInit {
     .subscribe(Response => { 
     this.checkRole=Response['roleId'];
   });  
+  }); 
   this.http.get(`${environment.apiUrl}/group/get?id=` + this.id) 
   .subscribe(Response => { 
   if(Response != null){
-     this.groups=Response;
-     this.groups.push({id: "00000000-0000-0000-0000-000000000000", name: "Indywidualna"})
-  }
-  })
-    }); 
+ this.groups=Response;
+ this.groups.push({id: "00000000-0000-0000-0000-000000000000", name: "Indywidualna"})
+}
+});
 
   }
   AddUserToSettlement()
@@ -134,5 +156,43 @@ export class SettlementSummaryComponent implements OnInit {
       this.ngOnInit();
     })
   }
+  addToList(person: any)
+  {
+    var icon = document.getElementById(person.id);
+    if(!this.friendsToAddList.some(e => e.id == person.id)){
 
+    this.friendsToAddList.push(person);
+    document.getElementById("addFriendsButton").disabled = false;
+    icon.style.visibility="visible"
+    }
+    else{
+    this.friendsToAddList = this.friendsToAddList.filter(e => e !== person)
+    icon.style.visibility = "hidden";
+    if(this.friendsToAddList.length === 0)
+    {
+      document.getElementById("addFriendsButton").disabled = true;
+    }
+    }
+  }
+  removeFromList(person: any)
+  {
+    this.friendsToAddList = this.friendsToAddList.filter(e => e !== person)
+  }
+  addFriendsToSettlment(){
+    var settlementUsers = settlementUsers || [];
+    this.friendsToAddList.forEach(element => {
+      settlementUsers.push({
+        displayName: element.login,
+        settlementId: this.id,
+        userId: element.id
+      })
+    });
+    this.http.post(`${environment.apiUrl}/AddFriendsToSettlement` , settlementUsers) 
+    .subscribe(Response =>{
+      this.hiddenUser = !this.hiddenUser;
+      this.friendsToAddList = []
+      this.ngOnInit();
+    })
+    //console.log(settlementUsers);
+  }
 }
