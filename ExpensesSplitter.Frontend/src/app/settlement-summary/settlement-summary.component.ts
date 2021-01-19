@@ -87,11 +87,11 @@ export class SettlementSummaryComponent implements OnInit {
       console.log(error);
     });  
     });  
-    this.http.get(`${environment.apiUrl}/GetRole?user=` + localStorage.getItem("id") + "&settlement=" + this.id) 
-    .subscribe(Response => { 
-    this.checkRole=Response['roleId'];
-  });  
   }); 
+  this.http.get(`${environment.apiUrl}/GetRole?user=` + localStorage.getItem("id") + "&settlement=" + this.id) 
+  .subscribe(Response => { 
+  this.checkRole=Response['roleId'];
+});  
   this.http.get(`${environment.apiUrl}/group/get?id=` + this.id) 
   .subscribe(Response => { 
   if(Response != null){
