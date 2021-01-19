@@ -162,7 +162,7 @@ export class SettlementSummaryComponent implements OnInit {
     if(!this.friendsToAddList.some(e => e.id == person.id)){
 
     this.friendsToAddList.push(person);
-    document.getElementById("addFriendsButton").disabled = false;
+    (<HTMLInputElement> document.getElementById("addFriendsButton")).disabled = false;
     icon.style.visibility="visible"
     }
     else{
@@ -170,7 +170,7 @@ export class SettlementSummaryComponent implements OnInit {
     icon.style.visibility = "hidden";
     if(this.friendsToAddList.length === 0)
     {
-      document.getElementById("addFriendsButton").disabled = true;
+      (<HTMLInputElement> document.getElementById("addFriendsButton")).disabled = true;
     }
     }
   }
@@ -193,6 +193,5 @@ export class SettlementSummaryComponent implements OnInit {
       this.friendsToAddList = []
       this.ngOnInit();
     })
-    //console.log(settlementUsers);
   }
 }
