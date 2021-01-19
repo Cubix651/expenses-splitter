@@ -10,23 +10,25 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./register.component.scss']
 })
 export class Register implements OnInit {
+  private readonly apiUrl = environment.apiUrl;
+
   invalidLogin: boolean;
   username: string;
   password: string;
   email: string;
   name: string;
-  constructor(private http : HttpClient, private router: Router){ 
+  constructor(private http : HttpClient, private router: Router){
   }
 
   register(form: NgForm){
-    
-    this.http.get('http://localhost:5000/api/GetUserId') 
-    .subscribe(Response => { 
+
+    this.http.get(`${this.apiUrl}/GetUserId`)
+    .subscribe(Response => {
       console.log(Response)
-      Response +=''; 
-      const id=Response; 
+      Response +='';
+      const id=Response;
       console.log(Response);
-    this.http.post(`${environment.apiUrl}/register`,  {Id: id, Login: this.username, Password: this.password , Email: this.email, Name: this.name})  
+    this.http.post(`${this.apiUrl}/register`,  {Id: id, Login: this.username, Password: this.password , Email: this.email, Name: this.name})
     .subscribe(response=> {
       this.router.navigate(["/login"]);
     }, err => {
