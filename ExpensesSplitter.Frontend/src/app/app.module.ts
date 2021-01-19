@@ -38,7 +38,7 @@ import { Friends } from './friends/friends.component';
     SettlementUserEditorComponent,
     BalancesComponent,
     SettlementSolutionComponent,
-    TransactionListComponent
+    TransactionListComponent,
     Friends
   ],
   imports: [
