@@ -1,8 +1,10 @@
-<h2>Stwórz nowe rozliczenie</h2>
+<div class="login">
+<h2 class="center">Stwórz nowe rozliczenie</h2>
 <div class="form-group">
     <label for="name">Nazwa Rozliczenia</label><br>
-    <input type="text" [(ngModel)]="name"><br>
+    <input class="credentials" type="text" [(ngModel)]="name"><br>
     <label for="name">Opis Rozliczenia</label><br>
-    <input type="text" [(ngModel)]="description"><br>
-    <a type="button" class="btn btn-success" (click)="createSettlement()">Stwórz rozliczenie</a>
+    <input class="credentials" type="text" [(ngModel)]="description"><br>
+    <a type="button" class="btn btn-success submit" (click)="createSettlement()">Stwórz rozliczenie</a>
+</div>
 </div>
