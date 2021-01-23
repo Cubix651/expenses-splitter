@@ -104,10 +104,10 @@ namespace ExpensesSplitter.WebApi.Controllers
         public ActionResult GetRole(string user, string settlement)
         {
 
-            var role = context.SettlementUsers.Where(x => x.UserId == user && x.SettlementId == settlement).FirstOrDefault();
-            if (role != null)
+            var settlementUser = context.SettlementUsers.Where(x => x.UserId == user && x.SettlementId == settlement).FirstOrDefault();
+            if (settlementUser != null)
             {
-                return Ok(role);
+                return Ok(settlementUser.RoleId);
             }
             return NotFound();
         }
