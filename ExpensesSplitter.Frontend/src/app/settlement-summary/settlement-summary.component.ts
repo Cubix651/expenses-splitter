@@ -35,8 +35,8 @@ export class SettlementSummaryComponent implements OnInit {
   groupName: any;
   displayName: any;
   name:any;
-  li:any; 
-  lis=[]; 
+  li:any;
+  lis=[];
   userObject:any;
   users:any;
   checkRole:any;
@@ -47,7 +47,7 @@ export class SettlementSummaryComponent implements OnInit {
     1:"Watcher",
     2:"Editor"
   }
-  constructor(private http : HttpClient, private route: ActivatedRoute, private elem: ElementRef, private readonly service: SettlementUsersService){ 
+  constructor(private http : HttpClient, private route: ActivatedRoute, private elem: ElementRef, private readonly service: SettlementUsersService){
   }
 
   ngOnInit(): void {
@@ -56,11 +56,11 @@ export class SettlementSummaryComponent implements OnInit {
     this.friends = this.friends || [];
     var friendsTemp: any;
     this.http.get(`${environment.apiUrl}/GetSettlement?id=` + this.id)
-    .subscribe(Response => { 
-      this.li=Response; 
+    .subscribe(Response => {
+      this.li=Response;
       this.lis=this.li.list;
-      this.http.get(`${environment.apiUrl}/GetSettlementUsers?id=` + this.id) 
-      .subscribe(Response => { 
+      this.http.get(`${environment.apiUrl}/GetSettlementUsers?id=` + this.id)
+      .subscribe(Response => {
       this.users=Response;
       console.log(this.users);
       this.http.get(`${environment.apiUrl}/friends/get?id=` + localStorage.getItem("id"))
@@ -72,28 +72,28 @@ export class SettlementSummaryComponent implements OnInit {
           if(friend.id == user.id)
           {
             this.friends = this.friends.filter(e => e !== friend)
-            
+
           }
         });
       });
-      }  
+      }
       });
-      this.http.get(`${environment.apiUrl}/GetSettlementUsersWithoutAccount?id=` + this.id) 
-      .subscribe(Response => { 
+      this.http.get(`${environment.apiUrl}/GetSettlementUsersWithoutAccount?id=` + this.id)
+      .subscribe(Response => {
         if(Response != null){
       this.users= this.users.concat(Response);
         }
     }, error => {
       console.log(error);
-    });  
-    });  
-  }); 
-  this.http.get(`${environment.apiUrl}/GetRole?user=` + localStorage.getItem("id") + "&settlement=" + this.id) 
-  .subscribe(Response => { 
-  this.checkRole=Response['roleId'];
-});  
-  this.http.get(`${environment.apiUrl}/group/get?id=` + this.id) 
-  .subscribe(Response => { 
+    });
+    });
+  });
+  this.http.get(`${environment.apiUrl}/GetRole?user=` + localStorage.getItem("id") + "&settlement=" + this.id)
+  .subscribe(Response => {
+  this.checkRole=Response;
+});
+  this.http.get(`${environment.apiUrl}/group/get?id=` + this.id)
+  .subscribe(Response => {
   if(Response != null){
  this.groups=Response;
  this.groups.push({id: "00000000-0000-0000-0000-000000000000", name: "Indywidualna"})
@@ -103,7 +103,7 @@ export class SettlementSummaryComponent implements OnInit {
   }
   AddUserToSettlement()
   {
-    this.http.post(`${environment.apiUrl}/AddUserToSettlement` , {UserId: this.name, SettlementId: this.id}) 
+    this.http.post(`${environment.apiUrl}/AddUserToSettlement` , {UserId: this.name, SettlementId: this.id})
     .subscribe(Response =>{
       this.hidden = !this.hidden;
       this.ngOnInit();
@@ -111,7 +111,7 @@ export class SettlementSummaryComponent implements OnInit {
   }
   AddUserWithoutAccountToSettlement()
   {
-    this.http.post(`${environment.apiUrl}/AddUserWithoutAccountToSettlement` , {DisplayName: this.displayName, SettlementId: this.id}) 
+    this.http.post(`${environment.apiUrl}/AddUserWithoutAccountToSettlement` , {DisplayName: this.displayName, SettlementId: this.id})
     .subscribe(Response =>{
       this.hiddenUser = !this.hiddenUser;
       this.ngOnInit();
@@ -128,7 +128,7 @@ export class SettlementSummaryComponent implements OnInit {
 
   AddGroup()
   {
-    this.http.post(`${environment.apiUrl}/group/add` , {Name: this.groupName, SettlementId: this.id}) 
+    this.http.post(`${environment.apiUrl}/group/add` , {Name: this.groupName, SettlementId: this.id})
     .subscribe(Response =>{
       this.hiddenGroup = !this.hiddenGroup;
       this.ngOnInit();
@@ -136,7 +136,7 @@ export class SettlementSummaryComponent implements OnInit {
   }
   RemoveUserFromSettlement(user: any, display: any)
   {
-    this.http.delete(`${environment.apiUrl}/RemoveUserFromSettlement?settlementId=` + this.id + "&userId=" +  user + "&displayname=" + display) 
+    this.http.delete(`${environment.apiUrl}/RemoveUserFromSettlement?settlementId=` + this.id + "&userId=" +  user + "&displayname=" + display)
     .subscribe(Response =>{
       this.ngOnInit();
     })
@@ -151,7 +151,7 @@ export class SettlementSummaryComponent implements OnInit {
     this.hiddenGroup = !this.hiddenGroup;
   }
   onChangeGroup(id: any, newValue: any) {
-    this.http.put(`${environment.apiUrl}/ChangeGroup`, {Id: id, GroupId: newValue}) 
+    this.http.put(`${environment.apiUrl}/ChangeGroup`, {Id: id, GroupId: newValue})
     .subscribe(Response =>{
       this.ngOnInit();
     })
@@ -187,7 +187,7 @@ export class SettlementSummaryComponent implements OnInit {
         userId: element.id
       })
     });
-    this.http.post(`${environment.apiUrl}/AddFriendsToSettlement` , settlementUsers) 
+    this.http.post(`${environment.apiUrl}/AddFriendsToSettlement` , settlementUsers)
     .subscribe(Response =>{
       this.hiddenUser = !this.hiddenUser;
       this.friendsToAddList = []
