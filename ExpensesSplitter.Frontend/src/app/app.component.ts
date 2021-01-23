@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'expenses-splitter';
+  isMenuCollapsed = true;
   login = localStorage.getItem('login');
   constructor(private router: Router){
   }
