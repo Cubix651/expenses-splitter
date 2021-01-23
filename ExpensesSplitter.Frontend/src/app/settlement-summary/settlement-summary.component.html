@@ -1,15 +1,17 @@
-<p *ngIf="li != null">Nazwa: {{li["name"]}}</p>
-<p *ngIf="li != null">Opis: {{li["description"]}}</p>
-<p><a routerLink="./expenses">Lista wydatków</a></p>
-<p><a routerLink="./transactions">Lista transakcji</a></p>
-<p><a routerLink="./balances">Bilans</a></p>
-<p><a routerLink="./solution">Propnowane rozliczenie</a></p>
-<table class="table">
+<h4 *ngIf="li != null">{{li["name"]}}</h4>
+<p *ngIf="li != null">{{li["description"]}}</p>
+<ul>
+  <li><a routerLink="./expenses">Lista wydatków</a></li>
+  <li><a routerLink="./transactions">Lista transakcji</a></li>
+  <li><a routerLink="./balances">Bilans</a></li>
+  <li><a routerLink="./solution">Propnowane rozliczenie</a></li>
+</ul>
+<div class="table-responsive">
+  <table class="table">
     <thead>
       <tr>
         <th scope="col">Użytkownik</th>
         <th scope="col">Grupa</th>
-        <th scope="col">Ile zapłacił</th>
         <th scope="col" *ngIf="checkRole == 0">Edycja</th>
       </tr>
     </thead>
@@ -23,11 +25,11 @@
         </select>
         <p *ngIf="checkRole != 0">{{user['groupName']}}</p>
       </td>
-        <td>In Progress</td>
-        <td *ngIf="checkRole == 0 && user['role'] != 0"><button class="btn btn-danger btn-sm" (click)="RemoveUserFromSettlement(user['id'], user['name'])">Usuń</button></td> 
+        <td *ngIf="checkRole == 0 && user['role'] != 0"><button class="btn btn-danger btn-sm" (click)="RemoveUserFromSettlement(user['id'], user['name'])">Usuń</button></td>
       </tr>
     </tbody>
   </table>
+</div>
 
   <div class="form-group" [hidden]="hidden">
     <label for="name">Nazwa Użytkownika</label>
@@ -41,7 +43,7 @@
             <h5 class="card-title">{{friend['name']}}</h5>
             <p >{{friend['login']}}</p>
             <a class="btn btn-primary stretched-link" (click)="addToList(friend)">Dodaj</a>
-            
+
             <svg id="{{friend['id']}}" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16" style="float: right; color: green" visibility="hidden">
               <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
               <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
@@ -51,8 +53,8 @@
       </div>
     </div>
       <button id="addFriendsButton" class="btn btn-primary" (click)="addFriendsToSettlment()" disabled>Dodaj Znajomych</button>
-    
-  
+
+
   </div>
   </div>
 
