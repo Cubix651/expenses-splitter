@@ -7,26 +7,28 @@
   Wystąpił błąd podczas tworzenia opłaconej transakcji.
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Kto</th>
-      <th scope="col">Komu</th>
-      <th scope="col">Ile</th>
-      <th scope="col">Akcje</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let transaction of solutionTransactions; trackBy: trackById">
-      <td>{{ transaction.from.displayName }}</td>
-      <td>{{ transaction.to.displayName }}</td>
-      <td>{{ transaction.amount | number:'1.2-2' }}zł</td>
-      <td>
-        <button class="btn btn-success btn-sm" (click)="markAsPaid(transaction)">Oznacz jako opłacona</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Kto</th>
+        <th scope="col">Komu</th>
+        <th scope="col">Ile</th>
+        <th scope="col">Akcje</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of solutionTransactions; trackBy: trackById">
+        <td>{{ transaction.from.displayName }}</td>
+        <td>{{ transaction.to.displayName }}</td>
+        <td>{{ transaction.amount | number:'1.2-2' }}zł</td>
+        <td>
+          <button class="btn btn-success btn-sm" (click)="markAsPaid(transaction)">Oznacz jako opłacona</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <div>
   <a type="button" class="btn btn-secondary" routerLink="..">Powrót</a>
