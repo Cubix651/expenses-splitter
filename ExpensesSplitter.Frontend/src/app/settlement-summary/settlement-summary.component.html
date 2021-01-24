@@ -4,7 +4,7 @@
   <li><a routerLink="./expenses">Lista wydatków</a></li>
   <li><a routerLink="./transactions">Lista transakcji</a></li>
   <li><a routerLink="./balances">Bilans</a></li>
-  <li><a routerLink="./solution">Propnowane rozliczenie</a></li>
+  <li><a routerLink="./solution">Proponowane rozliczenie</a></li>
 </ul>
 <div class="table-responsive">
   <table class="table">
@@ -69,10 +69,12 @@
     <a type="button" class="btn btn-success" (click)="addUser()">Dodaj</a><br>
 
 </div>
-  <div *ngIf="checkRole == 0">
-    <a type="button" class="btn btn-success mr-1" (click)="hiddenChange()">Dodaj Użytkowników </a>
-    <a type="button" class="btn btn-success mr-1 mt-1" (click)="hiddenUserChange()">Dodaj Użytkowników Bez Konta</a>
-    <a type="button" class="btn btn-success mr-1 mt-1" (click)="hiddenGroupChange()">Dodaj Grupę </a>
-    <a type="button" class="btn btn-secondary mt-1" routerLink="../../..">Powrót </a>
-  </div>
+<div>
+  <ng-container *ngIf="checkRole == 0">
+    <a type="button" class="btn btn-success mr-1 mb-1" (click)="hiddenChange()">Dodaj Użytkowników </a>
+    <a type="button" class="btn btn-success mr-1 mb-1" (click)="hiddenUserChange()">Dodaj Użytkowników Bez Konta</a>
+    <a type="button" class="btn btn-success mr-1 mb-1" (click)="hiddenGroupChange()">Dodaj Grupę </a>
+  </ng-container>
+  <a type="button" class="btn btn-secondary mr-1 mb-1" routerLink="../../..">Powrót </a>
+</div>
 
