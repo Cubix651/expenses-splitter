@@ -16,8 +16,8 @@
       <tr *ngFor="let user of this.users">
         <td><a routerLink="{{user['id']}}" >{{user["name"]}}</a></td>
         <td><select class="form-control" id="group" *ngIf="checkRole == 0" (change)="onChangeGroup(user['settlementUserId'],$event.target.value)">
-          <option selected="selected">{{user['groupName']}}</option>
-          <option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</option>
+          <option *ngIf="groups == null" selected="selected">{{user['groupName']}}</option>
+          <option *ngFor="let group of groups" [value]="group.id" [selected]="group.name == user['groupName']">{{ group.name }}</option>
         </select>
         <p *ngIf="checkRole != 0">{{user['groupName']}}</p>
       </td>
