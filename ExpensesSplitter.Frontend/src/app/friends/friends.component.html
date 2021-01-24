@@ -1,5 +1,6 @@
-<p>Znajomi</p>
-<table class="table">
+<h4>Znajomi</h4>
+<div class="table-responsive">
+  <table class="table">
     <thead>
       <tr>
         <th scope="col">Użytkownik</th>
@@ -9,10 +10,11 @@
     <tbody *ngIf="friends != null">
       <tr *ngFor="let friend of this.friends">
         <td>{{friend["name"]}}</td>
-        <td><button class="btn btn-danger btn-sm" (click)="RemoveFriend(friend['id'])">Usuń</button></td> 
+        <td><button class="btn btn-danger btn-sm" (click)="RemoveFriend(friend['id'])">Usuń</button></td>
       </tr>
     </tbody>
   </table>
+</div>
 
   <div class="form-group" [hidden]="hidden">
     <label for="name">Wpisz nazwe użytkownika lub email znajomego</label>
