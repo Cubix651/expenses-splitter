@@ -16,6 +16,9 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="settlements/create">Nowe rozliczenie</a>
       </li>
+
+    </ul>
+    <ul class="navbar-nav justify-content-end">
       <li *ngIf="login == null" class="nav-item">
         <a class="nav-link" routerLink="login">Zaloguj się</a>
       </li>
@@ -26,7 +29,7 @@
         <a class="nav-link" routerLink="friends">Znajomi</a>
       </li>
       <li *ngIf="login != null" class="nav-item">
-        <a class="nav-link" (click)="logOut()">Wyloguj się</a>
+        <a class="nav-link" href="#" (click)="logOut()">Wyloguj się</a>
       </li>
     </ul>
   </div>

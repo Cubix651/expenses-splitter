@@ -1,24 +1,26 @@
+<div class="login center">
 <form class="form-signin" #registerForm="ngForm" (ngSubmit)="register(registerForm)">
     <div class="container-fluid">
         <h2 class="form-signin-heading">Zarejestruj się</h2>
         <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password</div>
         <br>
-        <label for="Login" class="sr-only">Login</label>
-        <input type="email" id="Login" name="Login" [(ngModel)]="username" class="form-contol" placeholder="User Name"
-            required autofocus>
-        <br>
-        <label for="Login" class="sr-only">Email</label>
-        <input type="email" id="email" name="email" [(ngModel)]="email" class="form-contol" placeholder="Email"
-            required autofocus>
-        <br>
-        <label for="Login" class="sr-only">Imię i nazwisko</label>
-        <input type="name" id="name" name="name" [(ngModel)]="name" class="form-contol" placeholder="Name"
-            required autofocus>
-        <br>
-        <label for="Password" class="sr-only">Hasło</label>
-        <input type="Password" id="Password" name="Password" [(ngModel)]="password" class="form-contol"
-            placeholder="Password" required>
-        <br>
-        <button class="btn bth-lg btn-primary btn-block" type="submit">Submit</button>
+        <div class="form-group">
+            <label for="Login">Login</label>
+            <input type="Login" class="form-control" id="Login" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="Login" required autofocus>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+            <label for="Login">Imię i nazwisko</label>
+            <input type="Login" class="form-control" id="Login" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Imię i Nazwisko" required autofocus>
+        </div>
+        <div class="form-group">
+            <label for="Password">Hasło</label>
+            <input type="Password" class="form-control" id="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Hasło" required>
+        </div>
+        <button class="btn bth-lg btn-success btn-block" type="submit">Zarejestruj</button>
     </div>
 </form>
+</div>
