@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./friends.component.scss']
 })
 export class Friends implements OnInit {
+  invalidLogin: boolean;
   friends:any;
   name: any;
   friendId: any;
@@ -30,8 +31,11 @@ export class Friends implements OnInit {
     this.http.post(`${environment.apiUrl}/friends/add` , {userId: localStorage.getItem("id"), name: this.name})
     //this.http.get(`${environment.apiUrl}/friends/add?id=` + localStorage.getItem("id") + "&name=" + this.name)  
     .subscribe(Response =>{
+      this.invalidLogin = false;
       this.hidden = !this.hidden;
       this.ngOnInit();
+    }, err => {
+      this.invalidLogin = true;
     })
   }
   RemoveFriend(friend: any)

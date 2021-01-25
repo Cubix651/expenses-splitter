@@ -26,6 +26,7 @@ export class SettlementSummaryComponent implements OnInit {
     roleId: role.Watcher,
     groupId: "00000000-0000-0000-0000-000000000000"
   }
+  invalidLogin: boolean
   hidden = true;
   hiddenUser = true;
   hiddenGroup= true;
@@ -107,6 +108,8 @@ export class SettlementSummaryComponent implements OnInit {
     .subscribe(Response =>{
       this.hidden = !this.hidden;
       this.ngOnInit();
+    }, err => {
+      this.invalidLogin = true;
     })
   }
   AddUserWithoutAccountToSettlement()
