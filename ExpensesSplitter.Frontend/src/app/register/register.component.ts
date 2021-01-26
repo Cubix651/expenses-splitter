@@ -17,11 +17,16 @@ export class Register implements OnInit {
   password: string;
   email: string;
   name: string;
+  
   constructor(private http : HttpClient, private router: Router){
   }
 
   register(form: NgForm){
 
+    if(!this.username || !this.email || !this.password || !this.name){
+      this.invalidLogin = true;
+    }
+    else{
     this.http.get(`${this.apiUrl}/GetUserId`)
     .subscribe(Response => {
       console.log(Response)
@@ -36,6 +41,7 @@ export class Register implements OnInit {
     }
     )
     });
+  }
   }
   ngOnInit(): void {
   }

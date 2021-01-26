@@ -32,6 +32,7 @@
 
   <div class="form-group" [hidden]="hidden">
     <label for="name">Nazwa Użytkownika</label>
+    <div *ngIf="invalidLogin" class="alert alert-danger">Nie znaleziono użytkownika</div>
     <input type="text" [(ngModel)]="name">
     <a type="button" class="btn btn-success" [hidden]="hidden" (click)="AddUserToSettlement()">Dodaj</a>
     <div class="container">

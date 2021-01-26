@@ -17,6 +17,7 @@
 </div>
 
   <div class="form-group" [hidden]="hidden">
+    <div *ngIf="invalidLogin" class="alert alert-danger">Nie znaleziono użytkownika</div>
     <label for="name">Wpisz nazwe użytkownika lub email znajomego</label>
     <input type="text" [(ngModel)]="name">
     <a type="button" class="btn btn-success" [hidden]="hidden" (click)="AddFriend()">Dodaj Znajomego</a>

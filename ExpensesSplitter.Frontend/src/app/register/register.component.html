@@ -2,19 +2,19 @@
 <form class="form-signin" #registerForm="ngForm" (ngSubmit)="register(registerForm)">
     <div class="container-fluid">
         <h2 class="form-signin-heading">Zarejestruj się</h2>
-        <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password</div>
+        <div *ngIf="invalidLogin" class="alert alert-danger">Uzupełnij wszystkie dane</div>
         <br>
         <div class="form-group">
             <label for="Login">Login</label>
-            <input type="Login" class="form-control" id="Login" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="Login" required autofocus>
+            <input type="Login" class="form-control" id="Login" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="Login" required minlength="4" autofocus>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Email" required>
         </div>
         <div class="form-group">
-            <label for="Login">Imię i nazwisko</label>
-            <input type="Login" class="form-control" id="Login" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Imię i Nazwisko" required autofocus>
+            <label for="name">Imię i nazwisko</label>
+            <input type="name" class="form-control" id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Imię i Nazwisko" required autofocus>
         </div>
         <div class="form-group">
             <label for="Password">Hasło</label>
