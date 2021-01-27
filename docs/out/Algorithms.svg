@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="94px" preserveAspectRatio="none" style="width:373px;height:94px;" version="1.1" viewBox="0 0 373 94" width="373px" zoomAndPan="magnify"><defs><filter height="300%" id="f1hb9x79v88doi" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[18ac980ea0ab15d8adad14c3adbd558d]
+class SettlementSolver--><rect codeLine="1" fill="#FEFECE" filter="url(#f1hb9x79v88doi)" height="73.6094" id="SettlementSolver" style="stroke:#A80036;stroke-width:1.5;" width="352" x="7" y="7"/><ellipse cx="126.75" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M129.0938,18.6719 C128.1563,18.2344 127.5625,18.0938 126.6875,18.0938 C124.0625,18.0938 122.0625,20.1719 122.0625,22.8906 L122.0625,24.0156 C122.0625,26.5938 124.1719,28.4844 127.0625,28.4844 C128.2813,28.4844 129.4375,28.1875 130.1875,27.6406 C130.7656,27.2344 131.0938,26.7813 131.0938,26.3906 C131.0938,25.9375 130.7031,25.5469 130.2344,25.5469 C130.0156,25.5469 129.8125,25.625 129.625,25.8125 C129.1719,26.2969 129.1719,26.2969 128.9844,26.3906 C128.5625,26.6563 127.875,26.7813 127.1094,26.7813 C125.0625,26.7813 123.7656,25.6875 123.7656,23.9844 L123.7656,22.8906 C123.7656,21.1094 125.0156,19.7969 126.75,19.7969 C127.3281,19.7969 127.9375,19.9531 128.4063,20.2031 C128.8906,20.4844 129.0625,20.7031 129.1563,21.1094 C129.2188,21.5156 129.25,21.6406 129.3906,21.7656 C129.5313,21.9063 129.7656,22.0156 129.9844,22.0156 C130.25,22.0156 130.5156,21.875 130.6875,21.6563 C130.7969,21.5 130.8281,21.3125 130.8281,20.8906 L130.8281,19.4688 C130.8281,19.0313 130.8125,18.9063 130.7188,18.75 C130.5625,18.4844 130.2813,18.3438 129.9844,18.3438 C129.6875,18.3438 129.4844,18.4375 129.2656,18.75 L129.0938,18.6719 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="104" x="147.25" y="27.1543">SettlementSolver</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="358" y1="39" y2="39"/><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="358" y1="47" y2="47"/><ellipse cx="18" cy="58" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="326" x="27" y="61.2104">SettlementSolver(balances:IEnumerable&lt;UserBalance&gt;)</text><ellipse cx="18" cy="70.8047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="240" x="27" y="74.0151">Solve() : ICollection&lt;SolutionTransaction&gt;</text><!--MD5=[7c1aa45f962a77b3dceea3fb51e1c999]
+@startuml
+class SettlementSolver {
+    + SettlementSolver(balances:IEnumerable<UserBalance>)
+    + Solve() : ICollection<SolutionTransaction>
+}
+@enduml
+
+PlantUML version 1.2021.01beta3(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
