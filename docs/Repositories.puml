@@ -1,0 +1,50 @@
+@startuml
+interface ITransactionsRepository {
+    GetTransactions(settlementId:string) : IEnumerable<Transaction>
+    GetTransaction(settlementId:string, transactionId:Guid) : Transaction
+    CreateTransaction(settlementId:string, transaction:NewTransaction) : Guid
+    DeleteTransaction(settlementId:string, transactionId:Guid) : void
+    UpdateTransaction(settlementId:string, transactionId:Guid, transaction:NewTransaction) : void
+}
+class TransactionsRepository {
+    + TransactionsRepository(context:ExpensesSplitterContext, mapper:IMapper, logger:ILogger<TransactionsRepository>)
+    + GetTransactions(settlementId:string) : IEnumerable<Transaction>
+    + GetTransaction(settlementId:string, transactionId:Guid) : Transaction
+    + CreateTransaction(settlementId:string, transaction:NewTransaction) : Guid
+    + DeleteTransaction(settlementId:string, transactionId:Guid) : void
+    + UpdateTransaction(settlementId:string, transactionId:Guid, transaction:NewTransaction) : void
+}
+ITransactionsRepository <|-- TransactionsRepository
+interface IExpensesRepository {
+    GetExpenses(settlementId:string) : IEnumerable<Expense>
+    GetExpense(settlementId:string, expenseId:Guid) : Expense
+    CreateExpense(settlementId:string, expense:NewExpense) : Guid
+    DeleteExpense(settlementId:string, expenseId:Guid) : void
+    UpdateExpense(settlementId:string, expenseId:Guid, expense:NewExpense) : void
+}
+class ExpensesRepository {
+    + ExpensesRepository(context:ExpensesSplitterContext, mapper:IMapper, logger:ILogger<ExpensesRepository>)
+    + GetExpenses(settlementId:string) : IEnumerable<Expense>
+    + GetExpense(settlementId:string, expenseId:Guid) : Expense
+    + CreateExpense(settlementId:string, expense:NewExpense) : Guid
+    + DeleteExpense(settlementId:string, expenseId:Guid) : void
+    + UpdateExpense(settlementId:string, expenseId:Guid, expense:NewExpense) : void
+}
+IExpensesRepository <|-- ExpensesRepository
+interface ISettlementUsersRepository {
+    GetSettlementUsers(settlementId:string) : IEnumerable<SettlementUser>
+    GetSettlementUser(settlementId:string, settlementUserId:Guid) : SettlementUser
+    CreateSettlementUser(settlementId:string, settlementUser:NewSettlementUser) : Guid
+    DeleteSettlementUser(settlementId:string, settlementUserId:Guid) : void
+    UpdateSettlementUser(settlementId:string, settlementUserId:Guid, settlementUser:NewSettlementUser) : void
+}
+class SettlementUsersRepository {
+    + SettlementUsersRepository(context:ExpensesSplitterContext, mapper:IMapper)
+    + GetSettlementUsers(settlementId:string) : IEnumerable<SettlementUser>
+    + GetSettlementUser(settlementId:string, settlementUserId:Guid) : SettlementUser
+    + CreateSettlementUser(settlementId:string, settlementUser:NewSettlementUser) : Guid
+    + DeleteSettlementUser(settlementId:string, settlementUserId:Guid) : void
+    + UpdateSettlementUser(settlementId:string, settlementUserId:Guid, settlementUser:NewSettlementUser) : void
+}
+ISettlementUsersRepository <|-- SettlementUsersRepository
+@enduml

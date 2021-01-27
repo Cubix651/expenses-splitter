@@ -1,0 +1,6 @@
+@startuml
+class SettlementSolver {
+    + SettlementSolver(balances:IEnumerable<UserBalance>)
+    + Solve() : ICollection<SolutionTransaction>
+}
+@enduml

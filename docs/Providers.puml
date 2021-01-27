@@ -1,0 +1,18 @@
+@startuml
+interface IBalancesProvider {
+    GetBalances(settlementId:string) : IReadOnlyList<UserBalance>
+}
+class BalancesProvider {
+    + BalancesProvider(expensesRepository:IExpensesRepository, settlementUsersRepository:ISettlementUsersRepository, logger:ILogger<BalancesProvider>, transactionsRepository:ITransactionsRepository)
+    + GetBalances(settlementId:string) : IReadOnlyList<UserBalance>
+}
+IBalancesProvider <|-- BalancesProvider
+interface ISettlementSolutionProvider {
+    GetSolutionTransactions(settlementId:string) : ICollection<SolutionTransaction>
+}
+class SettlementSolutionProvider {
+    + SettlementSolutionProvider(balancesProvider:IBalancesProvider, logger:ILogger<SettlementSolutionProvider>)
+    + GetSolutionTransactions(settlementId:string) : ICollection<SolutionTransaction>
+}
+ISettlementSolutionProvider <|-- SettlementSolutionProvider
+@enduml

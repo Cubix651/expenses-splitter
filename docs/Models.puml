@@ -1,0 +1,48 @@
+@startuml
+class Transaction {
+    + Amount : decimal <<get>> <<set>>
+    + Id : Guid <<get>> <<set>>
+    + DateTime : DateTime <<get>> <<set>>
+}
+Transaction --> "From" SettlementUser
+Transaction --> "To" SettlementUser
+class SolutionTransaction {
+    + Amount : decimal <<get>> <<set>>
+}
+SolutionTransaction --> "From" SettlementUser
+SolutionTransaction --> "To" SettlementUser
+class NewSettlementUser {
+    + DisplayName : string <<get>> <<set>>
+}
+class Expense {
+    + Name : string <<get>> <<set>>
+    + Description : string <<get>> <<set>>
+    + Amount : decimal <<get>> <<set>>
+    + Id : Guid <<get>> <<set>>
+    + DateTime : DateTime <<get>> <<set>>
+    + Participants : IReadOnlyList<Guid> <<get>> <<set>>
+}
+Expense --> "WhoPaid" SettlementUser
+class NewTransaction {
+    + Amount : decimal <<get>> <<set>>
+    + FromId : Guid <<get>> <<set>>
+    + ToId : Guid <<get>> <<set>>
+    + DateTime : DateTime <<get>> <<set>>
+}
+class SettlementUser {
+    + DisplayName : string <<get>> <<set>>
+    + Id : Guid <<get>> <<set>>
+}
+class NewExpense {
+    + Name : string <<get>> <<set>>
+    + DateTime : DateTime <<get>> <<set>>
+    + Description : string <<get>> <<set>>
+    + Amount : decimal <<get>> <<set>>
+    + Participants : IReadOnlyList<Guid> <<get>> <<set>>
+    + WhoPaid : Guid <<get>> <<set>>
+}
+class UserBalance {
+    + Balance : decimal <<get>> <<set>>
+}
+UserBalance --> "User" SettlementUser
+@enduml
